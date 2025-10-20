@@ -1,103 +1,389 @@
-import Image from "next/image";
+import { HeroSection } from "@/components/hero-section";
+import { FeaturesSection } from "@/components/features-section";
+import { PackageCard } from "@/components/package-card";
+import { EmailForm } from "@/components/email-form";
+import { FAQSection } from "@/components/faq-section";
+import { Instagram, Mail, Phone, Check, Music } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <main className="min-h-screen">
+      {/* Hero Section */}
+      <HeroSection />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+      {/* Features Section */}
+      <FeaturesSection />
+
+      {/* Packages Section */}
+      <section id="packages" className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/20">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-glow-pink">
+              Choose Your Package
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              From intimate gatherings to epic celebrations, we have the perfect inflatable nightclub package for your event.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <PackageCard
+              name="Party Starter"
+              description="Perfect for birthdays & small gatherings"
+              price="$400"
+              features={[
+                "VIP Photo Backdrop",
+                "Color-Changing LED Lighting",
+                "Bluetooth Speaker Sound System",
+                "2-Hour Rental",
+                "Setup & Teardown Included",
+                "Dance Dome option: $375",
+              ]}
+              glowColor="purple"
+              imageUrl="https://images.unsplash.com/photo-1464349153735-7db50ed83c84?w=800&q=80"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+
+            <PackageCard
+              name="Glow Getter"
+              description="A VIP vibe with built-in extras"
+              price="$500"
+              features={[
+                "Red Ropes, Carpet & VIP Photo Backdrop",
+                "LED Lighting + Bluetooth Sound System",
+                "Glow Up Kit (20) Included",
+                "Curated Playlist + Themed Video Projector",
+                "2-Hour Rental",
+                "Setup & Teardown Included",
+                "Dance Dome option: $450",
+              ]}
+              glowColor="pink"
+              featured={true}
+              imageUrl="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=80"
+            />
+
+            <PackageCard
+              name="All-Star VIP"
+              description="Your own private nightclub"
+              price="$600"
+              features={[
+                "Red Ropes, Carpet & VIP Photo Backdrop",
+                "Premium LED Lighting & Sound System",
+                "Wireless Microphone Included",
+                "Hazer Included",
+                "Glow Up Kit (20) Included",
+                "Curated Playlist + Themed Video Projector",
+                "2-Hour Rental",
+                "Setup & Teardown Included",
+                "Capacity: 20-30 guests",
+                "Dance Dome option: $525",
+              ]}
+              glowColor="teal"
+              imageUrl="https://images.unsplash.com/photo-1511578314322-379afb476865?w=800&q=80"
+            />
+          </div>
+
+          {/* Add-Ons Section */}
+          <div className="mt-16 bg-card border border-border rounded-lg p-8">
+            <h3 className="text-2xl font-bold text-center mb-8 text-primary">
+              Customize Your Experience
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-secondary mb-2">$40</div>
+                <div className="font-semibold text-foreground mb-1">Hazer Machine</div>
+                <div className="text-sm text-muted-foreground">Create that club atmosphere</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-secondary mb-2">$75</div>
+                <div className="font-semibold text-foreground mb-1">Extra Hour</div>
+                <div className="text-sm text-muted-foreground">Keep the party going</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-secondary mb-2">$50</div>
+                <div className="font-semibold text-foreground mb-1">Glow Up Party Bags</div>
+                <div className="text-sm text-muted-foreground">20 bags included</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-secondary mb-2">$100</div>
+                <div className="font-semibold text-foreground mb-1">Playlist + Projector</div>
+                <div className="text-sm text-muted-foreground">Curated music & videos</div>
+              </div>
+            </div>
+            <p className="text-center text-sm text-muted-foreground mt-6">
+              VIP Extension: First extra hour $50, each additional hour $75
+            </p>
+          </div>
+
+          <div className="mt-12 text-center">
+            <p className="text-muted-foreground mb-2">
+              All packages include setup and teardown. Turn any space into a nightclub in 30 minutes!
+            </p>
+            <p className="text-sm text-muted-foreground">
+              Serving the Phoenix metro area and throughout Arizona.
+            </p>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      </section>
+
+      {/* Curated Playlist Themes Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/20">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-glow-purple">
+              Curated Playlist Themes
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Add the perfect soundtrack to your inflatable nightclub! Parents don't need to DJ—just press play.
+              Each theme includes a 1.5 hour curated music flow with warm-up, high energy, dance games, and finale.
+            </p>
+          </div>
+
+          <div className="bg-card border-2 border-primary rounded-lg p-8 mb-12 text-center glow-purple">
+            <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary rounded-full px-6 py-2 mb-4">
+              <Music className="w-5 h-5 text-primary" />
+              <span className="font-semibold text-primary">Playlist + Projector Add-On: $100</span>
+            </div>
+            <p className="text-muted-foreground">
+              Includes curated themed playlist, music video projector setup, and complete music flow
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-card border border-border rounded-lg p-8 hover:border-primary transition-all hover:scale-105">
+              <div className="text-5xl mb-4 text-center">✨</div>
+              <h3 className="text-2xl font-bold mb-3 text-center text-primary">
+                Glow Dance Party
+              </h3>
+              <p className="text-muted-foreground text-center mb-4">
+                Neon, LED balloons, glow sticks & upbeat hits. Perfect with Glow Haus or Lightwave domes!
+              </p>
+              <div className="space-y-2 text-sm text-muted-foreground">
+                <p className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-primary" />
+                  Spotify Playlist ready-to-go
+                </p>
+                <p className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-primary" />
+                  YouTube "Play All" video option
+                </p>
+                <p className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-primary" />
+                  Perfect for kids parties
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-card border border-border rounded-lg p-8 hover:border-secondary transition-all hover:scale-105">
+              <div className="text-5xl mb-4 text-center">🏰</div>
+              <h3 className="text-2xl font-bold mb-3 text-center text-secondary">
+                Disney Dance Party
+              </h3>
+              <p className="text-muted-foreground text-center mb-4">
+                Princesses, heroes & singalong favorites. Great for birthdays & family celebrations!
+              </p>
+              <div className="space-y-2 text-sm text-muted-foreground">
+                <p className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-secondary" />
+                  Spotify Playlist ready-to-go
+                </p>
+                <p className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-secondary" />
+                  YouTube "Play All" video option
+                </p>
+                <p className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-secondary" />
+                  All-ages friendly
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-card border border-border rounded-lg p-8 hover:border-accent transition-all hover:scale-105">
+              <div className="text-5xl mb-4 text-center">🎤</div>
+              <h3 className="text-2xl font-bold mb-3 text-center text-accent">
+                Pop Star Party
+              </h3>
+              <p className="text-muted-foreground text-center mb-4">
+                Karaoke vibes with microphones & inflatable guitars. Kids become the rockstars!
+              </p>
+              <div className="space-y-2 text-sm text-muted-foreground">
+                <p className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-accent" />
+                  Spotify Playlist ready-to-go
+                </p>
+                <p className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-accent" />
+                  YouTube "Play All" video option
+                </p>
+                <p className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-accent" />
+                  Interactive performance fun
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-12 text-center">
+            <p className="text-sm text-muted-foreground">
+              Additional theme options available: '90s, EDM, Kpop, and more! Ask us about custom playlists.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Photo Gallery Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-background">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-glow-teal">
+              See the Magic
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Check out some amazing moments from our inflatable nightclub events
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[
+              "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&q=80",
+              "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&q=80",
+              "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=800&q=80",
+              "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&q=80",
+              "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800&q=80",
+              "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800&q=80",
+            ].map((imageUrl, index) => (
+              <div
+                key={index}
+                className="relative aspect-square overflow-hidden rounded-lg group cursor-pointer"
+              >
+                <div
+                  className="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-110"
+                  style={{ backgroundImage: `url(${imageUrl})` }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Email Form Section */}
+      <EmailForm />
+
+      {/* FAQ Section */}
+      <FAQSection />
+
+      {/* Social Proof / Testimonials Placeholder */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/10">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-glow-teal">
+            Ready to Party?
+          </h2>
+          <p className="text-xl text-muted-foreground mb-8">
+            Join hundreds of satisfied customers who have transformed their events into unforgettable nightclub experiences with PartyLabAZ.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4 text-muted-foreground">
+            <span className="px-4 py-2 bg-card rounded-full border border-border hover:border-primary transition-colors">
+              Birthdays
+            </span>
+            <span className="px-4 py-2 bg-card rounded-full border border-border hover:border-primary transition-colors">
+              Teen Nights
+            </span>
+            <span className="px-4 py-2 bg-card rounded-full border border-border hover:border-primary transition-colors">
+              Sweet 16s
+            </span>
+            <span className="px-4 py-2 bg-card rounded-full border border-border hover:border-primary transition-colors">
+              Quinceañeras
+            </span>
+            <span className="px-4 py-2 bg-card rounded-full border border-border hover:border-primary transition-colors">
+              Graduations
+            </span>
+            <span className="px-4 py-2 bg-card rounded-full border border-border hover:border-primary transition-colors">
+              Family Events
+            </span>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-card border-t border-border py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            {/* Brand */}
+            <div>
+              <h3 className="text-2xl font-bold mb-4 text-glow-purple">
+                PartyLabAZ
+              </h3>
+              <p className="text-muted-foreground">
+                Arizona's premier inflatable nightclub rental service. Bringing the party to you, one event at a time.
+              </p>
+            </div>
+
+            {/* Contact */}
+            <div>
+              <h4 className="text-lg font-semibold mb-4 text-foreground">
+                Contact Us
+              </h4>
+              <div className="space-y-3">
+                <a
+                  href="tel:+1234567890"
+                  className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
+                >
+                  <Phone className="w-4 h-4" />
+                  <span>(555) 123-4567</span>
+                </a>
+                <a
+                  href="mailto:info@partylabaz.com"
+                  className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
+                >
+                  <Mail className="w-4 h-4" />
+                  <span>info@partylabaz.com</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Social */}
+            <div>
+              <h4 className="text-lg font-semibold mb-4 text-foreground">
+                Follow Us
+              </h4>
+              <div className="flex gap-4">
+                <a
+                  href="https://instagram.com/partylabaz"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-muted flex items-center justify-center hover:bg-primary hover:glow-purple transition-all"
+                >
+                  <Instagram className="w-5 h-5" />
+                </a>
+                <a
+                  href="https://facebook.com/partylabaz"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-muted flex items-center justify-center hover:bg-secondary hover:glow-pink transition-all"
+                >
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                  </svg>
+                </a>
+                <a
+                  href="https://tiktok.com/@partylabaz"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-muted flex items-center justify-center hover:bg-accent hover:glow-teal transition-all"
+                >
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t border-border pt-8 text-center text-sm text-muted-foreground">
+            <p>&copy; {new Date().getFullYear()} PartyLabAZ. All rights reserved. Serving all of Arizona with pride.</p>
+          </div>
+        </div>
       </footer>
-    </div>
+    </main>
   );
 }

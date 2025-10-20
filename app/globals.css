@@ -1,26 +1,212 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --radius: 0.75rem;
+
+  /* PartyLabAZ Neon Theme Colors */
+  --neon-purple: #8B5CF6;
+  --neon-pink: #EC4899;
+  --neon-teal: #14B8A6;
+  --neon-blue: #3B82F6;
+
+  /* Dark Background Theme */
+  --background: oklch(0.05 0 0); /* Near black */
+  --foreground: oklch(0.98 0 0); /* Near white */
+
+  /* Cards with slight elevation */
+  --card: oklch(0.12 0 0);
+  --card-foreground: oklch(0.98 0 0);
+
+  /* Popover */
+  --popover: oklch(0.12 0 0);
+  --popover-foreground: oklch(0.98 0 0);
+
+  /* Primary - Purple */
+  --primary: oklch(0.63 0.25 293); /* Purple */
+  --primary-foreground: oklch(0.98 0 0);
+
+  /* Secondary - Pink */
+  --secondary: oklch(0.62 0.25 350); /* Pink */
+  --secondary-foreground: oklch(0.98 0 0);
+
+  /* Accent - Teal */
+  --accent: oklch(0.65 0.18 192); /* Teal */
+  --accent-foreground: oklch(0.05 0 0);
+
+  /* Muted */
+  --muted: oklch(0.20 0 0);
+  --muted-foreground: oklch(0.65 0 0);
+
+  /* Destructive */
+  --destructive: oklch(0.577 0.245 27.325);
+
+  /* Borders and inputs */
+  --border: oklch(0.25 0 0);
+  --input: oklch(0.18 0 0);
+  --ring: oklch(0.63 0.25 293);
+
+  /* Charts - Using neon colors */
+  --chart-1: oklch(0.63 0.25 293); /* Purple */
+  --chart-2: oklch(0.62 0.25 350); /* Pink */
+  --chart-3: oklch(0.65 0.18 192); /* Teal */
+  --chart-4: oklch(0.58 0.23 264); /* Blue */
+  --chart-5: oklch(0.70 0.20 158); /* Green */
+}
+
+.dark {
+  /* Same as root since we're primarily dark mode */
+  --background: oklch(0.05 0 0);
+  --foreground: oklch(0.98 0 0);
+  --card: oklch(0.12 0 0);
+  --card-foreground: oklch(0.98 0 0);
+  --popover: oklch(0.12 0 0);
+  --popover-foreground: oklch(0.98 0 0);
+  --primary: oklch(0.63 0.25 293);
+  --primary-foreground: oklch(0.98 0 0);
+  --secondary: oklch(0.62 0.25 350);
+  --secondary-foreground: oklch(0.98 0 0);
+  --accent: oklch(0.65 0.18 192);
+  --accent-foreground: oklch(0.05 0 0);
+  --muted: oklch(0.20 0 0);
+  --muted-foreground: oklch(0.65 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(0.25 0 0);
+  --input: oklch(0.18 0 0);
+  --ring: oklch(0.63 0.25 293);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    scroll-behavior: smooth;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  /* Neon Glow Effects */
+  .glow-purple {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.5), 0 0 40px rgba(139, 92, 246, 0.3);
+  }
+  .glow-pink {
+    box-shadow: 0 0 20px rgba(236, 72, 153, 0.5), 0 0 40px rgba(236, 72, 153, 0.3);
+  }
+  .glow-teal {
+    box-shadow: 0 0 20px rgba(20, 184, 166, 0.5), 0 0 40px rgba(20, 184, 166, 0.3);
+  }
+  .glow-blue {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.5), 0 0 40px rgba(59, 130, 246, 0.3);
+  }
+
+  /* Text Glow Effects */
+  .text-glow-purple {
+    text-shadow: 0 0 20px rgba(139, 92, 246, 0.8), 0 0 40px rgba(139, 92, 246, 0.5);
+  }
+  .text-glow-pink {
+    text-shadow: 0 0 20px rgba(236, 72, 153, 0.8), 0 0 40px rgba(236, 72, 153, 0.5);
+  }
+  .text-glow-teal {
+    text-shadow: 0 0 20px rgba(20, 184, 166, 0.8), 0 0 40px rgba(20, 184, 166, 0.5);
+  }
+
+  /* Gradient Backgrounds */
+  .gradient-purple-pink {
+    background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+  }
+  .gradient-purple-teal {
+    background: linear-gradient(135deg, #8B5CF6 0%, #14B8A6 100%);
+  }
+  .gradient-pink-teal {
+    background: linear-gradient(135deg, #EC4899 0%, #14B8A6 100%);
+  }
+  .gradient-neon-radial {
+    background: radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.3) 0%, rgba(236, 72, 153, 0.2) 50%, rgba(20, 184, 166, 0.1) 100%);
+  }
+
+  /* Animation Utilities */
+  .animate-fade-in {
+    animation: fadeIn 0.8s ease-out;
+  }
+  .animate-slide-up {
+    animation: slideUp 0.8s ease-out;
+  }
+  .animate-pulse-glow {
+    animation: pulseGlow 2s ease-in-out infinite;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.5), 0 0 40px rgba(139, 92, 246, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.8), 0 0 60px rgba(139, 92, 246, 0.5);
+  }
 }
