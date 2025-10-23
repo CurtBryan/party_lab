@@ -330,10 +330,10 @@ export default function Home() {
                   className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
                 >
                   <Phone className="w-4 h-4" />
-                  <span>(555) 123-4567</span>
+                  <span>(602) 799-5856</span>
                 </a>
                 <a
-                  href="mailto:info@partylabaz.com"
+                  href="mailto:partylabaz@gmail.com"
                   className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
                 >
                   <Mail className="w-4 h-4" />
