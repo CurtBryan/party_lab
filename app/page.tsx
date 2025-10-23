@@ -40,7 +40,7 @@ export default function Home() {
                 "Dance Dome option: $375",
               ]}
               glowColor="purple"
-              imageUrl="/box_shape.JPG"
+              imageUrl="/igloo_shape.jpg"
             />
 
             <PackageCard
@@ -58,7 +58,7 @@ export default function Home() {
               ]}
               glowColor="pink"
               featured={true}
-              imageUrl="/igloo_shape.jpg"
+              imageUrl="/box_shape.JPG"
             />
 
             <PackageCard
@@ -337,7 +337,7 @@ export default function Home() {
                   className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
                 >
                   <Mail className="w-4 h-4" />
-                  <span>info@partylabaz.com</span>
+                  <span>partylabaz@gmail.com</span>
                 </a>
               </div>
             </div>
