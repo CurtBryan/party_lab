@@ -11,8 +11,6 @@ const nextConfig: NextConfig = {
   experimental: {
     // Optimize package imports
     optimizePackageImports: ['lucide-react', '@radix-ui/react-label', '@radix-ui/react-slot'],
-    // Optimize CSS loading
-    optimizeCss: true,
   },
 
   // Image optimization
