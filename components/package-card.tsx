@@ -3,6 +3,7 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
+import Image from "next/image";
 
 interface PackageCardProps {
   name: string;
@@ -44,25 +45,27 @@ export function PackageCard({
   return (
     <Card
       className={`relative p-8 bg-card border-2 transition-all hover:scale-105 overflow-hidden ${
-        featured ? `border-primary ${glowClass}` : "border-border hover:border-primary"
+        featured ? `border-primary ${glowClass} pt-12` : "border-border hover:border-primary"
       }`}
     >
       {featured && (
-        <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
-          <span className={`${gradientClass} px-4 py-1 rounded-full text-sm font-semibold text-white`}>
+        <div className="absolute top-3 left-1/2 transform -translate-x-1/2 z-10">
+          <span className={`${gradientClass} px-4 py-1 rounded-full text-sm font-semibold text-white shadow-lg`}>
             Most Popular
           </span>
         </div>
       )}
 
       {imageUrl && (
-        <div className="mb-6 -mx-8 -mt-8">
-          <div className="relative h-48 overflow-hidden">
-            <div
-              className="absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: `url(${imageUrl})` }}
+        <div className={`mb-6 -mx-8 ${featured ? '-mt-12' : '-mt-8'}`}>
+          <div className="relative h-64 overflow-hidden bg-black">
+            <Image
+              src={imageUrl}
+              alt={name}
+              fill
+              className="object-contain"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-card" />
           </div>
         </div>
       )}

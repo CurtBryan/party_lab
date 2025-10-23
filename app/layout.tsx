@@ -13,8 +13,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "PartyLabAZ | Inflatable Nightclub Rentals Arizona | Birthday Party Entertainment",
-  description: "Turn any space into a nightclub in 30 minutes! PartyLabAZ offers inflatable nightclub rentals with LED lighting, curated playlists, and VIP setups. Perfect for birthdays, teen parties & events in Phoenix & Arizona. Starting at $400.",
+  title: "The Partylab | Inflatable Nightclub Rentals Arizona | Birthday Party Entertainment",
+  description: "Turn any space into a nightclub in 30 minutes! The Partylab offers inflatable nightclub rentals with LED lighting, curated playlists, and VIP setups. Perfect for birthdays, teen parties & events in Phoenix & Arizona. Starting at $400.",
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/logo.png",
+  },
   keywords: [
     "inflatable nightclub rental Arizona",
     "party rentals Phoenix",
@@ -32,9 +36,9 @@ export const metadata: Metadata = {
     "backyard party entertainment",
     "Arizona event rentals"
   ],
-  authors: [{ name: "PartyLabAZ" }],
-  creator: "PartyLabAZ",
-  publisher: "PartyLabAZ",
+  authors: [{ name: "The Partylab" }],
+  creator: "The Partylab",
+  publisher: "The Partylab",
   metadataBase: new URL("https://partylabaz.com"),
   alternates: {
     canonical: "https://partylabaz.com",
@@ -43,23 +47,23 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://partylabaz.com",
-    title: "PartyLabAZ | Inflatable Nightclub Rentals in Arizona",
+    title: "The Partylab | Inflatable Nightclub Rentals in Arizona",
     description: "Turn any space into a nightclub in 30 minutes! Inflatable nightclub rentals with LED lighting, curated playlists, and VIP setups for birthdays, teen parties & events.",
-    siteName: "PartyLabAZ",
+    siteName: "The Partylab",
     images: [
       {
-        url: "/og-image.jpg", // You'll need to add this image to your public folder
+        url: "/logo.png",
         width: 1200,
-        height: 630,
-        alt: "PartyLabAZ - Inflatable Nightclub Rentals",
+        height: 1200,
+        alt: "The Partylab - Inflatable Nightclub Rentals",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "PartyLabAZ | Inflatable Nightclub Rentals Arizona",
+    title: "The Partylab | Inflatable Nightclub Rentals Arizona",
     description: "Turn any space into a nightclub in 30 minutes! Perfect for birthdays, teen parties & events in Phoenix & Arizona.",
-    images: ["/og-image.jpg"],
+    images: ["/logo.png"],
     creator: "@partylabaz",
   },
   robots: {
@@ -89,8 +93,8 @@ export default function RootLayout({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "name": "PartyLabAZ",
-    "image": "https://partylabaz.com/og-image.jpg",
+    "name": "The Partylab",
+    "image": "https://partylabaz.com/logo.png",
     "description": "Inflatable nightclub rentals with LED lighting, curated playlists, and VIP setups for parties and events in Arizona.",
     "telephone": "(555) 123-4567",
     "email": "info@partylabaz.com",
@@ -158,8 +162,7 @@ export default function RootLayout({
     },
     "sameAs": [
       "https://instagram.com/partylabaz",
-      "https://facebook.com/partylabaz",
-      "https://tiktok.com/@partylabaz"
+      "https://www.facebook.com/people/Partylabaz/61579352249971"
     ]
   };
 

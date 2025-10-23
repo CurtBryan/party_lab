@@ -16,7 +16,7 @@ const features = [
   {
     icon: Lightbulb,
     title: "Full VIP Experience",
-    description: "Color-changing LED lighting, hazer machines, red carpet, and VIP photo backdrops included",
+    description: "Color-changing LED lighting, red carpet, and premium sound system included",
     color: "text-accent",
   },
   {
@@ -34,7 +34,7 @@ const features = [
   {
     icon: Clock,
     title: "Flexible Packages",
-    description: "2-hour base rentals with easy extensions. Affordable add-ons to customize your perfect party",
+    description: "3-hour base rentals with easy extensions. Affordable add-ons to customize your perfect party",
     color: "text-accent",
   },
 ];
@@ -45,7 +45,7 @@ export function FeaturesSection() {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-glow-purple">
-            Why Choose PartyLabAZ?
+            Why Choose The Partylab?
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             We bring the complete nightclub experience to your event with professional equipment and hassle-free service.

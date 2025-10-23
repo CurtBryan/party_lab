@@ -4,6 +4,7 @@ import { useState, FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { submitContactForm } from "@/app/actions/submit-form";
 
 export function EmailForm() {
   const [formData, setFormData] = useState({
@@ -19,18 +20,27 @@ export function EmailForm() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission (replace with actual email service integration)
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      const result = await submitContactForm(formData);
 
-    console.log("Form submitted:", formData);
-    setIsSubmitted(true);
-    setIsSubmitting(false);
+      if (result.success) {
+        console.log("Form submitted successfully:", formData);
+        setIsSubmitted(true);
 
-    // Reset form after 5 seconds
-    setTimeout(() => {
-      setFormData({ name: "", email: "", phone: "", eventType: "" });
-      setIsSubmitted(false);
-    }, 5000);
+        // Reset form after 5 seconds
+        setTimeout(() => {
+          setFormData({ name: "", email: "", phone: "", eventType: "" });
+          setIsSubmitted(false);
+        }, 5000);
+      } else {
+        alert(result.error || "Failed to send message. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("An error occurred. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

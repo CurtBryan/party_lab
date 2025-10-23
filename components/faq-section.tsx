@@ -14,7 +14,7 @@ const faqs = [
   },
   {
     question: "What's included in the rental packages?",
-    answer: "All packages include the inflatable nightclub, LED lighting, sound system, VIP photo backdrop, and professional setup/teardown. Higher-tier packages add red carpet, hazer machines, glow kits, and curated playlists with video projection."
+    answer: "All packages include the inflatable nightclub, LED lighting, sound system, and professional setup/teardown. Higher-tier packages add red carpet, glow kits, and curated playlists with video projection."
   },
   {
     question: "How many guests can the inflatable nightclub accommodate?",

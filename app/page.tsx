@@ -4,6 +4,7 @@ import { PackageCard } from "@/components/package-card";
 import { EmailForm } from "@/components/email-form";
 import { FAQSection } from "@/components/faq-section";
 import { Instagram, Mail, Phone, Check, Music } from "lucide-react";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -32,15 +33,14 @@ export default function Home() {
               description="Perfect for birthdays & small gatherings"
               price="$400"
               features={[
-                "VIP Photo Backdrop",
                 "Color-Changing LED Lighting",
                 "Bluetooth Speaker Sound System",
-                "2-Hour Rental",
+                "3-Hour Rental",
                 "Setup & Teardown Included",
                 "Dance Dome option: $375",
               ]}
               glowColor="purple"
-              imageUrl="https://images.unsplash.com/photo-1464349153735-7db50ed83c84?w=800&q=80"
+              imageUrl="/box_shape.JPG"
             />
 
             <PackageCard
@@ -48,17 +48,17 @@ export default function Home() {
               description="A VIP vibe with built-in extras"
               price="$500"
               features={[
-                "Red Ropes, Carpet & VIP Photo Backdrop",
+                "Red Ropes & Carpet",
                 "LED Lighting + Bluetooth Sound System",
                 "Glow Up Kit (20) Included",
                 "Curated Playlist + Themed Video Projector",
-                "2-Hour Rental",
+                "3-Hour Rental",
                 "Setup & Teardown Included",
                 "Dance Dome option: $450",
               ]}
               glowColor="pink"
               featured={true}
-              imageUrl="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=80"
+              imageUrl="/igloo_shape.jpg"
             />
 
             <PackageCard
@@ -66,19 +66,18 @@ export default function Home() {
               description="Your own private nightclub"
               price="$600"
               features={[
-                "Red Ropes, Carpet & VIP Photo Backdrop",
+                "Red Ropes & Carpet",
                 "Premium LED Lighting & Sound System",
                 "Wireless Microphone Included",
-                "Hazer Included",
                 "Glow Up Kit (20) Included",
                 "Curated Playlist + Themed Video Projector",
-                "2-Hour Rental",
+                "3-Hour Rental",
                 "Setup & Teardown Included",
                 "Capacity: 20-30 guests",
                 "Dance Dome option: $525",
               ]}
               glowColor="teal"
-              imageUrl="https://images.unsplash.com/photo-1511578314322-379afb476865?w=800&q=80"
+              imageUrl="/house_shape.jpg"
             />
           </div>
 
@@ -87,12 +86,7 @@ export default function Home() {
             <h3 className="text-2xl font-bold text-center mb-8 text-primary">
               Customize Your Experience
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-secondary mb-2">$40</div>
-                <div className="font-semibold text-foreground mb-1">Hazer Machine</div>
-                <div className="text-sm text-muted-foreground">Create that club atmosphere</div>
-              </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="text-center">
                 <div className="text-3xl font-bold text-secondary mb-2">$75</div>
                 <div className="font-semibold text-foreground mb-1">Extra Hour</div>
@@ -230,8 +224,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Photo Gallery Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-background">
+      {/* Photo Gallery Section - Hidden for now */}
+      {/* <section className="py-20 px-4 sm:px-6 lg:px-8 bg-background">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-4 text-glow-teal">
@@ -264,7 +258,7 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Email Form Section */}
       <EmailForm />
@@ -279,7 +273,7 @@ export default function Home() {
             Ready to Party?
           </h2>
           <p className="text-xl text-muted-foreground mb-8">
-            Join hundreds of satisfied customers who have transformed their events into unforgettable nightclub experiences with PartyLabAZ.
+            Join hundreds of satisfied customers who have transformed their events into unforgettable nightclub experiences with The Partylab.
           </p>
           <div className="flex flex-wrap justify-center gap-4 text-muted-foreground">
             <span className="px-4 py-2 bg-card rounded-full border border-border hover:border-primary transition-colors">
@@ -310,11 +304,17 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             {/* Brand */}
             <div>
-              <h3 className="text-2xl font-bold mb-4 text-glow-purple">
-                PartyLabAZ
-              </h3>
+              <div className="mb-4">
+                <Image
+                  src="/logo.png"
+                  alt="The Partylab"
+                  width={150}
+                  height={150}
+                  className="w-32 h-32"
+                />
+              </div>
               <p className="text-muted-foreground">
-                Arizona's premier inflatable nightclub rental service. Bringing the party to you, one event at a time.
+                Arizona's premier inflatable nightclub for kids. Bringing the party to you, one event at a time.
               </p>
             </div>
 
@@ -356,7 +356,7 @@ export default function Home() {
                   <Instagram className="w-5 h-5" />
                 </a>
                 <a
-                  href="https://facebook.com/partylabaz"
+                  href="https://www.facebook.com/people/Partylabaz/61579352249971"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full bg-muted flex items-center justify-center hover:bg-secondary hover:glow-pink transition-all"
@@ -365,22 +365,12 @@ export default function Home() {
                     <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                   </svg>
                 </a>
-                <a
-                  href="https://tiktok.com/@partylabaz"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-muted flex items-center justify-center hover:bg-accent hover:glow-teal transition-all"
-                >
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
-                  </svg>
-                </a>
               </div>
             </div>
           </div>
 
           <div className="border-t border-border pt-8 text-center text-sm text-muted-foreground">
-            <p>&copy; {new Date().getFullYear()} PartyLabAZ. All rights reserved. Serving all of Arizona with pride.</p>
+            <p>&copy; {new Date().getFullYear()} The Partylab. All rights reserved. Serving all of Arizona with pride.</p>
           </div>
         </div>
       </footer>
