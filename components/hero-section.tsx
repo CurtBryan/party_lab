@@ -10,10 +10,10 @@ export function HeroSection() {
       {/* Logo - Top Left */}
       <div className="absolute top-4 left-4 sm:top-6 sm:left-6 z-20">
         <Image
-          src="/logo.png"
+          src="/logo-small.png"
           alt="The Partylab"
-          width={120}
-          height={120}
+          width={128}
+          height={128}
           className="w-16 h-16 sm:w-24 sm:h-24 md:w-32 md:h-32"
           priority
         />

@@ -5,11 +5,15 @@ import "./globals.css";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap", // Prevent invisible text flash
+  preload: true,
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -17,7 +21,7 @@ export const metadata: Metadata = {
   description: "Turn any space into a nightclub in 30 minutes! The Partylab offers inflatable nightclub rentals with LED lighting, curated playlists, and VIP setups. Perfect for birthdays, teen parties & events in Phoenix & Arizona. Starting at $400.",
   icons: {
     icon: "/favicon.ico",
-    apple: "/logo.png",
+    apple: "/logo-small.png",
   },
   keywords: [
     "inflatable nightclub rental Arizona",
@@ -52,9 +56,9 @@ export const metadata: Metadata = {
     siteName: "The Partylab",
     images: [
       {
-        url: "/logo.png",
+        url: "/hero.JPG",
         width: 1200,
-        height: 1200,
+        height: 630,
         alt: "The Partylab - Inflatable Nightclub Rentals",
       },
     ],
@@ -63,7 +67,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "The Partylab | Inflatable Nightclub Rentals Arizona",
     description: "Turn any space into a nightclub in 30 minutes! Perfect for birthdays, teen parties & events in Phoenix & Arizona.",
-    images: ["/logo.png"],
+    images: ["/hero.JPG"],
     creator: "@partylabaz",
   },
   robots: {
@@ -94,7 +98,7 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "The Partylab",
-    "image": "https://partylabaz.com/logo.png",
+    "image": "https://partylabaz.com/hero.JPG",
     "description": "Inflatable nightclub rentals with LED lighting, curated playlists, and VIP setups for parties and events in Arizona.",
     "telephone": "(555) 123-4567",
     "email": "info@partylabaz.com",
@@ -169,6 +173,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Preconnect to Google Fonts for faster loading */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+
+        {/* DNS prefetch as fallback */}
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

@@ -306,11 +306,12 @@ export default function Home() {
             <div>
               <div className="mb-4">
                 <Image
-                  src="/logo.png"
+                  src="/logo-small.png"
                   alt="The Partylab"
-                  width={150}
-                  height={150}
+                  width={128}
+                  height={128}
                   className="w-32 h-32"
+                  loading="lazy"
                 />
               </div>
               <p className="text-muted-foreground">

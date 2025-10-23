@@ -1,0 +1,16 @@
+# Modern browsers only - removes unnecessary polyfills
+# This improves page speed by reducing JavaScript bundle size
+
+# Production browsers
+> 0.5%
+last 2 versions
+Firefox ESR
+not dead
+not IE 11
+not op_mini all
+
+# Exclude very old browsers that need excessive polyfills
+not Chrome < 91
+not Safari < 14
+not Firefox < 90
+not Edge < 91
