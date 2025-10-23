@@ -8,36 +8,36 @@ export function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden">
       {/* Logo - Top Left */}
-      <div className="absolute top-6 left-6 z-20">
+      <div className="absolute top-4 left-4 sm:top-6 sm:left-6 z-20">
         <Image
           src="/logo.png"
           alt="The Partylab"
           width={120}
           height={120}
-          className="w-24 h-24 sm:w-32 sm:h-32"
+          className="w-16 h-16 sm:w-24 sm:h-24 md:w-32 md:h-32"
           priority
         />
       </div>
 
       {/* Social Links - Top Right */}
-      <div className="absolute top-6 right-6 z-20 flex gap-3">
+      <div className="absolute top-4 right-4 sm:top-6 sm:right-6 z-20 flex gap-2 sm:gap-3">
         <a
           href="https://instagram.com/partylabaz"
           target="_blank"
           rel="noopener noreferrer"
-          className="w-10 h-10 rounded-full bg-card/80 backdrop-blur-sm border border-border flex items-center justify-center hover:bg-primary hover:border-primary hover:glow-purple transition-all"
+          className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-card/80 backdrop-blur-sm border border-border flex items-center justify-center hover:bg-primary hover:border-primary hover:glow-purple transition-all"
           aria-label="Follow us on Instagram"
         >
-          <Instagram className="w-5 h-5" />
+          <Instagram className="w-4 h-4 sm:w-5 sm:h-5" />
         </a>
         <a
           href="https://www.facebook.com/people/Partylabaz/61579352249971"
           target="_blank"
           rel="noopener noreferrer"
-          className="w-10 h-10 rounded-full bg-card/80 backdrop-blur-sm border border-border flex items-center justify-center hover:bg-secondary hover:border-secondary hover:glow-pink transition-all"
+          className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-card/80 backdrop-blur-sm border border-border flex items-center justify-center hover:bg-secondary hover:border-secondary hover:glow-pink transition-all"
           aria-label="Follow us on Facebook"
         >
-          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
             <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
           </svg>
         </a>
@@ -50,12 +50,12 @@ export function HeroSection() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-6xl mx-auto text-center py-20 px-4">
+      <div className="relative z-10 max-w-6xl mx-auto text-center pt-28 pb-20 sm:py-20 px-4">
         <div className="animate-fade-in">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 bg-black/60 backdrop-blur-md border border-primary rounded-full px-6 py-2 mb-8 glow-purple">
+          <div className="inline-flex items-center gap-2 bg-black/60 backdrop-blur-md border border-primary rounded-full px-4 py-2 sm:px-6 mb-8 glow-purple">
             <Sparkles className="w-4 h-4 text-primary" />
-            <span className="text-sm font-semibold text-white">Arizona's Premier Inflatable Nightclub for Kids</span>
+            <span className="text-xs sm:text-sm font-semibold text-white">Arizona's Premier Inflatable Nightclub for Kids</span>
           </div>
 
           {/* Headline */}
