@@ -1,8 +1,6 @@
 import { HeroSection } from "@/components/hero-section";
 import { FeaturesSection } from "@/components/features-section";
-import { PackageCard } from "@/components/package-card";
-import { ProductSelector } from "@/components/product-selector";
-import { AddOns } from "@/components/add-ons";
+import { PackagesSection } from "@/components/packages-section";
 import { EmailForm } from "@/components/email-form";
 import { FAQSection } from "@/components/faq-section";
 import { Instagram, Mail, Phone, Check, Music } from "lucide-react";
@@ -18,106 +16,8 @@ export default function Home() {
       <FeaturesSection />
 
       {/* Packages Section */}
-      <section id="packages" className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/20">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-glow-pink">
-              Choose Your Package
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              From intimate gatherings to epic celebrations, we have the perfect inflatable nightclub package for your event.
-            </p>
-          </div>
+      <PackagesSection />
 
-          {/* Step 1: Choose Your Product */}
-          <div className="mb-20">
-            <div className="text-center mb-10">
-              <h3 className="text-3xl md:text-4xl font-bold mb-3 text-glow-purple">
-                Step 1: Choose Your Product
-              </h3>
-              <p className="text-muted-foreground">
-                Select your inflatable nightclub venue style
-              </p>
-            </div>
-            <ProductSelector />
-          </div>
-
-          {/* Step 2: Choose Your Party Experience */}
-          <div className="mb-20">
-            <div className="text-center mb-10">
-              <h3 className="text-3xl md:text-4xl font-bold mb-3 text-glow-pink">
-                Step 2: Choose Your Party Experience
-              </h3>
-              <p className="text-muted-foreground">
-                Pick the experience tier that fits your celebration
-              </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <PackageCard
-                name="Party Starter"
-                description="Perfect for birthdays & small gatherings"
-                price="$375 - $400"
-                features={[
-                  "Color-Changing LED Lighting",
-                  "Bluetooth Speaker Sound System",
-                  "3-Hour Rental",
-                  "Setup & Teardown Included",
-                ]}
-                glowColor="purple"
-              />
-
-              <PackageCard
-                name="Glow Getter"
-                description="A VIP vibe with built-in extras"
-                price="$450 - $500"
-                features={[
-                  "Everything in Party Starter",
-                  "Red Ropes & Carpet",
-                  "Glow Up Kit (20) Included",
-                  "Curated Playlist + Themed Video Projector",
-                ]}
-                glowColor="pink"
-                featured={true}
-              />
-
-              <PackageCard
-                name="All-Star VIP"
-                description="Your own private nightclub"
-                price="$525 - $600"
-                features={[
-                  "Everything in Glow Getter",
-                  "Premium LED Lighting & Sound System",
-                  "Wireless Microphone Included",
-                  "Capacity: 20-30 guests",
-                ]}
-                glowColor="teal"
-              />
-            </div>
-          </div>
-
-          {/* Step 3: Add-Ons */}
-          <div className="mb-12">
-            <div className="text-center mb-10">
-              <h3 className="text-3xl md:text-4xl font-bold mb-3 text-glow-teal">
-                Step 3: Customize with Add-Ons
-              </h3>
-              <p className="text-muted-foreground">
-                Enhance your party with these optional extras
-              </p>
-            </div>
-            <AddOns />
-          </div>
-
-          <div className="mt-12 text-center">
-            <p className="text-muted-foreground mb-2">
-              All packages include setup and teardown. Turn any space into a nightclub in 30 minutes!
-            </p>
-            <p className="text-sm text-muted-foreground">
-              Serving the Phoenix metro area and throughout Arizona.
-            </p>
-          </div>
-        </div>
-      </section>
 
       {/* Curated Playlist Themes Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/20">
