@@ -8,7 +8,7 @@ import Image from "next/image";
 interface PackageCardProps {
   name: string;
   description: string;
-  price: string;
+  price: string | React.ReactNode;
   features: string[];
   glowColor?: "purple" | "pink" | "teal";
   featured?: boolean;
