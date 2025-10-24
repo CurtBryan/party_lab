@@ -1,6 +1,8 @@
 import { HeroSection } from "@/components/hero-section";
 import { FeaturesSection } from "@/components/features-section";
 import { PackageCard } from "@/components/package-card";
+import { ProductSelector } from "@/components/product-selector";
+import { AddOns } from "@/components/add-ons";
 import { EmailForm } from "@/components/email-form";
 import { FAQSection } from "@/components/faq-section";
 import { Instagram, Mail, Phone, Check, Music } from "lucide-react";
@@ -27,85 +29,83 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <PackageCard
-              name="Party Starter"
-              description="Perfect for birthdays & small gatherings"
-              price="$400"
-              features={[
-                "Color-Changing LED Lighting",
-                "Bluetooth Speaker Sound System",
-                "3-Hour Rental",
-                "Setup & Teardown Included",
-                "Dance Dome option: $375",
-              ]}
-              glowColor="purple"
-              imageUrl="/igloo_shape.jpg"
-            />
-
-            <PackageCard
-              name="Glow Getter"
-              description="A VIP vibe with built-in extras"
-              price="$500"
-              features={[
-                "Red Ropes & Carpet",
-                "LED Lighting + Bluetooth Sound System",
-                "Glow Up Kit (20) Included",
-                "Curated Playlist + Themed Video Projector",
-                "3-Hour Rental",
-                "Setup & Teardown Included",
-                "Dance Dome option: $450",
-              ]}
-              glowColor="pink"
-              featured={true}
-              imageUrl="/box_shape.JPG"
-            />
-
-            <PackageCard
-              name="All-Star VIP"
-              description="Your own private nightclub"
-              price="$600"
-              features={[
-                "Red Ropes & Carpet",
-                "Premium LED Lighting & Sound System",
-                "Wireless Microphone Included",
-                "Glow Up Kit (20) Included",
-                "Curated Playlist + Themed Video Projector",
-                "3-Hour Rental",
-                "Setup & Teardown Included",
-                "Capacity: 20-30 guests",
-                "Dance Dome option: $525",
-              ]}
-              glowColor="teal"
-              imageUrl="/house_shape.jpg"
-            />
+          {/* Step 1: Choose Your Product */}
+          <div className="mb-20">
+            <div className="text-center mb-10">
+              <h3 className="text-3xl md:text-4xl font-bold mb-3 text-glow-purple">
+                Step 1: Choose Your Product
+              </h3>
+              <p className="text-muted-foreground">
+                Select your inflatable nightclub venue style
+              </p>
+            </div>
+            <ProductSelector />
           </div>
 
-          {/* Add-Ons Section */}
-          <div className="mt-16 bg-card border border-border rounded-lg p-8">
-            <h3 className="text-2xl font-bold text-center mb-8 text-primary">
-              Customize Your Experience
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-secondary mb-2">$75</div>
-                <div className="font-semibold text-foreground mb-1">Extra Hour</div>
-                <div className="text-sm text-muted-foreground">Keep the party going</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-secondary mb-2">$50</div>
-                <div className="font-semibold text-foreground mb-1">Glow Up Party Bags</div>
-                <div className="text-sm text-muted-foreground">20 bags included</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-secondary mb-2">$100</div>
-                <div className="font-semibold text-foreground mb-1">Playlist + Projector</div>
-                <div className="text-sm text-muted-foreground">Curated music & videos</div>
-              </div>
+          {/* Step 2: Choose Your Party Experience */}
+          <div className="mb-20">
+            <div className="text-center mb-10">
+              <h3 className="text-3xl md:text-4xl font-bold mb-3 text-glow-pink">
+                Step 2: Choose Your Party Experience
+              </h3>
+              <p className="text-muted-foreground">
+                Pick the experience tier that fits your celebration
+              </p>
             </div>
-            <p className="text-center text-sm text-muted-foreground mt-6">
-              VIP Extension: First extra hour $50, each additional hour $75
-            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <PackageCard
+                name="Party Starter"
+                description="Perfect for birthdays & small gatherings"
+                price="$375 - $400"
+                features={[
+                  "Color-Changing LED Lighting",
+                  "Bluetooth Speaker Sound System",
+                  "3-Hour Rental",
+                  "Setup & Teardown Included",
+                ]}
+                glowColor="purple"
+              />
+
+              <PackageCard
+                name="Glow Getter"
+                description="A VIP vibe with built-in extras"
+                price="$450 - $500"
+                features={[
+                  "Everything in Party Starter",
+                  "Red Ropes & Carpet",
+                  "Glow Up Kit (20) Included",
+                  "Curated Playlist + Themed Video Projector",
+                ]}
+                glowColor="pink"
+                featured={true}
+              />
+
+              <PackageCard
+                name="All-Star VIP"
+                description="Your own private nightclub"
+                price="$525 - $600"
+                features={[
+                  "Everything in Glow Getter",
+                  "Premium LED Lighting & Sound System",
+                  "Wireless Microphone Included",
+                  "Capacity: 20-30 guests",
+                ]}
+                glowColor="teal"
+              />
+            </div>
+          </div>
+
+          {/* Step 3: Add-Ons */}
+          <div className="mb-12">
+            <div className="text-center mb-10">
+              <h3 className="text-3xl md:text-4xl font-bold mb-3 text-glow-teal">
+                Step 3: Customize with Add-Ons
+              </h3>
+              <p className="text-muted-foreground">
+                Enhance your party with these optional extras
+              </p>
+            </div>
+            <AddOns />
           </div>
 
           <div className="mt-12 text-center">
