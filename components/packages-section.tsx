@@ -66,3 +66,6 @@ export function PackagesSection() {
             onProductSelect={handleProductSelect} 
           />
         </div>
+    </section>
+  )
+}
