@@ -3,7 +3,6 @@
 import { useState, useRef } from "react";
 import { ProductSelector } from "./product-selector";
 import { PackageCard } from "./package-card";
-import { AddOns } from "./add-ons";
 
 export function PackagesSection() {
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
@@ -66,6 +65,7 @@ export function PackagesSection() {
             onProductSelect={handleProductSelect} 
           />
         </div>
+      </div>
     </section>
   )
 }
