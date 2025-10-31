@@ -3,7 +3,7 @@
 import { useState, useRef } from "react";
 import { ProductSelector } from "./product-selector";
 import { PackageCard } from "./package-card";
-import { AddOns } from "./add-ons";
+// import { AddOns } from "./add-ons";
 
 export function PackagesSection() {
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
@@ -122,7 +122,7 @@ export function PackagesSection() {
         </div>
 
         {/* Step 3: Add-Ons */}
-        <div className="mb-12">
+        {/* <div className="mb-12">
           <div className="text-center mb-10">
             <h3 className="text-3xl md:text-4xl font-bold mb-3 text-glow-teal">
               Step 3: Customize with Add-Ons
@@ -132,7 +132,7 @@ export function PackagesSection() {
             </p>
           </div>
           <AddOns />
-        </div>
+        </div> */}
 
         <div className="mt-12 text-center">
           <p className="text-muted-foreground mb-2">
