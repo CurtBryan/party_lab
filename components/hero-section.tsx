@@ -102,14 +102,13 @@ export function HeroSection() {
           </div>
 
           {/* Stats or Social Proof */}
-          <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-2xl mx-auto">
-            <div className="text-center bg-black/50 backdrop-blur-sm rounded-xl p-4">
-              <div className="text-4xl font-bold text-secondary mb-2">5★</div>
-              <div className="text-sm text-white">Customer Rating</div>
-            </div>
-            <div className="text-center bg-black/50 backdrop-blur-sm rounded-xl p-4">
+          <div className="mt-16 flex flex-col gap-4 max-w-md mx-auto">
+           <div className="text-center bg-black/50 backdrop-blur-sm rounded-xl p-4">
               <div className="text-4xl font-bold text-accent mb-2">AZ</div>
               <div className="text-sm text-white">Statewide Service</div>
+            </div>
+            <div className="text-center bg-black/50 backdrop-blur-sm rounded-xl p-4">
+              <div className="text-2xl font-bold text-white mb-2">✅ Fully Insured</div>
             </div>
           </div>
         </div>
