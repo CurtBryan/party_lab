@@ -81,7 +81,7 @@ export function PackagesSection() {
             <PackageCard
               name="Party Starter"
               description="Perfect for birthdays & small gatherings"
-              price={getPricing("375", "400")}
+              price={getPricing("250", "300")}
               features={[
                 "Color-Changing LED Lighting",
                 "Bluetooth Speaker Sound System",
@@ -94,7 +94,7 @@ export function PackagesSection() {
             <PackageCard
               name="Glow Getter"
               description="A VIP vibe with built-in extras"
-              price={getPricing("450", "500")}
+              price={getPricing("325", "400")}
               features={[
                 "Everything in Party Starter",
                 "Red Ropes & Carpet",
@@ -108,13 +108,12 @@ export function PackagesSection() {
 
             <PackageCard
               name="All-Star VIP"
-              description="Go all out! This package includes every party add-on and extra time for the ultimate celebration experience."
-              price={getPricing("525", "600")}
+              description="Big wins deserve big celebrations! The All-Star VIP Package brings extra time, nonstop music, and the full nightclub experience — perfect for schools, teams, and community events ready to party all night!"
+              price={getPricing("400", "500")}
               features={[
                 "Everything in Glow Getter",
-                "Premium LED Lighting & Sound System",
-                "Additional Wireless Microphone",
-                "Capacity: 20-30 guests",
+                "Extended hours included",
+                "Overnight Parties",
               ]}
               glowColor="teal"
             />
