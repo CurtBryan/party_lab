@@ -18,11 +18,11 @@ const faqs = [
   },
   {
     question: "How many guests can the inflatable nightclub accommodate?",
-    answer: "Our inflatables comfortably accommodate 20-30 guests depending on the model chosen. This is perfect for birthdays, teen parties, Sweet 16s, and family celebrations."
+    answer: "Our Dance Dome comfortably fits 10–15 guests, while our larger setups — the Light Haus and Club Noir — can accommodate 20–30 guests for the ultimate party experience!"
   },
   {
     question: "Do I need to provide power?",
-    answer: "Yes, we need access to standard electrical outlets (110V) for the blower, lights, and sound system. We bring all necessary extension cords and equipment."
+    answer: "Yes, we need access to standard electrical outlets (110V) for the blower, lights, and sound system. We bring all necessary extension cords and equipment. You can also rent our generator for and extra $75."
   },
   {
     question: "What if it rains or weather is bad?",
