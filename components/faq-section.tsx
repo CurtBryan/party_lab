@@ -10,7 +10,7 @@ const faqs = [
   },
   {
     question: "What areas do you serve in Arizona?",
-    answer: "We serve the entire Phoenix metro area including Scottsdale, Mesa, Tempe, Chandler, Gilbert, and surrounding cities. We also travel throughout Arizona - contact us for delivery availability!"
+    answer: "We serve the entire Phoenix metro area, including Scottsdale, Mesa, Tempe, Chandler, Gilbert, and surrounding cities within a 25-mile radius. We also travel throughout Arizona for an additional $50 beyond 25 miles — please contact us for delivery availability!"
   },
   {
     question: "What's included in the rental packages?",
