@@ -2,7 +2,7 @@
 
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
-import { Users } from "lucide-react";
+import { Users, Maximize2 } from "lucide-react";
 
 interface ProductOption {
   name: string;
@@ -87,9 +87,15 @@ export function ProductSelector({ selectedProduct, onProductSelect }: ProductSel
                 {product.name}
               </h3>
               <p className="text-muted-foreground mb-3">{product.description}</p>
-              <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-                <Users className="w-4 h-4" />
-                <span>Capacity: {product.capacity}</span>
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+                  <Users className="w-4 h-4" />
+                  <span>Capacity: {product.capacity}</span>
+                </div>
+                <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+                  <Maximize2 className="w-4 h-4" />
+                  <span>Size: {product.dimensions}</span>
+                </div>
               </div>
             </div>
           </Card>
