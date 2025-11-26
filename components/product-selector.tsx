@@ -8,6 +8,7 @@ interface ProductOption {
   name: string;
   description: string;
   capacity: string;
+  dimensions: string;
   imageUrl: string;
   glowColor: "purple" | "pink" | "teal";
 }
@@ -25,7 +26,7 @@ const products: ProductOption[] = [
     name: "Light Haus",
     description: "Modern cube design with maximum space and style",
     capacity: "20-30 guests",
-    dimesnions: "20x20x12",
+    dimensions: "20x20x12",
     imageUrl: "/box_shape.JPG",
     glowColor: "purple",
   },
