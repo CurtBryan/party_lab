@@ -1,0 +1,119 @@
+"use client";
+
+import { useBooking } from "./booking-context";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Check } from "lucide-react";
+import { ADD_ONS } from "@/lib/constants";
+import type { AddOns } from "@/types/booking";
+
+export function Screen4AddOns() {
+  const { bookingData, updateAddOns, nextStep } = useBooking();
+
+  const handleToggle = (addonId: keyof AddOns) => {
+    updateAddOns({
+      ...bookingData.addOns,
+      [addonId]: !bookingData.addOns[addonId],
+    });
+  };
+
+  const handleContinue = () => {
+    nextStep();
+  };
+
+  const calculateAddOnsTotal = () => {
+    return ADD_ONS.reduce((total, addon) => {
+      return total + (bookingData.addOns[addon.id] ? addon.price : 0);
+    }, 0);
+  };
+
+  return (
+    <div className="space-y-8">
+      <div className="text-center">
+        <h2 className="text-4xl font-bold mb-4 text-glow-purple">
+          Enhance Your Experience
+        </h2>
+        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          Add extras to make your party even more memorable
+        </p>
+      </div>
+
+      <div className="max-w-3xl mx-auto space-y-4">
+        {ADD_ONS.map((addon) => {
+          const isSelected = bookingData.addOns[addon.id];
+
+          return (
+            <Card
+              key={addon.id}
+              onClick={() => handleToggle(addon.id)}
+              className={`p-6 cursor-pointer transition-all border-2 ${
+                isSelected
+                  ? "border-primary bg-primary/5 glow-purple"
+                  : "border-border hover:border-primary"
+              }`}
+            >
+              <div className="flex items-start gap-4">
+                <div
+                  className={`w-6 h-6 rounded border-2 flex items-center justify-center transition-all ${
+                    isSelected
+                      ? "bg-primary border-primary"
+                      : "border-border"
+                  }`}
+                >
+                  {isSelected && <Check className="w-4 h-4 text-primary-foreground" />}
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-xl font-bold">{addon.name}</h3>
+                    <span className="text-2xl font-bold text-primary">
+                      +${addon.price}
+                    </span>
+                  </div>
+                  <p className="text-muted-foreground">{addon.description}</p>
+                </div>
+              </div>
+            </Card>
+          );
+        })}
+      </div>
+
+      {/* Summary */}
+      <Card className="max-w-md mx-auto p-6 bg-card border-primary">
+        <h3 className="text-lg font-semibold mb-4">Booking Summary</h3>
+        <div className="space-y-2 text-sm">
+          <div className="flex justify-between">
+            <span className="text-muted-foreground">Package</span>
+            <span className="font-semibold">{bookingData.package}</span>
+          </div>
+          {calculateAddOnsTotal() > 0 && (
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Add-ons</span>
+              <span className="font-semibold">+${calculateAddOnsTotal()}</span>
+            </div>
+          )}
+          <div className="border-t border-border pt-2 mt-2">
+            <div className="flex justify-between text-lg">
+              <span className="font-semibold">Subtotal</span>
+              <span className="font-bold text-primary">
+                ${bookingData.pricing.subtotal}
+              </span>
+            </div>
+          </div>
+          <div className="text-xs text-muted-foreground pt-2">
+            * $100 booking fee will be charged now. Remaining balance due on event date.
+          </div>
+        </div>
+      </Card>
+
+      <div className="flex justify-center pt-6">
+        <Button
+          onClick={handleContinue}
+          size="lg"
+          className="gradient-purple-pink glow-purple text-white font-semibold px-12"
+        >
+          Continue to Customer Info →
+        </Button>
+      </div>
+    </div>
+  );
+}

@@ -1,16 +1,28 @@
+"use client";
+
+import { useState } from "react";
 import { HeroSection } from "@/components/hero-section";
 import { FeaturesSection } from "@/components/features-section";
 import { PackagesSection } from "@/components/packages-section";
 import { EmailForm } from "@/components/email-form";
 import { FAQSection } from "@/components/faq-section";
+import { BookingModal } from "@/components/booking/booking-modal";
 import { Instagram, Mail, Phone, Check, Music } from "lucide-react";
 import Image from "next/image";
 
 export default function Home() {
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+
   return (
     <main className="min-h-screen">
+      {/* Booking Modal */}
+      <BookingModal
+        isOpen={isBookingModalOpen}
+        onClose={() => setIsBookingModalOpen(false)}
+      />
+
       {/* Hero Section */}
-      <HeroSection />
+      <HeroSection onBookNowClick={() => setIsBookingModalOpen(true)} />
 
       {/* Features Section */}
       <FeaturesSection />

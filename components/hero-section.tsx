@@ -4,7 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Sparkles, Calendar, Instagram } from "lucide-react";
 import Image from "next/image";
 
-export function HeroSection() {
+interface HeroSectionProps {
+  onBookNowClick?: () => void;
+}
+
+export function HeroSection({ onBookNowClick }: HeroSectionProps = {}) {
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden">
       {/* Logo - Top Left */}
@@ -81,12 +85,10 @@ export function HeroSection() {
             <Button
               size="lg"
               className="text-lg px-8 py-6 gradient-purple-pink hover:opacity-90 transition-all glow-purple text-white font-semibold group"
-              onClick={() => {
-                document.getElementById("request-info")?.scrollIntoView({ behavior: "smooth" });
-              }}
+              onClick={onBookNowClick}
             >
               <Sparkles className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
-              Request Info
+              Book Now
             </Button>
             <Button
               size="lg"
