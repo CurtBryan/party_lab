@@ -75,6 +75,35 @@ export type Database = {
           special_requests?: string | null;
         };
       };
+      availability_overrides: {
+        Row: {
+          id: string;
+          created_at: string;
+          override_date: string;
+          time_block: string | null;
+          product: string | null;
+          reason: string | null;
+          is_active: boolean;
+        };
+        Insert: {
+          id?: string;
+          created_at?: string;
+          override_date: string;
+          time_block?: string | null;
+          product?: string | null;
+          reason?: string | null;
+          is_active?: boolean;
+        };
+        Update: {
+          id?: string;
+          created_at?: string;
+          override_date?: string;
+          time_block?: string | null;
+          product?: string | null;
+          reason?: string | null;
+          is_active?: boolean;
+        };
+      };
     };
   };
 };

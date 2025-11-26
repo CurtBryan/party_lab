@@ -8,6 +8,7 @@ import { Calendar } from "lucide-react";
 import { DayPicker } from "react-day-picker";
 import { format, addHours, isAfter } from "date-fns";
 import { TIME_BLOCKS, MIN_HOURS_ADVANCE } from "@/lib/constants";
+import { checkAvailability } from "@/app/actions/check-availability";
 import type { TimeBlock } from "@/types/booking";
 import "react-day-picker/dist/style.css";
 
@@ -28,16 +29,28 @@ export function Screen2DateTime() {
   // Check availability when date changes
   useEffect(() => {
     if (selectedDate && bookingData.product) {
-      checkAvailability(selectedDate);
+      checkAvailabilityForDate(selectedDate);
     }
   }, [selectedDate, bookingData.product]);
 
-  const checkAvailability = async (date: Date) => {
+  const checkAvailabilityForDate = async (date: Date) => {
     setIsLoading(true);
     try {
-      // For now, show all blocks as available
-      // TODO: Implement actual availability checking with Supabase
-      setAvailableBlocks(TIME_BLOCKS.map((block) => block.value));
+      const formattedDate = format(date, "yyyy-MM-dd");
+      const product = bookingData.product;
+
+      if (!product) {
+        setAvailableBlocks([]);
+        return;
+      }
+
+      const result = await checkAvailability(formattedDate, product);
+
+      if (result.success) {
+        setAvailableBlocks(result.availableBlocks);
+      } else {
+        setAvailableBlocks([]);
+      }
     } catch (error) {
       console.error("Failed to check availability:", error);
       setAvailableBlocks([]);
