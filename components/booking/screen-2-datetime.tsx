@@ -99,6 +99,22 @@ export function Screen2DateTime() {
     }
   };
 
+  // Filter time blocks based on day of week
+  const getAvailableTimeBlocks = () => {
+    if (!selectedDate) return TIME_BLOCKS;
+
+    const dayOfWeek = selectedDate.getDay(); // 0 = Sunday, 6 = Saturday
+    const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
+
+    if (isWeekend) {
+      // Weekend: Show all time slots
+      return TIME_BLOCKS;
+    } else {
+      // Weekday (Mon-Fri): Only show 5:00 PM - 8:00 PM
+      return TIME_BLOCKS.filter(block => block.value === "17:00-20:00");
+    }
+  };
+
   const isCustomTimeValid = customStartTime && customEndTime && customStartTime < customEndTime;
 
   return (
@@ -131,7 +147,6 @@ export function Screen2DateTime() {
               onSelect={handleDateSelect}
               disabled={[
                 { before: minDate },
-                { dayOfWeek: [0] }, // Optionally disable Sundays
               ]}
               className="border rounded-lg p-4"
               styles={{
@@ -163,7 +178,7 @@ export function Screen2DateTime() {
             </p>
           ) : (
             <div className="space-y-3">
-              {TIME_BLOCKS.map((block) => {
+              {getAvailableTimeBlocks().map((block) => {
                 const isAvailable = availableBlocks.includes(block.value);
                 const isSelected = selectedTimeBlock === block.value;
 
