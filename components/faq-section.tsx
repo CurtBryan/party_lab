@@ -103,22 +103,6 @@ export function FAQSection() {
             </div>
           ))}
         </div>
-
-        <div className="mt-12 text-center">
-          <p className="text-muted-foreground mb-4">
-            Still have questions?
-          </p>
-          <a
-            href="#request-info"
-            className="text-primary hover:text-primary/80 font-semibold"
-            onClick={(e) => {
-              e.preventDefault();
-              document.getElementById("request-info")?.scrollIntoView({ behavior: "smooth" });
-            }}
-          >
-            Contact us for more information →
-          </a>
-        </div>
       </div>
     </section>
   );
