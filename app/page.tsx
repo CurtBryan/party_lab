@@ -4,7 +4,7 @@ import { useState } from "react";
 import { HeroSection } from "@/components/hero-section";
 import { FeaturesSection } from "@/components/features-section";
 import { PackagesSection } from "@/components/packages-section";
-import { EmailForm } from "@/components/email-form";
+import { ContactForm } from "@/components/contact-form";
 import { FAQSection } from "@/components/faq-section";
 import { BookingModal } from "@/components/booking/booking-modal";
 import { Instagram, Mail, Phone, Check, Music } from "lucide-react";
@@ -132,6 +132,9 @@ export default function Home() {
 
       {/* FAQ Section */}
       <FAQSection />
+
+      {/* Contact Form */}
+      <ContactForm />
 
       {/* Social Proof / Testimonials Placeholder */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/10">

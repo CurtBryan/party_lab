@@ -5,6 +5,7 @@ export async function submitContactForm(formData: {
   email: string;
   phone: string;
   eventType: string;
+  message?: string;
 }) {
   try {
     const response = await fetch("https://api.web3forms.com/submit", {
