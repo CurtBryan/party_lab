@@ -9,7 +9,24 @@ import type { PackageType } from "@/types/booking";
 export function Screen3Package() {
   const { bookingData, updatePackage, nextStep } = useBooking();
 
-  const handleSelect = (packageName: PackageType, price: number) => {
+  // Get product-specific pricing
+  const getPackagePrice = (packageName: PackageType): number => {
+    const isDanceDome = bookingData.product === "Dance Dome";
+
+    switch (packageName) {
+      case "Party Starter":
+        return isDanceDome ? 250 : 300;
+      case "Glow Getter":
+        return isDanceDome ? 325 : 400;
+      case "All-Star VIP":
+        return isDanceDome ? 400 : 500;
+      default:
+        return 300;
+    }
+  };
+
+  const handleSelect = (packageName: PackageType) => {
+    const price = getPackagePrice(packageName);
     updatePackage(packageName, price);
   };
 
@@ -33,11 +50,12 @@ export function Screen3Package() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {PACKAGES.map((pkg) => {
           const isSelected = bookingData.package === pkg.name;
+          const price = getPackagePrice(pkg.name);
 
           return (
             <div
               key={pkg.name}
-              onClick={() => handleSelect(pkg.name, pkg.price)}
+              onClick={() => handleSelect(pkg.name)}
               className={`cursor-pointer transition-all ${
                 isSelected ? "ring-4 ring-primary rounded-lg glow-purple" : ""
               }`}
@@ -45,7 +63,7 @@ export function Screen3Package() {
               <PackageCard
                 name={pkg.name}
                 description={pkg.description}
-                price={`$${pkg.price}`}
+                price={`$${price}`}
                 features={pkg.features}
                 glowColor={pkg.glowColor}
                 featured={pkg.featured}
