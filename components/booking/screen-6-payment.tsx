@@ -9,7 +9,7 @@ import { getStripe } from "@/lib/stripe";
 import { createPaymentIntent } from "@/app/actions/create-payment-intent";
 import { createBooking } from "@/app/actions/create-booking";
 import { sendConfirmationEmail } from "@/app/actions/send-confirmation-email";
-import { Loader2, CreditCard } from "lucide-react";
+import { Loader2, CreditCard, Shield, Lock, ChevronDown, ChevronUp, CheckCircle2, Smartphone, Wallet } from "lucide-react";
 import { format } from "date-fns";
 import type { PaymentRequest } from "@stripe/stripe-js";
 
@@ -134,22 +134,40 @@ function PaymentForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <Card className="p-6">
+      <Card className="p-4 sm:p-6">
         <div className="flex items-center gap-2 mb-4">
           <CreditCard className="w-5 h-5 text-primary" />
-          <h3 className="text-xl font-bold">Payment Details</h3>
+          <h3 className="text-lg sm:text-xl font-bold">Payment Details</h3>
+        </div>
+
+        {/* Payment Method Icons - Mobile */}
+        <div className="flex flex-wrap items-center gap-2 mb-4 pb-4 border-b border-border sm:hidden">
+          <div className="flex items-center gap-1 text-xs text-muted-foreground">
+            <Wallet className="w-4 h-4" />
+            <span>Accepts:</span>
+          </div>
+          <div className="flex gap-2 flex-wrap">
+            <span className="px-2 py-1 bg-muted rounded text-xs font-medium">Cards</span>
+            <span className="px-2 py-1 bg-muted rounded text-xs font-medium">Apple Pay</span>
+            <span className="px-2 py-1 bg-muted rounded text-xs font-medium">Cash App</span>
+            <span className="px-2 py-1 bg-muted rounded text-xs font-medium">Bank</span>
+          </div>
         </div>
 
         {/* Apple Pay / Google Pay Button */}
         {paymentRequest && (
           <div className="mb-6">
+            <div className="flex items-center gap-2 mb-2">
+              <Smartphone className="w-4 h-4 text-primary" />
+              <span className="text-sm font-medium">Quick Pay</span>
+            </div>
             <PaymentRequestButtonElement options={{ paymentRequest }} />
             <div className="relative my-6">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-border"></div>
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-background px-2 text-muted-foreground">Or pay with card</span>
+                <span className="bg-background px-2 text-muted-foreground">Or choose another method</span>
               </div>
             </div>
           </div>
@@ -165,6 +183,22 @@ function PaymentForm() {
             },
           }}
         />
+
+        {/* Security Indicators */}
+        <div className="mt-6 pt-6 border-t border-border">
+          <div className="flex items-start gap-3 text-sm">
+            <Shield className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="font-semibold text-green-500 flex items-center gap-2">
+                Secure Payment
+                <Lock className="w-3 h-3" />
+              </p>
+              <p className="text-xs text-muted-foreground mt-1">
+                Your payment information is encrypted and secure. Powered by Stripe.
+              </p>
+            </div>
+          </div>
+        </div>
       </Card>
 
       {errorMessage && (
@@ -173,26 +207,37 @@ function PaymentForm() {
         </div>
       )}
 
-      <Button
-        type="submit"
-        disabled={!stripe || isProcessing}
-        size="lg"
-        className="w-full gradient-purple-pink glow-purple text-white font-semibold text-lg py-6"
-      >
-        {isProcessing ? (
-          <>
-            <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-            Processing Payment...
-          </>
-        ) : (
-          `Pay $${bookingData.pricing.bookingFee} Booking Fee`
-        )}
-      </Button>
+      {/* Sticky payment button on mobile */}
+      <div className="lg:relative lg:bottom-auto lg:left-auto lg:right-auto lg:bg-transparent lg:p-0 lg:border-none
+                      fixed bottom-0 left-0 right-0 bg-background/95 backdrop-blur-sm p-4 border-t border-border z-10
+                      lg:z-auto">
+        <Button
+          type="submit"
+          disabled={!stripe || isProcessing}
+          size="lg"
+          className="w-full gradient-purple-pink glow-purple text-white font-semibold text-base sm:text-lg py-6 sm:py-8 lg:py-6
+                     shadow-lg lg:shadow-none"
+        >
+          {isProcessing ? (
+            <>
+              <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+              <span>Processing Payment...</span>
+            </>
+          ) : (
+            <>
+              <CheckCircle2 className="w-5 h-5 mr-2" />
+              <span>Pay ${bookingData.pricing.bookingFee} Securely</span>
+            </>
+          )}
+        </Button>
 
-      <p className="text-xs text-center text-muted-foreground">
-        Your payment is secure and encrypted. The remaining balance of $
-        {bookingData.pricing.total - bookingData.pricing.bookingFee} is due on the event date.
-      </p>
+        <p className="text-xs text-center text-muted-foreground mt-2 lg:mt-3">
+          Remaining balance of ${bookingData.pricing.total - bookingData.pricing.bookingFee} due on event date
+        </p>
+      </div>
+
+      {/* Spacer for sticky button on mobile */}
+      <div className="h-24 lg:hidden" />
     </form>
   );
 }
@@ -201,6 +246,7 @@ export function Screen6Payment() {
   const { bookingData, updateBookingId } = useBooking();
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSummaryCollapsed, setIsSummaryCollapsed] = useState(false);
 
   useEffect(() => {
     // Create payment intent when component mounts
@@ -238,24 +284,54 @@ export function Screen6Payment() {
   const formattedEndTime = formatTime(endTime);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8 pb-32 lg:pb-8">
+      {/* Header */}
       <div className="text-center">
-        <h2 className="text-4xl font-bold mb-4 text-glow-purple">
-          Secure Payment
-        </h2>
-        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+        <div className="flex items-center justify-center gap-2 mb-3">
+          <Shield className="w-6 h-6 text-green-500" />
+          <h2 className="text-3xl sm:text-4xl font-bold text-glow-purple">
+            Secure Payment
+          </h2>
+        </div>
+        <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
           Complete your booking with a secure $100 deposit
         </p>
-        <p className="text-xs text-muted-foreground mt-2">
-          Secure payment powered by Stripe. Digital wallets available when supported by your device.
-        </p>
+        <div className="flex items-center justify-center gap-2 mt-2 text-xs text-muted-foreground">
+          <Lock className="w-3 h-3" />
+          <span>256-bit SSL encryption • Powered by Stripe</span>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-        {/* Booking Summary */}
-        <Card className="p-6 h-fit">
-          <h3 className="text-xl font-bold mb-6">Booking Summary</h3>
-          <div className="space-y-4 text-sm">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto">
+        {/* Booking Summary - Sticky on desktop, collapsible on mobile */}
+        <div className="lg:sticky lg:top-4 lg:self-start">
+          {/* Mobile: Collapsible Summary with Total First */}
+          <Card className="p-4 sm:p-6 lg:h-fit">
+            {/* Mobile Header - Collapsible */}
+            <button
+              onClick={() => setIsSummaryCollapsed(!isSummaryCollapsed)}
+              className="w-full flex items-center justify-between lg:cursor-default"
+              type="button"
+            >
+              <h3 className="text-lg sm:text-xl font-bold">Booking Summary</h3>
+              <ChevronDown
+                className={`w-5 h-5 transition-transform lg:hidden ${isSummaryCollapsed ? '' : 'rotate-180'}`}
+              />
+            </button>
+
+            {/* Mobile: Show Total First (Always Visible) */}
+            <div className="mt-4 lg:hidden">
+              <div className="flex justify-between items-center p-4 bg-primary/10 rounded-lg border border-primary">
+                <span className="font-semibold">Total</span>
+                <span className="text-2xl font-bold text-primary">${bookingData.pricing.total}</span>
+              </div>
+              <p className="text-xs text-muted-foreground text-center mt-2">
+                ${bookingData.pricing.bookingFee} due now • ${bookingData.pricing.total - bookingData.pricing.bookingFee} due on event date
+              </p>
+            </div>
+
+            {/* Collapsible Details */}
+            <div className={`space-y-4 text-sm ${isSummaryCollapsed ? 'hidden' : 'mt-6'} lg:block lg:mt-6`}>
             <div>
               <div className="text-muted-foreground mb-1">Product</div>
               <div className="font-semibold">{bookingData.product}</div>
@@ -289,7 +365,8 @@ export function Screen6Payment() {
                 </ul>
               </div>
             )}
-            <div className="border-t border-border pt-4">
+            {/* Desktop: Traditional Total Section */}
+            <div className="border-t border-border pt-4 hidden lg:block">
               <div className="flex justify-between mb-2">
                 <span>Subtotal</span>
                 <span className="font-semibold">${bookingData.pricing.subtotal}</span>
@@ -306,8 +383,23 @@ export function Screen6Payment() {
                 Remaining balance of ${bookingData.pricing.total - bookingData.pricing.bookingFee} due on event date
               </p>
             </div>
+
+            {/* Mobile: Pricing Breakdown (in collapsible) */}
+            <div className="border-t border-border pt-4 lg:hidden">
+              <div className="space-y-2 text-xs">
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Subtotal</span>
+                  <span className="font-medium">${bookingData.pricing.subtotal}</span>
+                </div>
+                <div className="flex justify-between text-primary">
+                  <span>Due Now</span>
+                  <span className="font-semibold">${bookingData.pricing.bookingFee}</span>
+                </div>
+              </div>
+            </div>
           </div>
         </Card>
+        </div>
 
         {/* Payment Form */}
         <div>
