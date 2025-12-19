@@ -225,6 +225,18 @@ export function Screen6Payment() {
   const formattedDate = format(new Date(bookingData.date), "MMMM d, yyyy");
   const [startTime, endTime] = bookingData.timeBlock.split("-");
 
+  // Convert military time to 12-hour format
+  const formatTime = (time: string) => {
+    const [hours, minutes] = time.split(":");
+    const hour = parseInt(hours);
+    const ampm = hour >= 12 ? "PM" : "AM";
+    const displayHour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
+    return `${displayHour}:${minutes} ${ampm}`;
+  };
+
+  const formattedStartTime = formatTime(startTime);
+  const formattedEndTime = formatTime(endTime);
+
   return (
     <div className="space-y-8">
       <div className="text-center">
@@ -255,7 +267,7 @@ export function Screen6Payment() {
             <div>
               <div className="text-muted-foreground mb-1">Date & Time</div>
               <div className="font-semibold">{formattedDate}</div>
-              <div className="text-muted-foreground text-xs">{startTime} - {endTime}</div>
+              <div className="text-muted-foreground text-xs">{formattedStartTime} - {formattedEndTime}</div>
             </div>
             <div>
               <div className="text-muted-foreground mb-1">Location</div>

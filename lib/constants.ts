@@ -90,7 +90,7 @@ export const ADD_ONS: AddOnOption[] = [
     id: "glowBags",
     name: "Glow-Up Party Bags",
     price: 50,
-    description: "Party favor bags with glow accessories for all guests",
+    description: "Party favor bags with glow accessories for up to 20 guests",
   },
 ];
 

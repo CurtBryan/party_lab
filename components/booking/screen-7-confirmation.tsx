@@ -20,6 +20,18 @@ export function Screen7Confirmation({ onClose }: Screen7ConfirmationProps) {
   const formattedDate = format(new Date(bookingData.date), "MMMM d, yyyy");
   const [startTime, endTime] = bookingData.timeBlock.split("-");
 
+  // Convert military time to 12-hour format
+  const formatTime = (time: string) => {
+    const [hours, minutes] = time.split(":");
+    const hour = parseInt(hours);
+    const ampm = hour >= 12 ? "PM" : "AM";
+    const displayHour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
+    return `${displayHour}:${minutes} ${ampm}`;
+  };
+
+  const formattedStartTime = formatTime(startTime);
+  const formattedEndTime = formatTime(endTime);
+
   const handleClose = () => {
     resetBooking();
     onClose();
@@ -64,7 +76,7 @@ export function Screen7Confirmation({ onClose }: Screen7ConfirmationProps) {
             </div>
             <div>
               <div className="text-sm text-muted-foreground mb-2">Time</div>
-              <div className="font-semibold">{startTime} - {endTime}</div>
+              <div className="font-semibold">{formattedStartTime} - {formattedEndTime}</div>
             </div>
             <div className="md:col-span-2">
               <div className="text-sm text-muted-foreground mb-2">Location</div>

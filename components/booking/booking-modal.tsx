@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { X } from "lucide-react";
 import { BookingProvider, useBooking } from "./booking-context";
 import { ProgressIndicator } from "./progress-indicator";
@@ -23,6 +23,14 @@ interface BookingModalProps {
 function BookingModalContent({ onClose }: { onClose: () => void }) {
   const { bookingData, prevStep } = useBooking();
   const { currentStep } = bookingData;
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  // Scroll to top when step changes
+  useEffect(() => {
+    if (contentRef.current) {
+      contentRef.current.scrollTop = 0;
+    }
+  }, [currentStep]);
 
   const renderStep = () => {
     switch (currentStep) {
@@ -60,7 +68,7 @@ function BookingModalContent({ onClose }: { onClose: () => void }) {
         )}
 
         {/* Content */}
-        <div className="overflow-y-auto max-h-[90vh] p-6 sm:p-8">
+        <div ref={contentRef} className="overflow-y-auto max-h-[90vh] p-6 sm:p-8">
           {/* Progress indicator */}
           {currentStep !== 7 && (
             <ProgressIndicator currentStep={currentStep} totalSteps={7} />
