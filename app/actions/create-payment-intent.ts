@@ -11,8 +11,15 @@ export async function createPaymentIntent(amount: number) {
     const paymentIntent = await stripe.paymentIntents.create({
       amount: Math.round(amount * 100), // Convert to cents
       currency: "usd",
-      payment_method_types: ["card", "link"],
+      payment_method_types: [
+        "card",           // Credit/debit cards
+        "link",           // Stripe Link (one-click checkout)
+        "us_bank_account", // ACH Direct Debit (bank account payments)
+        "cashapp",        // Cash App Pay
+      ],
       // Apple Pay and Google Pay are automatically included with "card"
+      statement_descriptor_suffix: "BOOKING FEE", // Shows on customer's bank statement
+      description: "PartyLab Event Booking Fee",
     });
 
     return {
