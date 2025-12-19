@@ -3,9 +3,15 @@
 import { useState, useRef } from "react";
 import { ProductSelector } from "./product-selector";
 import { PackageCard } from "./package-card";
+import { Button } from "@/components/ui/button";
+import { Sparkles } from "lucide-react";
 // import { AddOns } from "./add-ons";
 
-export function PackagesSection() {
+interface PackagesSectionProps {
+  onBookNowClick?: () => void;
+}
+
+export function PackagesSection({ onBookNowClick }: PackagesSectionProps = {}) {
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
   const experienceRef = useRef<HTMLDivElement>(null);
 
@@ -21,21 +27,12 @@ export function PackagesSection() {
     if (!selectedProduct) {
       return `$${baseDanceDome} - $${baseOther}`;
     }
-    
+
+    // Dance Dome uses bottom of range, Light Haus & Club Noir use top of range
     if (selectedProduct === "Dance Dome") {
-      return (
-        <>
-          <span className="text-primary">${baseDanceDome}</span>
-          <span className="text-muted-foreground/50"> - ${baseOther}</span>
-        </>
-      );
+      return `$${baseDanceDome}`;
     } else {
-      return (
-        <>
-          <span className="text-muted-foreground/50">${baseDanceDome} - </span>
-          <span className="text-primary">${baseOther}</span>
-        </>
-      );
+      return `$${baseOther}`;
     }
   };
 
@@ -118,6 +115,26 @@ export function PackagesSection() {
               glowColor="teal"
             />
           </div>
+
+          {/* Book Now Section */}
+          <div className="mt-16 max-w-4xl mx-auto text-center">
+            <div className="bg-card border-2 border-primary rounded-2xl p-12 glow-purple animate-fade-in">
+              <h3 className="text-4xl md:text-5xl font-bold mb-6 text-glow-purple">
+                Ready to Party?
+              </h3>
+              <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+                Book your inflatable nightclub experience now and create unforgettable memories!
+              </p>
+              <Button
+                size="lg"
+                onClick={onBookNowClick}
+                className="text-2xl px-12 py-8 gradient-purple-pink hover:opacity-90 hover:scale-105 transition-all glow-purple text-white font-bold shadow-2xl animate-pulse-glow"
+              >
+                <Sparkles className="w-6 h-6 mr-3" />
+                Book Now
+              </Button>
+            </div>
+          </div>
         </div>
 
         {/* Step 3: Add-Ons */}
@@ -135,7 +152,7 @@ export function PackagesSection() {
 
         <div className="mt-12 text-center">
           <p className="text-muted-foreground mb-2">
-            All packages include setup and teardown. Turn any space into a nightclub in 30 minutes!
+            All packages include setup and teardown.
           </p>
           <p className="text-sm text-muted-foreground">
             Serving the Phoenix metro area and throughout Arizona.

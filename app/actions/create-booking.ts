@@ -30,6 +30,7 @@ export async function createBooking(bookingData: BookingData, paymentIntentId: s
         event_address: bookingData.customer.address,
         event_type: bookingData.customer.eventType,
         addon_playlist_projector: bookingData.addOns.playlistProjector,
+        addon_red_ropes_carpet: bookingData.addOns.redRopesCarpet,
         addon_extra_hour: bookingData.addOns.extraHour,
         addon_glow_bags: bookingData.addOns.glowBags,
         subtotal: bookingData.pricing.subtotal,
@@ -39,6 +40,11 @@ export async function createBooking(bookingData: BookingData, paymentIntentId: s
         payment_status: "paid",
         booking_status: "confirmed",
         special_requests: bookingData.customer.specialRequests || null,
+        space_type: bookingData.customer.spaceType,
+        power_source: bookingData.customer.powerSource,
+        wifi_music_access: bookingData.customer.wifiMusicAccess,
+        surface_type: bookingData.customer.surfaceType,
+        access_path: bookingData.customer.accessPath,
       })
       .select()
       .single();

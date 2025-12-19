@@ -28,7 +28,7 @@ export default function Home() {
       <FeaturesSection />
 
       {/* Packages Section */}
-      <PackagesSection />
+      <PackagesSection onBookNowClick={() => setIsBookingModalOpen(true)} />
 
 
       {/* Curated Playlist Themes Section */}
@@ -60,23 +60,9 @@ export default function Home() {
               <h3 className="text-2xl font-bold mb-3 text-center text-primary">
                 Glow Dance Party
               </h3>
-              <p className="text-muted-foreground text-center mb-4">
-                Neon, LED balloons, glow sticks & upbeat hits. Perfect with Glow Haus or Lightwave domes!
+              <p className="text-muted-foreground text-center">
+                Glow sticks & upbeat hits. Perfect with Dance Dome and Light Haus!
               </p>
-              <div className="space-y-2 text-sm text-muted-foreground">
-                <p className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-primary" />
-                  Spotify Playlist ready-to-go
-                </p>
-                <p className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-primary" />
-                  YouTube "Play All" video option
-                </p>
-                <p className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-primary" />
-                  Perfect for kids parties
-                </p>
-              </div>
             </div>
 
             <div className="bg-card border border-border rounded-lg p-8 hover:border-secondary transition-all hover:scale-105">
@@ -84,23 +70,9 @@ export default function Home() {
               <h3 className="text-2xl font-bold mb-3 text-center text-secondary">
                 Disney Dance Party
               </h3>
-              <p className="text-muted-foreground text-center mb-4">
+              <p className="text-muted-foreground text-center">
                 Princesses, heroes & singalong favorites. Great for birthdays & family celebrations!
               </p>
-              <div className="space-y-2 text-sm text-muted-foreground">
-                <p className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-secondary" />
-                  Spotify Playlist ready-to-go
-                </p>
-                <p className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-secondary" />
-                  YouTube "Play All" video option
-                </p>
-                <p className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-secondary" />
-                  All-ages friendly
-                </p>
-              </div>
             </div>
 
             <div className="bg-card border border-border rounded-lg p-8 hover:border-accent transition-all hover:scale-105">
@@ -108,23 +80,9 @@ export default function Home() {
               <h3 className="text-2xl font-bold mb-3 text-center text-accent">
                 Pop Star Party
               </h3>
-              <p className="text-muted-foreground text-center mb-4">
-                Karaoke vibes with microphones & inflatable guitars. Kids become the rockstars!
+              <p className="text-muted-foreground text-center">
+                Karaoke vibes with microphones. Kids become the rockstars!
               </p>
-              <div className="space-y-2 text-sm text-muted-foreground">
-                <p className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-accent" />
-                  Spotify Playlist ready-to-go
-                </p>
-                <p className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-accent" />
-                  YouTube "Play All" video option
-                </p>
-                <p className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-accent" />
-                  Interactive performance fun
-                </p>
-              </div>
             </div>
           </div>
 
@@ -171,9 +129,6 @@ export default function Home() {
           </div>
         </div>
       </section> */}
-
-      {/* Email Form Section */}
-      <EmailForm />
 
       {/* FAQ Section */}
       <FAQSection />

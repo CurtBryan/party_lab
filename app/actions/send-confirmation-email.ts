@@ -15,8 +15,18 @@ export async function sendConfirmationEmail(bookingData: BookingData, bookingId:
     // Build add-ons list
     const addOnsList = [];
     if (bookingData.addOns.playlistProjector) addOnsList.push("Playlist + Projector (+$100)");
+    if (bookingData.addOns.redRopesCarpet) addOnsList.push("Red Ropes & Carpet (+$40)");
     if (bookingData.addOns.extraHour) addOnsList.push("Extra Hour (+$75)");
     if (bookingData.addOns.glowBags) addOnsList.push("Glow-Up Party Bags (+$50)");
+
+    // Build checklist info (all required fields)
+    const checklistInfo = [
+      `Space Type: ${bookingData.customer.spaceType}`,
+      `Power Source: ${bookingData.customer.powerSource}`,
+      `Wi-Fi/Music: ${bookingData.customer.wifiMusicAccess}`,
+      `Surface: ${bookingData.customer.surfaceType}`,
+      `Access Path: ${bookingData.customer.accessPath}`,
+    ];
 
     const emailBody = `
 Hi ${bookingData.customer.name},
@@ -32,7 +42,10 @@ Date: ${formattedDate}
 Time: ${startTime} - ${endTime}
 Location: ${bookingData.customer.address}
 
-${addOnsList.length > 0 ? `ADD-ONS:\n${addOnsList.map(addon => `• ${addon}`).join('\n')}\n\n` : ''}PAYMENT:
+${addOnsList.length > 0 ? `ADD-ONS:\n${addOnsList.map(addon => `• ${addon}`).join('\n')}\n\n` : ''}PRE-EVENT READINESS INFO:
+${checklistInfo.map(info => `• ${info}`).join('\n')}
+
+PAYMENT:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Booking Fee Paid: $${bookingData.pricing.bookingFee}
 Remaining Balance: $${bookingData.pricing.total - bookingData.pricing.bookingFee}

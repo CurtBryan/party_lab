@@ -19,6 +19,11 @@ export function Screen5Customer() {
     address: bookingData.customer?.address || "",
     eventType: bookingData.customer?.eventType || "",
     specialRequests: bookingData.customer?.specialRequests || "",
+    spaceType: bookingData.customer?.spaceType || "",
+    powerSource: bookingData.customer?.powerSource || "",
+    wifiMusicAccess: bookingData.customer?.wifiMusicAccess || "",
+    surfaceType: bookingData.customer?.surfaceType || "",
+    accessPath: bookingData.customer?.accessPath || "",
   });
 
   const [agreedToTerms, setAgreedToTerms] = useState(false);
@@ -40,6 +45,13 @@ export function Screen5Customer() {
     }
     if (!formData.address.trim()) newErrors.address = "Event address is required";
     if (!formData.eventType) newErrors.eventType = "Please select an event type";
+
+    // Pre-Event Readiness Checklist validation
+    if (!formData.spaceType?.trim()) newErrors.spaceType = "Space type is required";
+    if (!formData.powerSource) newErrors.powerSource = "Power source selection is required";
+    if (!formData.wifiMusicAccess) newErrors.wifiMusicAccess = "Wi-Fi/Music access selection is required";
+    if (!formData.surfaceType?.trim()) newErrors.surfaceType = "Surface type is required";
+    if (!formData.accessPath) newErrors.accessPath = "Access path selection is required";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -171,6 +183,113 @@ export function Screen5Customer() {
               rows={4}
               className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
+          </div>
+
+          {/* Pre-Event Readiness Checklist */}
+          <div className="pt-6 border-t border-border">
+            <h3 className="text-xl font-semibold mb-4 text-primary">Pre-Event Readiness Checklist *</h3>
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="spaceType">Space Type *</Label>
+                <textarea
+                  id="spaceType"
+                  value={formData.spaceType}
+                  onChange={(e) => handleChange("spaceType", e.target.value)}
+                  placeholder="What type of space will we be setting up in, and is it flat and clear of obstacles?"
+                  rows={2}
+                  className={`flex w-full rounded-md border ${
+                    errors.spaceType ? "border-destructive" : "border-input"
+                  } bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring`}
+                />
+                {errors.spaceType && (
+                  <p className="text-sm text-destructive mt-1">{errors.spaceType}</p>
+                )}
+              </div>
+
+              <div>
+                <Label>Power Source *</Label>
+                <p className="text-sm text-muted-foreground mb-2">Is a grounded electrical outlet available near the setup area?</p>
+                <div className="flex gap-6">
+                  {["Yes", "No", "N/A"].map((option) => (
+                    <label key={option} className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="radio"
+                        name="powerSource"
+                        value={option}
+                        checked={formData.powerSource === option}
+                        onChange={(e) => handleChange("powerSource", e.target.value)}
+                        className="w-4 h-4 text-primary"
+                      />
+                      <span className="text-sm">{option}</span>
+                    </label>
+                  ))}
+                </div>
+                {errors.powerSource && (
+                  <p className="text-sm text-destructive mt-1">{errors.powerSource}</p>
+                )}
+              </div>
+
+              <div>
+                <Label>Wi-Fi / Music Access *</Label>
+                <p className="text-sm text-muted-foreground mb-2">Does the setup location support Wi-Fi or a music device connection if needed?</p>
+                <div className="flex gap-6">
+                  {["Yes", "No", "N/A"].map((option) => (
+                    <label key={option} className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="radio"
+                        name="wifiMusicAccess"
+                        value={option}
+                        checked={formData.wifiMusicAccess === option}
+                        onChange={(e) => handleChange("wifiMusicAccess", e.target.value)}
+                        className="w-4 h-4 text-primary"
+                      />
+                      <span className="text-sm">{option}</span>
+                    </label>
+                  ))}
+                </div>
+                {errors.wifiMusicAccess && (
+                  <p className="text-sm text-destructive mt-1">{errors.wifiMusicAccess}</p>
+                )}
+              </div>
+
+              <div>
+                <Label htmlFor="surfaceType">Surface Type *</Label>
+                <Input
+                  id="surfaceType"
+                  type="text"
+                  value={formData.surfaceType}
+                  onChange={(e) => handleChange("surfaceType", e.target.value)}
+                  placeholder="What surface will the nightclub be placed on (grass, concrete, asphalt, or indoors)?"
+                  className={errors.surfaceType ? "border-destructive" : ""}
+                />
+                {errors.surfaceType && (
+                  <p className="text-sm text-destructive mt-1">{errors.surfaceType}</p>
+                )}
+              </div>
+
+              <div>
+                <Label>Access Path *</Label>
+                <p className="text-sm text-muted-foreground mb-2">Is there a clear path (about 3–4 feet wide) from delivery point to setup area?</p>
+                <div className="flex gap-6">
+                  {["Yes", "No", "N/A"].map((option) => (
+                    <label key={option} className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="radio"
+                        name="accessPath"
+                        value={option}
+                        checked={formData.accessPath === option}
+                        onChange={(e) => handleChange("accessPath", e.target.value)}
+                        className="w-4 h-4 text-primary"
+                      />
+                      <span className="text-sm">{option}</span>
+                    </label>
+                  ))}
+                </div>
+                {errors.accessPath && (
+                  <p className="text-sm text-destructive mt-1">{errors.accessPath}</p>
+                )}
+              </div>
+            </div>
           </div>
 
           {/* Terms Agreement */}

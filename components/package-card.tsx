@@ -45,7 +45,7 @@ export function PackageCard({
   return (
     <Card
       className={`relative p-8 bg-card border-2 transition-all hover:scale-105 overflow-hidden ${
-        featured ? `border-primary ${glowClass} pt-12` : "border-border hover:border-primary"
+        featured ? `border-primary pt-12` : "border-border hover:border-primary"
       }`}
     >
       {featured && (
@@ -73,14 +73,14 @@ export function PackageCard({
       )}
 
       <div className="text-center mb-6">
-        <h3 className={`text-3xl font-bold mb-2 ${featured ? textGlowClass : "text-foreground"}`}>
+        <h3 className="text-3xl font-bold mb-2 text-foreground">
           {name}
         </h3>
         <p className="text-muted-foreground mb-4">{description}</p>
         <div className="text-4xl font-bold text-primary mb-2">{price}</div>
       </div>
 
-      <div className="space-y-3 mb-8">
+      <div className="space-y-3">
         {features.map((feature, index) => (
           <div key={index} className="flex items-start gap-3">
             <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
@@ -88,15 +88,6 @@ export function PackageCard({
           </div>
         ))}
       </div>
-
-      <Button
-        className={`w-full ${gradientClass} hover:opacity-90 transition-all text-white font-semibold`}
-        onClick={() => {
-          document.getElementById("request-info")?.scrollIntoView({ behavior: "smooth" });
-        }}
-      >
-        Request Info
-      </Button>
     </Card>
   );
 }

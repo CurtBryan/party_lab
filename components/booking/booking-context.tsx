@@ -22,6 +22,7 @@ const BookingContext = createContext<BookingContextType | undefined>(undefined);
 
 const initialAddOns: AddOns = {
   playlistProjector: false,
+  redRopesCarpet: false,
   extraHour: false,
   glowBags: false,
 };

@@ -75,8 +75,8 @@ export function HeroSection({ onBookNowClick }: HeroSectionProps = {}) {
           {/* Subheadline */}
           <div className="bg-black/50 backdrop-blur-sm rounded-2xl p-6 mb-12 max-w-3xl mx-auto">
             <p className="text-xl sm:text-2xl text-white">
-              Turn any space into a nightclub in 30 minutes! Inflatable nightclubs with LED lighting, premium sound,
-              and curated playlists. Perfect for birthdays, teen parties, and unforgettable celebrations.
+              Turn any space into a nightclub! Inflatable nightclubs with LED lighting, visual dance videos on a projector,
+              and curated playlists—made for birthdays, teen parties, and unforgettable celebrations.
             </p>
           </div>
 
@@ -84,10 +84,10 @@ export function HeroSection({ onBookNowClick }: HeroSectionProps = {}) {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button
               size="lg"
-              className="text-lg px-8 py-6 gradient-purple-pink hover:opacity-90 transition-all glow-purple text-white font-semibold group"
+              className="text-2xl px-12 py-8 gradient-purple-pink hover:opacity-90 hover:scale-105 transition-all glow-purple text-white font-bold group shadow-2xl animate-pulse-glow"
               onClick={onBookNowClick}
             >
-              <Sparkles className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
+              <Sparkles className="w-6 h-6 mr-3 group-hover:rotate-12 transition-transform" />
               Book Now
             </Button>
             <Button

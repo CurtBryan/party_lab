@@ -27,6 +27,37 @@ export function Screen4AddOns() {
     }, 0);
   };
 
+  // Filter add-ons based on selected package
+  const getAvailableAddOns = () => {
+    const selectedPackage = bookingData.package;
+
+    return ADD_ONS.filter((addon) => {
+      // Playlist + Projector: Only for Party Starter (included in Glow Getter & All-Star VIP)
+      if (addon.id === "playlistProjector") {
+        return selectedPackage === "Party Starter";
+      }
+
+      // Red Ropes & Carpet: Only for Party Starter (included in Glow Getter & All-Star VIP)
+      if (addon.id === "redRopesCarpet") {
+        return selectedPackage === "Party Starter";
+      }
+
+      // Glow-Up Party Bags: Only for Party Starter (included in Glow Getter & All-Star VIP)
+      if (addon.id === "glowBags") {
+        return selectedPackage === "Party Starter";
+      }
+
+      // Extra Hour: For Party Starter and Glow Getter only (All-Star VIP has extended hours)
+      if (addon.id === "extraHour") {
+        return selectedPackage === "Party Starter" || selectedPackage === "Glow Getter";
+      }
+
+      return true;
+    });
+  };
+
+  const availableAddOns = getAvailableAddOns();
+
   return (
     <div className="space-y-8">
       <div className="text-center">
@@ -39,42 +70,50 @@ export function Screen4AddOns() {
       </div>
 
       <div className="max-w-3xl mx-auto space-y-4">
-        {ADD_ONS.map((addon) => {
-          const isSelected = bookingData.addOns[addon.id];
+        {availableAddOns.length > 0 ? (
+          availableAddOns.map((addon) => {
+            const isSelected = bookingData.addOns[addon.id];
 
-          return (
-            <Card
-              key={addon.id}
-              onClick={() => handleToggle(addon.id)}
-              className={`p-6 cursor-pointer transition-all border-2 ${
-                isSelected
-                  ? "border-primary bg-primary/5 glow-purple"
-                  : "border-border hover:border-primary"
-              }`}
-            >
-              <div className="flex items-start gap-4">
-                <div
-                  className={`w-6 h-6 rounded border-2 flex items-center justify-center transition-all ${
-                    isSelected
-                      ? "bg-primary border-primary"
-                      : "border-border"
-                  }`}
-                >
-                  {isSelected && <Check className="w-4 h-4 text-primary-foreground" />}
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-xl font-bold">{addon.name}</h3>
-                    <span className="text-2xl font-bold text-primary">
-                      +${addon.price}
-                    </span>
+            return (
+              <Card
+                key={addon.id}
+                onClick={() => handleToggle(addon.id)}
+                className={`p-6 cursor-pointer transition-all border-2 ${
+                  isSelected
+                    ? "border-primary bg-primary/5 glow-purple"
+                    : "border-border hover:border-primary"
+                }`}
+              >
+                <div className="flex items-start gap-4">
+                  <div
+                    className={`w-6 h-6 rounded border-2 flex items-center justify-center transition-all ${
+                      isSelected
+                        ? "bg-primary border-primary"
+                        : "border-border"
+                    }`}
+                  >
+                    {isSelected && <Check className="w-4 h-4 text-primary-foreground" />}
                   </div>
-                  <p className="text-muted-foreground">{addon.description}</p>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="text-xl font-bold">{addon.name}</h3>
+                      <span className="text-2xl font-bold text-primary">
+                        +${addon.price}
+                      </span>
+                    </div>
+                    <p className="text-muted-foreground">{addon.description}</p>
+                  </div>
                 </div>
-              </div>
-            </Card>
-          );
-        })}
+              </Card>
+            );
+          })
+        ) : (
+          <div className="text-center py-12">
+            <p className="text-lg text-muted-foreground">
+              All add-ons are already included in your {bookingData.package} package!
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Summary */}

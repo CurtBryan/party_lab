@@ -1,40 +1,22 @@
-import { Lightbulb, Music, Zap, MapPin, Shield, Clock } from "lucide-react";
+import { Lightbulb, Music, Users } from "lucide-react";
 
 const features = [
   {
-    icon: Zap,
-    title: "30-Minute Setup",
-    description: "Turn any space into a nightclub in 30 minutes! We handle everything - you just show up and party",
+    icon: Lightbulb,
+    title: "Immersive Club Vibes",
+    description: "Inflatable nightclubs with LED lighting and projected dance videos create a high-energy, fully immersive experience.",
     color: "text-primary",
   },
   {
     icon: Music,
     title: "Curated Playlists",
-    description: "No DJ needed! Choose from themed playlists ('90s, EDM, Kpop, Kids, Disney) - just press play",
+    description: "No DJ needed—just press play and choose from themed playlists for every age and vibe.",
     color: "text-secondary",
   },
   {
-    icon: Lightbulb,
-    title: "Full VIP Experience",
-    description: "Color-changing LED lighting, red carpet, and premium sound system included",
-    color: "text-accent",
-  },
-  {
-    icon: MapPin,
-    title: "Options for All Ages",
-    description: "From Kids Dance Parties (Disney, Glow, Pop Star) to Teen Nightclubs - perfect for any celebration",
-    color: "text-primary",
-  },
-  {
-    icon: Shield,
-    title: "Hassle-Free Experience",
-    description: "Premium inflatables, professional sound, themed videos, and glow kits - all in one package",
-    color: "text-secondary",
-  },
-  {
-    icon: Clock,
-    title: "Flexible Packages",
-    description: "3-hour base rentals with easy extensions. Affordable add-ons to customize your perfect party",
+    icon: Users,
+    title: "Made for All Ages",
+    description: "From kids' dance parties to teen nightclub experiences, PartyLab brings the energy to every celebration.",
     color: "text-accent",
   },
 ];
@@ -48,7 +30,7 @@ export function FeaturesSection() {
             Why Choose The Partylab?
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            We bring the complete nightclub experience to your event with professional equipment and hassle-free service.
+            Experience the ultimate party with our inflatable nightclubs, designed to bring unforgettable energy to any celebration.
           </p>
         </div>
 

@@ -1,153 +1,32 @@
 "use client";
 
-import { useState, FormEvent } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { submitContactForm } from "@/app/actions/submit-form";
+import { Sparkles } from "lucide-react";
 
-export function EmailForm() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    eventType: "",
-  });
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+interface EmailFormProps {
+  onBookNowClick?: () => void;
+}
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      const result = await submitContactForm(formData);
-
-      if (result.success) {
-        console.log("Form submitted successfully:", formData);
-        setIsSubmitted(true);
-
-        // Reset form after 5 seconds
-        setTimeout(() => {
-          setFormData({ name: "", email: "", phone: "", eventType: "" });
-          setIsSubmitted(false);
-        }, 5000);
-      } else {
-        alert(result.error || "Failed to send message. Please try again.");
-      }
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      alert("An error occurred. Please try again.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
+export function EmailForm({ onBookNowClick }: EmailFormProps = {}) {
   return (
-    <section id="request-info" className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-2xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-glow-purple">
-            Get Party Info
+    <section id="request-info" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-background to-muted/20">
+      <div className="max-w-4xl mx-auto text-center">
+        <div className="bg-card border-2 border-primary rounded-2xl p-12 glow-purple animate-fade-in">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-glow-purple">
+            Ready to Party?
           </h2>
-          <p className="text-lg text-muted-foreground">
-            Fill out the form below and we'll send you all the details about bringing the nightclub experience to your event!
+          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+            Book your inflatable nightclub experience now and create unforgettable memories!
           </p>
-        </div>
-
-        {isSubmitted ? (
-          <div className="bg-card border border-primary rounded-lg p-8 text-center glow-purple animate-fade-in">
-            <div className="text-6xl mb-4">🎉</div>
-            <h3 className="text-2xl font-bold mb-2 text-primary">
-              Thanks for your interest!
-            </h3>
-            <p className="text-muted-foreground">
-              We'll send you all the party details shortly. Get ready to turn your event into an unforgettable nightclub experience!
-            </p>
-          </div>
-        ) : (
-          <form
-            onSubmit={handleSubmit}
-            className="bg-card border border-border rounded-lg p-8 space-y-6 animate-slide-up"
+          <Button
+            size="lg"
+            onClick={onBookNowClick}
+            className="text-2xl px-12 py-8 gradient-purple-pink hover:opacity-90 hover:scale-105 transition-all glow-purple text-white font-bold shadow-2xl animate-pulse-glow"
           >
-            <div className="space-y-2">
-              <Label htmlFor="name" className="text-foreground">
-                Name *
-              </Label>
-              <Input
-                id="name"
-                name="name"
-                type="text"
-                placeholder="Your name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                className="bg-input border-border focus:border-primary transition-colors"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="email" className="text-foreground">
-                Email *
-              </Label>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="your@email.com"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className="bg-input border-border focus:border-primary transition-colors"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="phone" className="text-foreground">
-                Phone (Optional)
-              </Label>
-              <Input
-                id="phone"
-                name="phone"
-                type="tel"
-                placeholder="(555) 123-4567"
-                value={formData.phone}
-                onChange={handleChange}
-                className="bg-input border-border focus:border-primary transition-colors"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="eventType" className="text-foreground">
-                Event Type
-              </Label>
-              <Input
-                id="eventType"
-                name="eventType"
-                type="text"
-                placeholder="Birthday, Graduation, Sweet 16, etc."
-                value={formData.eventType}
-                onChange={handleChange}
-                className="bg-input border-border focus:border-primary transition-colors"
-              />
-            </div>
-
-            <Button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full text-lg py-6 gradient-purple-pink hover:opacity-90 transition-all glow-purple"
-            >
-              {isSubmitting ? "Sending..." : "Get Party Info"}
-            </Button>
-          </form>
-        )}
+            <Sparkles className="w-6 h-6 mr-3" />
+            Book Now
+          </Button>
+        </div>
       </div>
     </section>
   );

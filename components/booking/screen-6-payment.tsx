@@ -4,13 +4,14 @@ import { useState, useEffect } from "react";
 import { useBooking } from "./booking-context";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Elements, PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import { Elements, PaymentElement, useStripe, useElements, PaymentRequestButtonElement } from "@stripe/react-stripe-js";
 import { getStripe } from "@/lib/stripe";
 import { createPaymentIntent } from "@/app/actions/create-payment-intent";
 import { createBooking } from "@/app/actions/create-booking";
 import { sendConfirmationEmail } from "@/app/actions/send-confirmation-email";
 import { Loader2, CreditCard } from "lucide-react";
 import { format } from "date-fns";
+import type { PaymentRequest } from "@stripe/stripe-js";
 
 function PaymentForm() {
   const stripe = useStripe();
@@ -18,6 +19,68 @@ function PaymentForm() {
   const { bookingData, updateBookingId, nextStep } = useBooking();
   const [isProcessing, setIsProcessing] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [paymentRequest, setPaymentRequest] = useState<PaymentRequest | null>(null);
+
+  useEffect(() => {
+    if (stripe && bookingData.pricing.bookingFee) {
+      const pr = stripe.paymentRequest({
+        country: "US",
+        currency: "usd",
+        total: {
+          label: "Booking Fee",
+          amount: Math.round(bookingData.pricing.bookingFee * 100),
+        },
+        requestPayerName: true,
+        requestPayerEmail: true,
+      });
+
+      // Check if Payment Request is available (Apple Pay, Google Pay, etc.)
+      pr.canMakePayment().then((result) => {
+        if (result) {
+          setPaymentRequest(pr);
+        }
+      });
+
+      pr.on("paymentmethod", async (ev) => {
+        if (!bookingData.paymentIntentId) {
+          ev.complete("fail");
+          return;
+        }
+
+        // Confirm the payment with the payment method from the wallet
+        const { error: confirmError, paymentIntent } = await stripe.confirmCardPayment(
+          bookingData.paymentIntentId,
+          { payment_method: ev.paymentMethod.id },
+          { handleActions: false }
+        );
+
+        if (confirmError) {
+          ev.complete("fail");
+          setErrorMessage(confirmError.message || "Payment failed");
+          return;
+        }
+
+        ev.complete("success");
+
+        if (paymentIntent && paymentIntent.status === "succeeded") {
+          // Create booking in database
+          const bookingResult = await createBooking(bookingData, paymentIntent.id);
+
+          if (!bookingResult.success) {
+            setErrorMessage(bookingResult.error || "Failed to create booking");
+            return;
+          }
+
+          // Send confirmation email
+          await sendConfirmationEmail(bookingData, bookingResult.bookingId!);
+
+          // Update booking ID and go to confirmation screen
+          updateBookingId(bookingResult.bookingId!, paymentIntent.id);
+          nextStep();
+        }
+      });
+    }
+  }, [stripe, bookingData.pricing.bookingFee]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -76,7 +139,32 @@ function PaymentForm() {
           <CreditCard className="w-5 h-5 text-primary" />
           <h3 className="text-xl font-bold">Payment Details</h3>
         </div>
-        <PaymentElement />
+
+        {/* Apple Pay / Google Pay Button */}
+        {paymentRequest && (
+          <div className="mb-6">
+            <PaymentRequestButtonElement options={{ paymentRequest }} />
+            <div className="relative my-6">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-border"></div>
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-background px-2 text-muted-foreground">Or pay with card</span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <PaymentElement
+          options={{
+            layout: {
+              type: "accordion",
+              defaultCollapsed: false,
+              radios: false,
+              spacedAccordionItems: true,
+            },
+          }}
+        />
       </Card>
 
       {errorMessage && (
@@ -144,7 +232,10 @@ export function Screen6Payment() {
           Secure Payment
         </h2>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Review your booking and complete payment to confirm
+          Complete your booking with a secure $100 deposit
+        </p>
+        <p className="text-xs text-muted-foreground mt-2">
+          Secure payment powered by Stripe. Digital wallets available when supported by your device.
         </p>
       </div>
 
