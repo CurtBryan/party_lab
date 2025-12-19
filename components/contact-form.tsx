@@ -167,7 +167,7 @@ export function ContactForm() {
               <div className="flex items-center justify-center md:justify-start gap-3">
                 <Phone className="w-5 h-5 text-primary" />
                 <div>
-                  <p className="text-sm text-muted-foreground">Call us</p>
+                  <p className="text-sm text-muted-foreground">Call or Text</p>
                   <a
                     href="tel:+16027995856"
                     className="font-semibold text-foreground hover:text-primary transition-colors"

@@ -161,7 +161,7 @@ export function Screen2DateTime() {
             />
           </div>
           <p className="text-xs text-muted-foreground text-center mt-4">
-            For bookings within 48 hours, please call (602) 799-5856
+            For bookings within 48 hours, please call or text (602) 799-5856
           </p>
         </Card>
 
