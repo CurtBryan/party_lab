@@ -31,6 +31,23 @@ export function Screen2DateTime() {
   // Calculate minimum date (48 hours from now)
   const minDate = addHours(new Date(), MIN_HOURS_ADVANCE);
 
+  // Initialize custom time fields from saved booking data
+  useEffect(() => {
+    if (bookingData.timeBlock) {
+      // Check if the saved time block is a custom time (not in predefined TIME_BLOCKS)
+      const isPredefinedBlock = TIME_BLOCKS.some(block => block.value === bookingData.timeBlock);
+
+      if (!isPredefinedBlock) {
+        // It's a custom time, parse and populate the fields
+        const [start, end] = bookingData.timeBlock.split("-");
+        setIsCustomTime(true);
+        setCustomStartTime(start);
+        setCustomEndTime(end);
+        setSelectedTimeBlock(null); // Clear the predefined selection
+      }
+    }
+  }, []); // Only run on mount
+
   // Check availability when date changes
   useEffect(() => {
     if (selectedDate && bookingData.product) {
