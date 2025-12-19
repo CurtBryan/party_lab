@@ -21,7 +21,7 @@ interface BookingModalProps {
 }
 
 function BookingModalContent({ onClose }: { onClose: () => void }) {
-  const { bookingData, prevStep } = useBooking();
+  const { bookingData, prevStep, goToStep, isStepCompleted } = useBooking();
   const { currentStep } = bookingData;
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -71,7 +71,12 @@ function BookingModalContent({ onClose }: { onClose: () => void }) {
         <div ref={contentRef} className="overflow-y-auto max-h-[90vh] p-6 sm:p-8">
           {/* Progress indicator */}
           {currentStep !== 7 && (
-            <ProgressIndicator currentStep={currentStep} totalSteps={7} />
+            <ProgressIndicator
+              currentStep={currentStep}
+              totalSteps={7}
+              onStepClick={goToStep}
+              isStepCompleted={isStepCompleted}
+            />
           )}
 
           {/* Step content */}

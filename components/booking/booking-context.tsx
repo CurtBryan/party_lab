@@ -16,6 +16,8 @@ interface BookingContextType {
   prevStep: () => void;
   goToStep: (step: number) => void;
   resetBooking: () => void;
+  isStepCompleted: (step: number) => boolean;
+  arePreviousStepsCompleted: (step: number) => boolean;
 }
 
 const BookingContext = createContext<BookingContextType | undefined>(undefined);
@@ -146,6 +148,37 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
     localStorage.removeItem("partylab_booking");
   };
 
+  const isStepCompleted = (step: number): boolean => {
+    switch (step) {
+      case 1: // Product
+        return bookingData.product !== null;
+      case 2: // Date & Time
+        return bookingData.date !== null && bookingData.timeBlock !== null;
+      case 3: // Package
+        return bookingData.package !== null;
+      case 4: // Add-Ons (always considered complete as it's optional)
+        return true;
+      case 5: // Customer Info
+        return bookingData.customer !== null;
+      case 6: // Payment
+        return bookingData.bookingId !== null;
+      case 7: // Confirmation
+        return bookingData.bookingId !== null;
+      default:
+        return false;
+    }
+  };
+
+  const arePreviousStepsCompleted = (step: number): boolean => {
+    // Check if all steps before the given step are completed
+    for (let i = 1; i < step; i++) {
+      if (!isStepCompleted(i)) {
+        return false;
+      }
+    }
+    return true;
+  };
+
   return (
     <BookingContext.Provider
       value={{
@@ -160,6 +193,8 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
         prevStep,
         goToStep,
         resetBooking,
+        isStepCompleted,
+        arePreviousStepsCompleted,
       }}
     >
       {children}

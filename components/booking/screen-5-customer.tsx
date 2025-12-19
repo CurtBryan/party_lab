@@ -8,9 +8,10 @@ import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { EVENT_TYPES } from "@/lib/constants";
 import type { CustomerInfo } from "@/types/booking";
+import { AlertCircle } from "lucide-react";
 
 export function Screen5Customer() {
-  const { bookingData, updateCustomer, nextStep } = useBooking();
+  const { bookingData, updateCustomer, nextStep, arePreviousStepsCompleted } = useBooking();
 
   const [formData, setFormData] = useState<CustomerInfo>({
     name: bookingData.customer?.name || "",
@@ -140,6 +141,20 @@ export function Screen5Customer() {
           Tell us about your event so we can prepare everything perfectly
         </p>
       </div>
+
+      {!arePreviousStepsCompleted(5) && (
+        <div className="max-w-2xl mx-auto">
+          <div className="flex items-start gap-3 p-4 bg-yellow-500/10 border border-yellow-500/50 rounded-lg">
+            <AlertCircle className="w-5 h-5 text-yellow-500 flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="font-semibold text-yellow-500">Previous Steps Required</p>
+              <p className="text-sm text-muted-foreground mt-1">
+                Please complete the previous steps (Product, Date & Time, and Package) before proceeding to payment. You can click on the step numbers above to navigate back.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       <Card className="max-w-2xl mx-auto p-8">
         <form className="space-y-6">

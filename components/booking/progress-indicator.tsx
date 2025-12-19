@@ -5,34 +5,43 @@ import { Check } from "lucide-react";
 interface ProgressIndicatorProps {
   currentStep: number;
   totalSteps: number;
+  onStepClick: (step: number) => void;
+  isStepCompleted: (step: number) => boolean;
 }
 
-export function ProgressIndicator({ currentStep, totalSteps }: ProgressIndicatorProps) {
+export function ProgressIndicator({
+  currentStep,
+  totalSteps,
+  onStepClick,
+  isStepCompleted
+}: ProgressIndicatorProps) {
   return (
     <div className="w-full max-w-3xl mx-auto mb-8">
       <div className="flex items-center justify-between">
         {Array.from({ length: totalSteps }, (_, i) => i + 1).map((step) => {
-          const isCompleted = step < currentStep;
+          const isCompleted = isStepCompleted(step);
           const isCurrent = step === currentStep;
 
           return (
             <div key={step} className="flex items-center flex-1 last:flex-none">
               <div className="flex flex-col items-center">
-                <div
-                  className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all ${
+                <button
+                  onClick={() => onStepClick(step)}
+                  className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all cursor-pointer hover:scale-110 ${
                     isCompleted
                       ? "bg-primary border-primary text-primary-foreground glow-purple"
                       : isCurrent
                       ? "border-primary text-primary glow-purple"
-                      : "border-border text-muted-foreground"
+                      : "border-border text-muted-foreground hover:border-primary/50"
                   }`}
+                  aria-label={`Go to step ${step}`}
                 >
                   {isCompleted ? (
                     <Check className="w-5 h-5" />
                   ) : (
                     <span className="text-sm font-semibold">{step}</span>
                   )}
-                </div>
+                </button>
                 <span className="text-xs mt-2 text-center hidden sm:block">
                   {step === 1 && "Product"}
                   {step === 2 && "Date & Time"}
