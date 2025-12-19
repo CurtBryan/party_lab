@@ -143,7 +143,7 @@ export default function Home() {
             Ready to Party?
           </h2>
           <p className="text-xl text-muted-foreground mb-8">
-            Join hundreds of satisfied customers who have transformed their events into unforgettable nightclub experiences with The Partylab.
+            We're excited to help you throw an unforgettable party — PartyLab is a locally owned start-up bringing nightclub vibes to celebrations across our community.
           </p>
           <div className="flex flex-wrap justify-center gap-4 text-muted-foreground">
             <span className="px-4 py-2 bg-card rounded-full border border-border hover:border-primary transition-colors">
