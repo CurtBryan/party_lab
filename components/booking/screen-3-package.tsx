@@ -66,7 +66,7 @@ export function Screen3Package() {
                 price={`$${price}`}
                 features={pkg.features}
                 glowColor={pkg.glowColor}
-                featured={pkg.featured}
+                featured={false}
                 imageUrl=""
               />
             </div>
