@@ -29,6 +29,30 @@ export function Screen5Customer() {
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [errors, setErrors] = useState<Partial<Record<keyof CustomerInfo, string>>>({});
 
+  // Track if "Other" is selected for surface type
+  const [otherSurfaceDescription, setOtherSurfaceDescription] = useState(() => {
+    // If saved surfaceType starts with "Other:", extract the description
+    if (bookingData.customer?.surfaceType?.startsWith("Other:")) {
+      return bookingData.customer.surfaceType.substring(6).trim();
+    }
+    return "";
+  });
+
+  const surfaceTypeOptions = [
+    "Grass / Turf (flat, even, free of rocks or sticks)",
+    "Concrete / Asphalt / Driveway (smooth, level, free of debris)",
+    "Indoor Flooring (gym floor, hardwood, tile, etc.)",
+    "Other"
+  ];
+
+  // Determine current surface type selection
+  const getCurrentSurfaceType = () => {
+    if (formData.surfaceType.startsWith("Other:")) {
+      return "Other";
+    }
+    return formData.surfaceType;
+  };
+
   const validateForm = () => {
     const newErrors: Partial<Record<keyof CustomerInfo, string>> = {};
 
@@ -50,7 +74,11 @@ export function Screen5Customer() {
     if (!formData.spaceType?.trim()) newErrors.spaceType = "Space type is required";
     if (!formData.powerSource) newErrors.powerSource = "Power source selection is required";
     if (!formData.wifiMusicAccess) newErrors.wifiMusicAccess = "Wi-Fi/Music access selection is required";
-    if (!formData.surfaceType?.trim()) newErrors.surfaceType = "Surface type is required";
+    if (!formData.surfaceType?.trim()) {
+      newErrors.surfaceType = "Surface type is required";
+    } else if (formData.surfaceType === "Other" || (formData.surfaceType.startsWith("Other:") && formData.surfaceType.trim() === "Other:")) {
+      newErrors.surfaceType = "Please describe the surface type";
+    }
     if (!formData.accessPath) newErrors.accessPath = "Access path selection is required";
 
     setErrors(newErrors);
@@ -62,6 +90,36 @@ export function Screen5Customer() {
     // Clear error when user types
     if (errors[field]) {
       setErrors((prev) => ({ ...prev, [field]: undefined }));
+    }
+  };
+
+  const handleSurfaceTypeChange = (value: string) => {
+    if (value === "Other") {
+      // When "Other" is selected, store as "Other:" + description
+      setFormData((prev) => ({
+        ...prev,
+        surfaceType: otherSurfaceDescription ? `Other: ${otherSurfaceDescription}` : "Other"
+      }));
+    } else {
+      // When a predefined option is selected, store it directly
+      setFormData((prev) => ({ ...prev, surfaceType: value }));
+      setOtherSurfaceDescription(""); // Clear the other description
+    }
+    // Clear error
+    if (errors.surfaceType) {
+      setErrors((prev) => ({ ...prev, surfaceType: undefined }));
+    }
+  };
+
+  const handleOtherSurfaceDescriptionChange = (description: string) => {
+    setOtherSurfaceDescription(description);
+    setFormData((prev) => ({
+      ...prev,
+      surfaceType: description ? `Other: ${description}` : "Other"
+    }));
+    // Clear error
+    if (errors.surfaceType) {
+      setErrors((prev) => ({ ...prev, surfaceType: undefined }));
     }
   };
 
@@ -190,19 +248,58 @@ export function Screen5Customer() {
             <h3 className="text-xl font-semibold mb-4 text-primary">Pre-Event Readiness Checklist *</h3>
             <div className="space-y-4">
               <div>
-                <Label htmlFor="spaceType">Space Type *</Label>
-                <textarea
-                  id="spaceType"
-                  value={formData.spaceType}
-                  onChange={(e) => handleChange("spaceType", e.target.value)}
-                  placeholder="What type of space will we be setting up in, and is it flat and clear of obstacles?"
-                  rows={2}
-                  className={`flex w-full rounded-md border ${
-                    errors.spaceType ? "border-destructive" : "border-input"
-                  } bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring`}
-                />
+                <Label>Is the surface flat and clear of obstacles? *</Label>
+                <div className="flex gap-6 mt-2">
+                  {["Yes", "No"].map((option) => (
+                    <label key={option} className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="radio"
+                        name="spaceType"
+                        value={option}
+                        checked={formData.spaceType === option}
+                        onChange={(e) => handleChange("spaceType", e.target.value)}
+                        className="w-4 h-4 text-primary"
+                      />
+                      <span className="text-sm">{option}</span>
+                    </label>
+                  ))}
+                </div>
                 {errors.spaceType && (
                   <p className="text-sm text-destructive mt-1">{errors.spaceType}</p>
+                )}
+              </div>
+
+              <div>
+                <Label htmlFor="surfaceType">Surface Type *</Label>
+                <select
+                  id="surfaceType"
+                  value={getCurrentSurfaceType()}
+                  onChange={(e) => handleSurfaceTypeChange(e.target.value)}
+                  className={`flex h-10 w-full rounded-md border ${
+                    errors.surfaceType ? "border-destructive" : "border-input"
+                  } bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring`}
+                >
+                  <option value="">Select surface type...</option>
+                  {surfaceTypeOptions.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+                {getCurrentSurfaceType() === "Other" && (
+                  <div className="mt-3">
+                    <Input
+                      id="otherSurfaceDescription"
+                      type="text"
+                      value={otherSurfaceDescription}
+                      onChange={(e) => handleOtherSurfaceDescriptionChange(e.target.value)}
+                      placeholder="Please describe the surface type..."
+                      className={errors.surfaceType ? "border-destructive" : ""}
+                    />
+                  </div>
+                )}
+                {errors.surfaceType && (
+                  <p className="text-sm text-destructive mt-1">{errors.surfaceType}</p>
                 )}
               </div>
 
@@ -249,21 +346,6 @@ export function Screen5Customer() {
                 </div>
                 {errors.wifiMusicAccess && (
                   <p className="text-sm text-destructive mt-1">{errors.wifiMusicAccess}</p>
-                )}
-              </div>
-
-              <div>
-                <Label htmlFor="surfaceType">Surface Type *</Label>
-                <Input
-                  id="surfaceType"
-                  type="text"
-                  value={formData.surfaceType}
-                  onChange={(e) => handleChange("surfaceType", e.target.value)}
-                  placeholder="What surface will the nightclub be placed on (grass, concrete, asphalt, or indoors)?"
-                  className={errors.surfaceType ? "border-destructive" : ""}
-                />
-                {errors.surfaceType && (
-                  <p className="text-sm text-destructive mt-1">{errors.surfaceType}</p>
                 )}
               </div>
 
