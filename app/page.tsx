@@ -195,20 +195,30 @@ export default function Home() {
                 Contact Us
               </h4>
               <div className="space-y-3">
-                <a
-                  href="tel:+1234567890"
-                  className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
-                >
-                  <Phone className="w-4 h-4" />
-                  <span>(602) 799-5856</span>
-                </a>
-                <a
-                  href="mailto:partylabaz@gmail.com"
-                  className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
-                >
-                  <Mail className="w-4 h-4" />
-                  <span>partylabaz@gmail.com</span>
-                </a>
+                <div className="flex items-center gap-2">
+                  <Phone className="w-4 h-4 text-muted-foreground" />
+                  <div>
+                    <p className="text-xs text-muted-foreground">Call or Text</p>
+                    <a
+                      href="tel:+16027995856"
+                      className="text-foreground hover:text-primary transition-colors"
+                    >
+                      (602) 799-5856
+                    </a>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Mail className="w-4 h-4 text-muted-foreground" />
+                  <div>
+                    <p className="text-xs text-muted-foreground">Email</p>
+                    <a
+                      href="mailto:partylabaz@gmail.com"
+                      className="text-foreground hover:text-primary transition-colors"
+                    >
+                      partylabaz@gmail.com
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
 
