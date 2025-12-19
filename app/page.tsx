@@ -164,6 +164,12 @@ export default function Home() {
             <span className="px-4 py-2 bg-card rounded-full border border-border hover:border-primary transition-colors">
               Family Events
             </span>
+            <span className="px-4 py-2 bg-card rounded-full border border-border hover:border-primary transition-colors">
+              Community Events
+            </span>
+            <span className="px-4 py-2 bg-card rounded-full border border-border hover:border-primary transition-colors">
+              School Events
+            </span>
           </div>
         </div>
       </section>
