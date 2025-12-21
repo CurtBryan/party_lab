@@ -69,7 +69,8 @@ partylabaz@gmail.com
 Instagram: @partylabaz
     `.trim();
 
-    const response = await fetch("https://api.web3forms.com/submit", {
+    // Send confirmation email to customer
+    const customerResponse = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -82,13 +83,64 @@ Instagram: @partylabaz
       }),
     });
 
-    const result = await response.json();
+    const customerResult = await customerResponse.json();
 
-    if (!result.success) {
+    if (!customerResult.success) {
       return {
         success: false,
-        error: "Failed to send confirmation email",
+        error: "Failed to send confirmation email to customer",
       };
+    }
+
+    // Send notification email to business
+    const businessEmailBody = `
+NEW BOOKING RECEIVED!
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+BOOKING DETAILS:
+Booking ID: ${bookingId}
+Product: ${bookingData.product}
+Package: ${bookingData.package}
+Date: ${formattedDate}
+Time: ${startTime} - ${endTime}
+
+CUSTOMER INFO:
+Name: ${bookingData.customer.name}
+Email: ${bookingData.customer.email}
+Phone: ${bookingData.customer.phone}
+Location: ${bookingData.customer.address}
+Event Type: ${bookingData.customer.eventType}
+${bookingData.customer.specialRequests ? `Special Requests: ${bookingData.customer.specialRequests}\n` : ''}
+${addOnsList.length > 0 ? `\nADD-ONS:\n${addOnsList.map(addon => `• ${addon}`).join('\n')}\n` : ''}
+PRE-EVENT READINESS INFO:
+${checklistInfo.map(info => `• ${info}`).join('\n')}
+
+PAYMENT:
+Booking Fee Paid: $${bookingData.pricing.bookingFee}
+Remaining Balance: $${bookingData.pricing.total - bookingData.pricing.bookingFee} (Due on event date)
+Total: $${bookingData.pricing.total}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Customer has been sent a confirmation email.
+    `.trim();
+
+    const businessResponse = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        access_key: process.env.WEB3FORMS_ACCESS_KEY,
+        subject: `🎉 New Booking: ${bookingData.customer.name} - ${formattedDate}`,
+        from_name: "Partylab Booking System",
+        email: "partylabaz@gmail.com",
+        message: businessEmailBody,
+      }),
+    });
+
+    const businessResult = await businessResponse.json();
+
+    // We don't fail the booking if business notification fails, just log it
+    if (!businessResult.success) {
+      console.error("Failed to send business notification email");
     }
 
     return { success: true };
