@@ -27,7 +27,7 @@ function PaymentForm() {
         country: "US",
         currency: "usd",
         total: {
-          label: "Booking Fee",
+          label: "Deposit",
           amount: Math.round(bookingData.pricing.bookingFee * 100),
         },
         requestPayerName: true,
@@ -268,7 +268,9 @@ export function Screen6Payment() {
     return <div>Error: Missing booking information</div>;
   }
 
-  const formattedDate = format(new Date(bookingData.date), "MMMM d, yyyy");
+  // Parse date as local timezone to avoid off-by-one errors
+  const [year, month, day] = bookingData.date.split('-').map(Number);
+  const formattedDate = format(new Date(year, month - 1, day), "MMMM d, yyyy");
   const [startTime, endTime] = bookingData.timeBlock.split("-");
 
   // Convert military time to 12-hour format
@@ -372,7 +374,7 @@ export function Screen6Payment() {
                 <span className="font-semibold">${bookingData.pricing.subtotal}</span>
               </div>
               <div className="flex justify-between mb-2">
-                <span>Booking Fee (Due Now)</span>
+                <span>Deposit (Due Now)</span>
                 <span className="font-semibold text-primary">${bookingData.pricing.bookingFee}</span>
               </div>
               <div className="flex justify-between text-lg font-bold border-t border-border pt-2 mt-2">

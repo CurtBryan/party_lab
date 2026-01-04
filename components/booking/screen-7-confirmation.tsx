@@ -86,7 +86,7 @@ export function Screen7Confirmation({ onClose }: Screen7ConfirmationProps) {
 
           <div className="pt-6 border-t border-border">
             <div className="flex justify-between items-center mb-2">
-              <span className="text-muted-foreground">Booking Fee Paid</span>
+              <span className="text-muted-foreground">Deposit Paid</span>
               <span className="font-semibold">${bookingData.pricing.bookingFee}</span>
             </div>
             <div className="flex justify-between items-center text-lg font-bold">

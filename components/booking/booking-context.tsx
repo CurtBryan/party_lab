@@ -88,7 +88,7 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
         pricing: {
           ...prev.pricing,
           subtotal: newSubtotal,
-          total: newSubtotal + BOOKING_FEE,
+          total: newSubtotal, // Package price already includes booking fee
         },
       };
     });
@@ -117,7 +117,7 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
         pricing: {
           ...prev.pricing,
           subtotal: newSubtotal,
-          total: newSubtotal + BOOKING_FEE,
+          total: newSubtotal, // Package price already includes booking fee
         },
       };
     });

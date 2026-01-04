@@ -18,8 +18,8 @@ export async function createPaymentIntent(amount: number) {
         "cashapp",        // Cash App Pay
       ],
       // Apple Pay and Google Pay are automatically included with "card"
-      statement_descriptor_suffix: "BOOKING FEE", // Shows on customer's bank statement
-      description: "PartyLab Event Booking Fee",
+      statement_descriptor_suffix: "DEPOSIT", // Shows on customer's bank statement
+      description: "PartyLab Event Deposit",
     });
 
     return {

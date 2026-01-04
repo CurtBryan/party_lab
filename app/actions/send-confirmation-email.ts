@@ -47,7 +47,7 @@ ${checklistInfo.map(info => `• ${info}`).join('\n')}
 
 PAYMENT:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Booking Fee Paid: $${bookingData.pricing.bookingFee}
+Deposit Paid: $${bookingData.pricing.bookingFee}
 Remaining Balance: $${bookingData.pricing.total - bookingData.pricing.bookingFee}
   (Due on event date)
 
@@ -116,7 +116,7 @@ PRE-EVENT READINESS INFO:
 ${checklistInfo.map(info => `• ${info}`).join('\n')}
 
 PAYMENT:
-Booking Fee Paid: $${bookingData.pricing.bookingFee}
+Deposit Paid: $${bookingData.pricing.bookingFee}
 Remaining Balance: $${bookingData.pricing.total - bookingData.pricing.bookingFee} (Due on event date)
 Total: $${bookingData.pricing.total}
 

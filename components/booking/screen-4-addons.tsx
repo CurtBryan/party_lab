@@ -139,7 +139,7 @@ export function Screen4AddOns() {
             </div>
           </div>
           <div className="text-xs text-muted-foreground pt-2">
-            * $100 booking fee will be charged now. Remaining balance due on event date.
+            * $100 deposit will be charged now. Remaining balance due on event date.
           </div>
         </div>
       </Card>

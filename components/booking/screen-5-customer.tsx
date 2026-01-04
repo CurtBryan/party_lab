@@ -399,7 +399,7 @@ export function Screen5Customer() {
               className="mt-1"
             />
             <Label htmlFor="terms" className="cursor-pointer text-sm leading-relaxed">
-              I understand the $100 booking fee is non-refundable and holds my date, time, and product. The remaining balance is due on the event date. *
+              I understand the $100 deposit is non-refundable and holds my date, time, and product. The remaining balance is due on the event date. *
             </Label>
           </div>
         </form>
