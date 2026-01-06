@@ -156,8 +156,8 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
         return bookingData.date !== null && bookingData.timeBlock !== null;
       case 3: // Package
         return bookingData.package !== null;
-      case 4: // Add-Ons (always considered complete as it's optional)
-        return true;
+      case 4: // Add-Ons (complete if user has moved past this step)
+        return bookingData.currentStep > 4;
       case 5: // Customer Info
         return bookingData.customer !== null;
       case 6: // Payment
