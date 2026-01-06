@@ -1,12 +1,12 @@
 "use server";
 
-import { supabase } from "@/lib/supabase";
+import { supabaseServer } from "@/lib/supabase-server";
 import { TIME_BLOCKS } from "@/lib/constants";
 
 export async function checkAvailability(date: string, product: string) {
   try {
     // Query 1: Get all bookings for this date and product
-    const { data: bookings, error: bookingsError } = await supabase
+    const { data: bookings, error: bookingsError } = await supabaseServer
       .from("bookings")
       .select("event_time_start, event_time_end")
       .eq("event_date", date)
@@ -19,7 +19,7 @@ export async function checkAvailability(date: string, product: string) {
     }
 
     // Query 2: Get all active overrides for this date
-    const { data: overrides, error: overridesError } = await supabase
+    const { data: overrides, error: overridesError } = await supabaseServer
       .from("availability_overrides")
       .select("time_block, product")
       .eq("override_date", date)
