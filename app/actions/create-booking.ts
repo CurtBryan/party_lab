@@ -1,6 +1,6 @@
 "use server";
 
-import { supabase } from "@/lib/supabase";
+import { supabaseServer } from "@/lib/supabase-server";
 import type { BookingData } from "@/types/booking";
 
 export async function createBooking(bookingData: BookingData, paymentIntentId: string) {
@@ -15,8 +15,8 @@ export async function createBooking(bookingData: BookingData, paymentIntentId: s
     // Parse time block
     const [startTime, endTime] = bookingData.timeBlock.split("-");
 
-    // Insert booking into Supabase (RLS temporarily disabled)
-    const { data, error } = await supabase
+    // Insert booking into Supabase using service role client
+    const { data, error } = await supabaseServer
       .from("bookings")
       .insert({
         product: bookingData.product,
