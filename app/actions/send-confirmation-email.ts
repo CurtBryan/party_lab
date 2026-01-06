@@ -1,7 +1,10 @@
 "use server";
 
+import { Resend } from "resend";
 import type { BookingData } from "@/types/booking";
 import { format } from "date-fns";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function sendConfirmationEmail(bookingData: BookingData, bookingId: string) {
   try {
@@ -70,22 +73,15 @@ Instagram: @partylabaz
     `.trim();
 
     // Send confirmation email to customer
-    const customerResponse = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        access_key: process.env.WEB3FORMS_ACCESS_KEY,
-        subject: `Booking Confirmed - ${bookingId}`,
-        from_name: "The Partylab",
-        name: bookingData.customer.name,
-        email: bookingData.customer.email,
-        message: emailBody,
-      }),
+    const { error: customerError } = await resend.emails.send({
+      from: "The Partylab <onboarding@resend.dev>",
+      to: [bookingData.customer.email],
+      subject: `Booking Confirmed - ${bookingId}`,
+      text: emailBody,
     });
 
-    const customerResult = await customerResponse.json();
-
-    if (!customerResult.success) {
+    if (customerError) {
+      console.error("Failed to send customer email:", customerError);
       return {
         success: false,
         error: "Failed to send confirmation email to customer",
@@ -124,23 +120,16 @@ Total: $${bookingData.pricing.total}
 Customer has been sent a confirmation email.
     `.trim();
 
-    const businessResponse = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        access_key: process.env.WEB3FORMS_ACCESS_KEY,
-        subject: `🎉 New Booking: ${bookingData.customer.name} - ${formattedDate}`,
-        from_name: "Partylab Booking System",
-        email: "partylabaz@gmail.com",
-        message: businessEmailBody,
-      }),
+    const { error: businessError } = await resend.emails.send({
+      from: "Partylab Booking System <onboarding@resend.dev>",
+      to: ["partylabaz@gmail.com"],
+      subject: `🎉 New Booking: ${bookingData.customer.name} - ${formattedDate}`,
+      text: businessEmailBody,
     });
 
-    const businessResult = await businessResponse.json();
-
     // We don't fail the booking if business notification fails, just log it
-    if (!businessResult.success) {
-      console.error("Failed to send business notification email");
+    if (businessError) {
+      console.error("Failed to send business notification email:", businessError);
     }
 
     return { success: true };

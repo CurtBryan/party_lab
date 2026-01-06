@@ -1,5 +1,9 @@
 "use server";
 
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
 export async function submitContactForm(formData: {
   name: string;
   email: string;
@@ -8,18 +12,32 @@ export async function submitContactForm(formData: {
   message?: string;
 }) {
   try {
-    const response = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        access_key: process.env.WEB3FORMS_ACCESS_KEY,
-        ...formData,
-      }),
+    const emailBody = `
+NEW CONTACT FORM SUBMISSION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Contact Information:
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone}
+Event Type: ${formData.eventType}
+
+${formData.message ? `Message:\n${formData.message}` : 'No additional message provided.'}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+This inquiry was submitted via the contact form on partylabaz.com
+    `.trim();
+
+    const { error } = await resend.emails.send({
+      from: "Partylab Contact Form <onboarding@resend.dev>",
+      to: ["partylabaz@gmail.com"],
+      replyTo: formData.email,
+      subject: `New Contact: ${formData.name} - ${formData.eventType}`,
+      text: emailBody,
     });
 
-    const result = await response.json();
-
-    if (!result.success) {
+    if (error) {
+      console.error("Error sending contact form:", error);
       return {
         success: false,
         error: "Failed to send message. Please try again.",
