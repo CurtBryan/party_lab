@@ -202,8 +202,25 @@ function PaymentForm() {
       </Card>
 
       {errorMessage && (
-        <div className="p-4 bg-destructive/10 border border-destructive rounded-lg text-destructive text-sm">
-          {errorMessage}
+        <div className="p-4 bg-destructive/10 border border-destructive rounded-lg space-y-2">
+          <p className="text-destructive text-sm font-semibold">{errorMessage}</p>
+          <p className="text-sm text-foreground">
+            Having trouble? <strong>Call or text us to complete your booking:</strong>
+          </p>
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
+            <a
+              href="tel:6027995856"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-all text-sm font-medium"
+            >
+              📞 Call (602) 799-5856
+            </a>
+            <a
+              href="sms:6027995856"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-secondary text-secondary-foreground rounded-lg hover:opacity-90 transition-all text-sm font-medium"
+            >
+              💬 Text (602) 799-5856
+            </a>
+          </div>
         </div>
       )}
 
