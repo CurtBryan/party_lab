@@ -6,7 +6,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2025-11-17.clover",
 });
 
-export async function createPaymentIntent(amount: number) {
+export async function createPaymentIntent(amount: number, customerEmail?: string, customerName?: string) {
   try {
     const paymentIntent = await stripe.paymentIntents.create({
       amount: Math.round(amount * 100), // Convert to cents
@@ -20,6 +20,12 @@ export async function createPaymentIntent(amount: number) {
       // Apple Pay and Google Pay are automatically included with "card"
       statement_descriptor_suffix: "DEPOSIT", // Shows on customer's bank statement
       description: "PartyLab Event Deposit",
+      // Include customer email and name for Stripe receipts
+      receipt_email: customerEmail,
+      metadata: {
+        customer_name: customerName || "",
+        customer_email: customerEmail || "",
+      },
     });
 
     return {

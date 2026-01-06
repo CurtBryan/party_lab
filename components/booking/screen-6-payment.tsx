@@ -277,7 +277,11 @@ export function Screen6Payment() {
 
       // Create new payment intent (only if we don't have one)
       if (!bookingData.paymentIntentId) {
-        const result = await createPaymentIntent(bookingData.pricing.bookingFee);
+        const result = await createPaymentIntent(
+          bookingData.pricing.bookingFee,
+          bookingData.customer?.email,
+          bookingData.customer?.name
+        );
 
         if (result.success && result.clientSecret && result.paymentIntentId) {
           setClientSecret(result.clientSecret);
