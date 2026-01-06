@@ -11,7 +11,7 @@ interface BookingContextType {
   updatePackage: (pkg: BookingData["package"], price: number) => void;
   updateAddOns: (addOns: AddOns) => void;
   updateCustomer: (customer: CustomerInfo) => void;
-  updateBookingId: (bookingId: string, paymentIntentId: string) => void;
+  updateBookingId: (bookingId: string, paymentIntentId: string, clientSecret?: string) => void;
   nextStep: () => void;
   prevStep: () => void;
   goToStep: (step: number) => void;
@@ -46,6 +46,7 @@ const initialBookingData: BookingData = {
   pricing: initialPricing,
   bookingId: null,
   paymentIntentId: null,
+  clientSecret: null,
 };
 
 export function BookingProvider({ children }: { children: React.ReactNode }) {
@@ -127,8 +128,13 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
     setBookingData((prev) => ({ ...prev, customer }));
   };
 
-  const updateBookingId = (bookingId: string, paymentIntentId: string) => {
-    setBookingData((prev) => ({ ...prev, bookingId, paymentIntentId }));
+  const updateBookingId = (bookingId: string, paymentIntentId: string, clientSecret?: string) => {
+    setBookingData((prev) => ({
+      ...prev,
+      bookingId,
+      paymentIntentId,
+      ...(clientSecret && { clientSecret })
+    }));
   };
 
   const nextStep = () => {

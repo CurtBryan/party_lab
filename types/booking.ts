@@ -41,6 +41,7 @@ export interface BookingData {
   pricing: Pricing;
   bookingId: string | null;
   paymentIntentId: string | null;
+  clientSecret: string | null;
 }
 
 export interface Product {

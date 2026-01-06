@@ -249,13 +249,23 @@ export function Screen6Payment() {
   const [isSummaryCollapsed, setIsSummaryCollapsed] = useState(false);
 
   useEffect(() => {
-    // Create payment intent when component mounts
+    // Create payment intent when component mounts (only if one doesn't exist)
     const initializePayment = async () => {
-      const result = await createPaymentIntent(bookingData.pricing.bookingFee);
+      // If we already have a payment intent AND client secret, reuse them
+      if (bookingData.paymentIntentId && bookingData.clientSecret) {
+        setClientSecret(bookingData.clientSecret);
+        setIsLoading(false);
+        return;
+      }
 
-      if (result.success && result.clientSecret && result.paymentIntentId) {
-        setClientSecret(result.clientSecret);
-        updateBookingId("", result.paymentIntentId);
+      // Create new payment intent (only if we don't have one)
+      if (!bookingData.paymentIntentId) {
+        const result = await createPaymentIntent(bookingData.pricing.bookingFee);
+
+        if (result.success && result.clientSecret && result.paymentIntentId) {
+          setClientSecret(result.clientSecret);
+          updateBookingId("", result.paymentIntentId, result.clientSecret);
+        }
       }
 
       setIsLoading(false);
