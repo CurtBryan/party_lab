@@ -1,14 +1,18 @@
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Sparkles, Calendar, Instagram } from "lucide-react";
+import { Sparkles, Calendar, Instagram, MessageCircle } from "lucide-react";
 import Image from "next/image";
+import { TalkToUsModal } from "@/components/talk-to-us-modal";
 
 interface HeroSectionProps {
   onBookNowClick?: () => void;
 }
 
 export function HeroSection({ onBookNowClick }: HeroSectionProps = {}) {
+  const [isTalkToUsOpen, setIsTalkToUsOpen] = useState(false);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden">
       {/* Logo - Top Left */}
@@ -81,15 +85,29 @@ export function HeroSection({ onBookNowClick }: HeroSectionProps = {}) {
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button
-              size="lg"
-              className="text-2xl px-12 py-8 gradient-purple-pink hover:opacity-90 hover:scale-105 transition-all glow-purple text-white font-bold group shadow-2xl animate-pulse-glow"
-              onClick={onBookNowClick}
-            >
-              <Sparkles className="w-6 h-6 mr-3 group-hover:rotate-12 transition-transform" />
-              Book Now
-            </Button>
+          <div className="flex flex-col gap-4 justify-center items-center">
+            {/* Main Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button
+                size="lg"
+                className="text-2xl px-12 py-8 gradient-purple-pink hover:opacity-90 hover:scale-105 transition-all glow-purple text-white font-bold group shadow-2xl animate-pulse-glow"
+                onClick={onBookNowClick}
+              >
+                <Sparkles className="w-6 h-6 mr-3 group-hover:rotate-12 transition-transform" />
+                Book Now
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="text-xl px-10 py-8 border-2 border-primary bg-primary/10 backdrop-blur-sm text-white hover:bg-primary/20 hover:scale-105 transition-all group glow-purple"
+                onClick={() => setIsTalkToUsOpen(true)}
+              >
+                <MessageCircle className="w-6 h-6 mr-3 group-hover:scale-110 transition-transform" />
+                Talk to Us First
+              </Button>
+            </div>
+
+            {/* Secondary Button */}
             <Button
               size="lg"
               variant="outline"
@@ -122,6 +140,12 @@ export function HeroSection({ onBookNowClick }: HeroSectionProps = {}) {
           <div className="w-1 h-3 bg-primary rounded-full animate-pulse" />
         </div>
       </div>
+
+      {/* Talk to Us Modal */}
+      <TalkToUsModal
+        isOpen={isTalkToUsOpen}
+        onClose={() => setIsTalkToUsOpen(false)}
+      />
     </section>
   );
 }

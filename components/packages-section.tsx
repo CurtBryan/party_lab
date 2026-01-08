@@ -48,11 +48,11 @@ export function PackagesSection({ onBookNowClick }: PackagesSectionProps = {}) {
           </p>
         </div>
 
-        {/* Step 1: Choose Your Product */}
+        {/* Choose Your Product */}
         <div className="mb-20">
           <div className="text-center mb-10">
             <h3 className="text-3xl md:text-4xl font-bold mb-3 text-glow-purple">
-              Step 1: Choose Your Product
+              Choose Your Product
             </h3>
             <p className="text-muted-foreground">
               Select your inflatable nightclub venue style
@@ -68,7 +68,7 @@ export function PackagesSection({ onBookNowClick }: PackagesSectionProps = {}) {
         <div className="mb-20" ref={experienceRef}>
           <div className="text-center mb-10">
             <h3 className="text-3xl md:text-4xl font-bold mb-3 text-glow-pink">
-              Step 2: Choose Your Party Experience
+              Choose Your Party Experience
             </h3>
             <p className="text-muted-foreground">
               Pick the experience tier that fits your celebration

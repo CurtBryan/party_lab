@@ -23,7 +23,7 @@ test.describe('Booking Flow - Critical Bug Fixes', () => {
     await page.getByRole('button', { name: /book now/i }).first().click();
 
     // Wait for booking modal to open (Screen 1)
-    await expect(page.getByRole('heading', { name: /step 1.*choose your product/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /choose your product/i })).toBeVisible();
 
     // Select Dance Dome product (first instance in the modal)
     await page.getByRole('heading', { name: 'Dance Dome' }).first().click();
@@ -98,7 +98,7 @@ test.describe('Booking Flow - Critical Bug Fixes', () => {
     await page.getByRole('button', { name: /book now/i }).first().click();
 
     // Wait for modal and select Dance Dome
-    await expect(page.getByRole('heading', { name: /step 1.*choose your product/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /choose your product/i })).toBeVisible();
     await page.getByRole('heading', { name: 'Dance Dome' }).first().click();
     await page.getByRole('button', { name: /continue/i }).click();
 
@@ -168,7 +168,7 @@ test.describe('Booking Flow - Critical Bug Fixes', () => {
     await page.getByRole('button', { name: /book now/i }).first().click();
 
     // Wait for modal and go through booking flow quickly
-    await expect(page.getByRole('heading', { name: /step 1.*choose your product/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /choose your product/i })).toBeVisible();
     await page.getByRole('heading', { name: 'Dance Dome' }).first().click();
     await page.getByRole('button', { name: /continue/i }).click();
 
@@ -228,7 +228,7 @@ test.describe('Booking Flow - Critical Bug Fixes', () => {
     await page.getByRole('button', { name: /book now/i }).first().click();
 
     // Screen 1: Product Selection
-    await expect(page.getByRole('heading', { name: /step 1.*choose your product/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /choose your product/i })).toBeVisible();
     await page.getByRole('heading', { name: 'Dance Dome' }).first().click();
     await page.getByRole('button', { name: /continue/i }).click();
 
