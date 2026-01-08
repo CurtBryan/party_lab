@@ -74,7 +74,7 @@ export function PackagesSection({ onBookNowClick }: PackagesSectionProps = {}) {
               Pick the experience tier that fits your celebration
             </p>
           </div>
-          <div className="grid grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-3">
             <PackageCard
               name="Party Starter"
               description="Perfect for birthdays & small gatherings"
@@ -84,21 +84,6 @@ export function PackagesSection({ onBookNowClick }: PackagesSectionProps = {}) {
                 "Bluetooth Speaker Sound System",
                 "3-Hour Rental",
                 "Setup & Teardown Included",
-                "⚠️ LED lights limited in daylight",
-              ]}
-              glowColor="purple"
-            />
-
-            <PackageCard
-              name="Daylight Dance"
-              description="Daytime party package with all the essentials (no projector)"
-              price={getPricing("275", "350")}
-              features={[
-                "Everything in Party Starter",
-                "Red Ropes & Carpet",
-                "Glow Up Kit (20) Included",
-                "Wireless Microphones Included",
-                "Curated Playlist",
                 "⚠️ LED lights limited in daylight",
               ]}
               glowColor="purple"

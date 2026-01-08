@@ -9,14 +9,6 @@ import type { PackageType } from "@/types/booking";
 export function Screen3Package() {
   const { bookingData, updatePackage, nextStep } = useBooking();
 
-  // Check if booking is during daylight hours (before 5 PM)
-  const isDaylightBooking = () => {
-    if (!bookingData.timeBlock) return false;
-    const startTime = bookingData.timeBlock.split("-")[0];
-    const hour = parseInt(startTime.split(":")[0]);
-    return hour < 17; // Before 5:00 PM
-  };
-
   // Get product-specific pricing
   const getPackagePrice = (packageName: PackageType): number => {
     const isDanceDome = bookingData.product === "Dance Dome";
@@ -24,8 +16,6 @@ export function Screen3Package() {
     switch (packageName) {
       case "Party Starter":
         return isDanceDome ? 250 : 300;
-      case "Daylight Dance":
-        return isDanceDome ? 275 : 350;
       case "Glow Getter":
         return isDanceDome ? 325 : 400;
       case "All-Star VIP":
@@ -57,32 +47,26 @@ export function Screen3Package() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-3">
         {PACKAGES.map((pkg) => {
           const isSelected = bookingData.package === pkg.name;
           const price = getPackagePrice(pkg.name);
-          const isRecommendedForDaylight = isDaylightBooking() && pkg.name === "Daylight Dance";
 
           return (
             <div
               key={pkg.name}
               onClick={() => handleSelect(pkg.name)}
-              className={`cursor-pointer transition-all relative ${
+              className={`cursor-pointer transition-all ${
                 isSelected ? "ring-4 ring-primary rounded-lg glow-purple" : ""
               }`}
             >
-              {isRecommendedForDaylight && (
-                <div className="absolute -top-2 left-1/2 -translate-x-1/2 z-10 bg-gradient-to-r from-amber-500 to-orange-500 text-white px-3 py-1 rounded-md text-xs font-semibold shadow-md">
-                  ☀️ Most Popular for Daylight Parties
-                </div>
-              )}
               <PackageCard
                 name={pkg.name}
                 description={pkg.description}
                 price={`$${price}`}
                 features={pkg.features}
                 glowColor={pkg.glowColor}
-                featured={false}
+                featured={pkg.featured}
                 imageUrl=""
               />
             </div>

@@ -42,20 +42,6 @@ export const PACKAGES: Package[] = [
     glowColor: "purple",
   },
   {
-    name: "Daylight Dance",
-    price: 350,
-    description: "Daytime party package with all the essentials (no projector)",
-    features: [
-      "Everything in Party Starter",
-      "Red Ropes & Carpet",
-      "Glow Up Kit (20) Included",
-      "Wireless Microphones Included",
-      "Curated Playlist",
-      "⚠️ Note: LED lights have limited visibility in daylight",
-    ],
-    glowColor: "purple",
-  },
-  {
     name: "Glow Getter",
     price: 400,
     description: "A VIP vibe with built-in extras",
