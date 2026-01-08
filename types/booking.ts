@@ -1,5 +1,5 @@
 export type ProductType = "Dance Dome" | "Light Haus" | "Club Noir";
-export type PackageType = "Party Starter" | "Glow Getter" | "All-Star VIP";
+export type PackageType = "Party Starter" | "Daylight Dance" | "Glow Getter" | "All-Star VIP";
 export type TimeBlock = "10:00-13:00" | "13:30-16:30" | "17:00-20:00" | string;
 
 export interface AddOns {

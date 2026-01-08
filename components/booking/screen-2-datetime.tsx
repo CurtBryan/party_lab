@@ -134,6 +134,20 @@ export function Screen2DateTime() {
 
   const isCustomTimeValid = customStartTime && customEndTime && customStartTime < customEndTime;
 
+  // Check if selected time is during daylight hours (before 5 PM)
+  const isDaylightBooking = () => {
+    if (selectedTimeBlock) {
+      const startTime = selectedTimeBlock.split("-")[0];
+      const hour = parseInt(startTime.split(":")[0]);
+      return hour < 17;
+    }
+    if (isCustomTime && customStartTime) {
+      const hour = parseInt(customStartTime.split(":")[0]);
+      return hour < 17;
+    }
+    return false;
+  };
+
   return (
     <div className="space-y-8">
       <div className="text-center">
@@ -149,6 +163,23 @@ export function Screen2DateTime() {
           </p>
         )}
       </div>
+
+      {/* Daylight projector warning - Top position */}
+      {isDaylightBooking() && (
+        <Card className="max-w-3xl mx-auto p-6 bg-amber-500/10 border-2 border-amber-500/30">
+          <div className="flex items-start gap-3">
+            <span className="text-2xl">☀️</span>
+            <div>
+              <h4 className="font-semibold text-amber-700 dark:text-amber-400 mb-2">
+                Daylight Booking Notice
+              </h4>
+              <p className="text-sm text-amber-600 dark:text-amber-300">
+                LED lights and projector visibility will be limited with daylight bookings. For best visual effects, we recommend evening events or indoor setups with minimal natural light.
+              </p>
+            </div>
+          </div>
+        </Card>
+      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
         {/* Calendar */}

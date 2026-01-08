@@ -32,24 +32,24 @@ export function Screen4AddOns() {
     const selectedPackage = bookingData.package;
 
     return ADD_ONS.filter((addon) => {
-      // Playlist + Projector: Only for Party Starter (included in Glow Getter & All-Star VIP)
+      // Playlist + Projector: For Party Starter and Glow Getter (included in All-Star VIP, not available for Daylight Dance)
       if (addon.id === "playlistProjector") {
-        return selectedPackage === "Party Starter";
+        return selectedPackage === "Party Starter" || selectedPackage === "Glow Getter";
       }
 
-      // Red Ropes & Carpet: Only for Party Starter (included in Glow Getter & All-Star VIP)
+      // Red Ropes & Carpet: Only for Party Starter (included in Daylight Dance, Glow Getter & All-Star VIP)
       if (addon.id === "redRopesCarpet") {
         return selectedPackage === "Party Starter";
       }
 
-      // Glow-Up Party Bags: Only for Party Starter (included in Glow Getter & All-Star VIP)
+      // Glow-Up Party Bags: Only for Party Starter (included in Daylight Dance, Glow Getter & All-Star VIP)
       if (addon.id === "glowBags") {
         return selectedPackage === "Party Starter";
       }
 
-      // Extra Hour: For Party Starter and Glow Getter only (All-Star VIP has extended hours)
+      // Extra Hour: For Party Starter, Daylight Dance, and Glow Getter only (All-Star VIP has extended hours)
       if (addon.id === "extraHour") {
-        return selectedPackage === "Party Starter" || selectedPackage === "Glow Getter";
+        return selectedPackage === "Party Starter" || selectedPackage === "Daylight Dance" || selectedPackage === "Glow Getter";
       }
 
       return true;
