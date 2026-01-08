@@ -11,7 +11,7 @@ export async function checkAvailability(date: string, product: string) {
       .select("event_time_start, event_time_end")
       .eq("event_date", date)
       .eq("product", product)
-      .in("booking_status", ["confirmed", "pending"]); // Only active bookings
+      .in("booking_status", ["confirmed", "pending", "blocked"]); // Active bookings and blocked slots
 
     if (bookingsError) {
       console.error("Error fetching bookings:", bookingsError);
