@@ -69,13 +69,11 @@ export function Screen3Package() {
               onClick={() => handleSelect(pkg.name)}
               className={`cursor-pointer transition-all relative ${
                 isSelected ? "ring-4 ring-primary rounded-lg glow-purple" : ""
-              } ${
-                isRecommendedForDaylight && !isSelected ? "ring-2 ring-amber-500/50 rounded-lg" : ""
               }`}
             >
               {isRecommendedForDaylight && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10 bg-amber-500 text-white px-4 py-1 rounded-full text-xs font-semibold shadow-lg">
-                  ☀️ Recommended for Daytime
+                <div className="absolute -top-2 left-1/2 -translate-x-1/2 z-10 bg-gradient-to-r from-amber-500 to-orange-500 text-white px-3 py-1 rounded-md text-xs font-semibold shadow-md">
+                  ☀️ Most Popular for Daylight Parties
                 </div>
               )}
               <PackageCard
