@@ -84,10 +84,7 @@ Instagram: @partylabaz
 
     if (customerError) {
       console.error("Failed to send customer email:", customerError);
-      return {
-        success: false,
-        error: "Failed to send confirmation email to customer",
-      };
+      // Don't return - continue to send business notification
     }
 
     // Send notification email to business
