@@ -13,7 +13,9 @@ export async function sendConfirmationEmail(bookingData: BookingData, bookingId:
     }
 
     const [startTime, endTime] = bookingData.timeBlock.split("-");
-    const formattedDate = format(new Date(bookingData.date), "MMMM d, yyyy");
+    // Parse date as local timezone to avoid off-by-one errors
+    const [year, month, day] = bookingData.date.split('-').map(Number);
+    const formattedDate = format(new Date(year, month - 1, day), "MMMM d, yyyy");
 
     // Build add-ons list
     const addOnsList = [];

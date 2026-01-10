@@ -17,7 +17,9 @@ export function Screen7Confirmation({ onClose }: Screen7ConfirmationProps) {
     return <div>Error: Missing booking information</div>;
   }
 
-  const formattedDate = format(new Date(bookingData.date), "MMMM d, yyyy");
+  // Parse date as local timezone to avoid off-by-one errors
+  const [year, month, day] = bookingData.date.split('-').map(Number);
+  const formattedDate = format(new Date(year, month - 1, day), "MMMM d, yyyy");
   const [startTime, endTime] = bookingData.timeBlock.split("-");
 
   // Convert military time to 12-hour format

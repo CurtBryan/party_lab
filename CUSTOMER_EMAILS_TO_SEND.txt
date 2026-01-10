@@ -1,0 +1,105 @@
+================================================================================
+MANUAL CONFIRMATION EMAILS TO SEND
+================================================================================
+
+These emails need to be sent manually until the domain is verified in Resend.
+
+================================================================================
+EMAIL #1: Donna Elick
+================================================================================
+TO: donna@tsrifood.com
+SUBJECT: Booking Confirmed - 38ccc261-970a-4847-999b-61d610cf791b
+
+Hi Donna Elick,
+
+Your booking is confirmed! 🎉
+
+BOOKING DETAILS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Booking ID: 38ccc261-970a-4847-999b-61d610cf791b
+Product: Light Haus
+Package: All-Star VIP
+Date: January 24, 2026
+Time: 2:00 PM - 11:55 PM
+Location: 9368 W Monte Lindo, Peoria, AZ 85383
+
+PAYMENT:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Deposit Paid: $100
+Remaining Balance: $400
+  (Due on event date)
+
+NEXT STEPS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. We'll arrive 30 minutes before your event for setup
+2. All equipment will be ready for your start time
+3. We'll handle teardown after your event ends
+
+Questions? Call us at (602) 799-5856 or reply to this email.
+
+Thanks for choosing The Partylab!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+The Partylab
+Arizona's Premier Inflatable Nightclub for Kids
+(602) 799-5856
+partylabaz@gmail.com
+Instagram: @partylabaz
+
+================================================================================
+EMAIL #2: Grandview Neighborhood Association
+================================================================================
+TO: mygrandviewphx@gmail.com
+SUBJECT: Booking Confirmed - 8ac689dc-7ee5-4e37-b1cb-ef47d7fad4e5
+
+Hi Grandview Neighborhood Association,
+
+Your booking is confirmed! 🎉
+
+BOOKING DETAILS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Booking ID: 8ac689dc-7ee5-4e37-b1cb-ef47d7fad4e5
+Product: Dance Dome
+Package: Party Starter
+Date: February 7, 2026
+Time: 3:00 PM - 6:00 PM
+Location: 4566 N 12th Drive Phoenix 85013
+
+PAYMENT:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Deposit Paid: $100
+Remaining Balance: $150
+  (Due on event date)
+
+NEXT STEPS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. We'll arrive 30 minutes before your event for setup
+2. All equipment will be ready for your start time
+3. We'll handle teardown after your event ends
+
+Questions? Call us at (602) 799-5856 or reply to this email.
+
+Thanks for choosing The Partylab!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+The Partylab
+Arizona's Premier Inflatable Nightclub for Kids
+(602) 799-5856
+partylabaz@gmail.com
+Instagram: @partylabaz
+
+================================================================================
+IMPORTANT NEXT STEPS TO FIX EMAIL DELIVERY:
+================================================================================
+
+1. VERIFY DOMAIN IN RESEND (URGENT!)
+   - Go to https://resend.com/domains
+   - Complete the domain verification for partylabaz.com
+   - The DNS records need to be added in Vercel
+
+2. Once domain is verified, the code will automatically send confirmation
+   emails to both customers AND partylabaz@gmail.com
+
+3. The date display bug has been fixed - dates will now show correctly
+
+================================================================================
