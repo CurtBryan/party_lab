@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Calendar, Clock, Phone, Mail, MessageCircle } from "lucide-react";
+import { Calendar, Clock } from "lucide-react";
 import { DayPicker } from "react-day-picker";
 import { format, addHours, isAfter } from "date-fns";
 import { TIME_BLOCKS, MIN_HOURS_ADVANCE } from "@/lib/constants";
@@ -34,17 +34,19 @@ export function Screen2DateTime() {
   // Initialize custom time fields from saved booking data
   useEffect(() => {
     if (bookingData.timeBlock) {
+      // Check if the saved time block is a custom time (not in predefined TIME_BLOCKS)
       const isPredefinedBlock = TIME_BLOCKS.some(block => block.value === bookingData.timeBlock);
 
       if (!isPredefinedBlock) {
+        // It's a custom time, parse and populate the fields
         const [start, end] = bookingData.timeBlock.split("-");
         setIsCustomTime(true);
         setCustomStartTime(start);
         setCustomEndTime(end);
-        setSelectedTimeBlock(null);
+        setSelectedTimeBlock(null); // Clear the predefined selection
       }
     }
-  }, []);
+  }, []); // Only run on mount
 
   // Check availability when date changes
   useEffect(() => {
@@ -81,9 +83,8 @@ export function Screen2DateTime() {
 
   const handleDateSelect = (date: Date | undefined) => {
     setSelectedDate(date);
-    setSelectedTimeBlock(null);
-    // Automatically open custom time picker when date is selected
-    setIsCustomTime(true);
+    setSelectedTimeBlock(null); // Reset time block when date changes
+    setIsCustomTime(false);
     setCustomStartTime("");
     setCustomEndTime("");
   };
@@ -99,8 +100,17 @@ export function Screen2DateTime() {
   };
 
   const handleContinue = () => {
-    if (selectedDate && customStartTime && customEndTime && customStartTime < customEndTime) {
-      const timeBlock: TimeBlock = `${customStartTime}-${customEndTime}`;
+    if (selectedDate) {
+      let timeBlock: TimeBlock;
+
+      if (isCustomTime && customStartTime && customEndTime) {
+        timeBlock = `${customStartTime}-${customEndTime}`;
+      } else if (selectedTimeBlock) {
+        timeBlock = selectedTimeBlock;
+      } else {
+        return;
+      }
+
       updateDateTime(format(selectedDate, "yyyy-MM-dd"), timeBlock);
       nextStep();
     }
@@ -110,12 +120,14 @@ export function Screen2DateTime() {
   const getAvailableTimeBlocks = () => {
     if (!selectedDate) return TIME_BLOCKS;
 
-    const dayOfWeek = selectedDate.getDay();
+    const dayOfWeek = selectedDate.getDay(); // 0 = Sunday, 6 = Saturday
     const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
 
     if (isWeekend) {
+      // Weekend: Show all time slots
       return TIME_BLOCKS;
     } else {
+      // Weekday (Mon-Fri): Only show 5:00 PM - 8:00 PM
       return TIME_BLOCKS.filter(block => block.value === "17:00-20:00");
     }
   };
@@ -145,29 +157,6 @@ export function Screen2DateTime() {
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
           Select a date at least 48 hours in advance
         </p>
-
-        {/* Compact 48-hour contact notice */}
-        <div className="mt-2 flex flex-col sm:flex-row items-center justify-center gap-2 text-lg">
-          <span className="text-muted-foreground">Need to book sooner?</span>
-          <div className="flex gap-2">
-            <a
-              href="tel:6027995856"
-              className="inline-flex items-center gap-1.5 text-primary hover:underline font-medium"
-            >
-              <Phone className="w-4 h-4" />
-              Call/Text
-            </a>
-            <span className="text-muted-foreground">or</span>
-            <a
-              href="mailto:partylabaz@gmail.com"
-              className="inline-flex items-center gap-1.5 text-primary hover:underline font-medium"
-            >
-              <Mail className="w-4 h-4" />
-              Email
-            </a>
-          </div>
-        </div>
-
         {bookingData.product && (
           <p className="text-sm text-muted-foreground mt-2">
             Venue: <span className="text-primary font-semibold">{bookingData.product}</span>
@@ -175,13 +164,21 @@ export function Screen2DateTime() {
         )}
       </div>
 
-      {/* Daylight projector warning */}
+      {/* Daylight projector warning - Top position */}
       {isDaylightBooking() && (
-        <div className="max-w-3xl mx-auto px-4 py-3 bg-amber-500/5 border border-amber-500/20 rounded-lg">
-          <p className="text-xs text-amber-600 dark:text-amber-400 text-center">
-            ☀️ Note: LED lights and projector visibility may be limited with daylight bookings. We recommend evening events for best visual effects.
-          </p>
-        </div>
+        <Card className="max-w-3xl mx-auto p-6 bg-amber-500/10 border-2 border-amber-500/30">
+          <div className="flex items-start gap-3">
+            <span className="text-2xl">☀️</span>
+            <div>
+              <h4 className="font-semibold text-amber-700 dark:text-amber-400 mb-2">
+                Daylight Booking Notice
+              </h4>
+              <p className="text-sm text-amber-600 dark:text-amber-300">
+                LED lights and projector visibility will be limited with daylight bookings. For best visual effects, we recommend evening events or indoor setups with minimal natural light.
+              </p>
+            </div>
+          </div>
+        </Card>
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
@@ -211,6 +208,9 @@ export function Screen2DateTime() {
               }}
             />
           </div>
+          <p className="text-xs text-muted-foreground text-center mt-4">
+            For bookings within 48 hours, please call or text (602) 799-5856
+          </p>
         </Card>
 
         {/* Time Blocks */}
@@ -226,7 +226,35 @@ export function Screen2DateTime() {
             </p>
           ) : (
             <div className="space-y-3">
-              {/* Custom Time Option - Always visible when date is selected */}
+              {getAvailableTimeBlocks().map((block) => {
+                const isAvailable = availableBlocks.includes(block.value);
+                const isSelected = selectedTimeBlock === block.value;
+
+                return (
+                  <button
+                    key={block.value}
+                    onClick={() => isAvailable && handleTimeBlockSelect(block.value as TimeBlock)}
+                    disabled={!isAvailable}
+                    className={`w-full p-4 rounded-lg border-2 text-left transition-all ${
+                      isSelected
+                        ? "border-primary bg-primary/10 glow-purple"
+                        : isAvailable
+                        ? "border-border hover:border-primary hover:bg-primary/5"
+                        : "border-border bg-muted opacity-50 cursor-not-allowed"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="font-semibold">{block.label}</span>
+                      <span className="text-sm text-muted-foreground">3 hours</span>
+                    </div>
+                    {!isAvailable && (
+                      <p className="text-xs text-muted-foreground mt-1">Not available</p>
+                    )}
+                  </button>
+                );
+              })}
+
+              {/* Custom Time Option */}
               <button
                 onClick={handleCustomTimeSelect}
                 className={`w-full p-4 rounded-lg border-2 text-left transition-all ${
@@ -238,9 +266,9 @@ export function Screen2DateTime() {
                 <div className="flex items-center justify-between">
                   <span className="font-semibold flex items-center gap-2">
                     <Clock className="w-4 h-4" />
-                    Choose Your Time Block
+                    Custom Time
                   </span>
-                  <span className="text-sm text-muted-foreground">Select start and end time</span>
+                  <span className="text-sm text-muted-foreground">Choose your own</span>
                 </div>
               </button>
 
@@ -286,31 +314,6 @@ export function Screen2DateTime() {
                   </div>
                 </Card>
               )}
-
-              {/* Show unavailable time blocks */}
-              {getAvailableTimeBlocks().some(block => !availableBlocks.includes(block.value)) && (
-                <div className="mt-4 pt-4 border-t border-border">
-                  <p className="text-sm font-medium text-muted-foreground mb-2">Unavailable Time Blocks:</p>
-                  <div className="space-y-2">
-                    {getAvailableTimeBlocks().map((block) => {
-                      const isAvailable = availableBlocks.includes(block.value);
-                      if (isAvailable) return null;
-
-                      return (
-                        <div
-                          key={block.value}
-                          className="p-3 rounded-lg border border-border bg-muted/30 opacity-60"
-                        >
-                          <div className="flex items-center justify-between">
-                            <span className="text-sm font-medium text-muted-foreground">{block.label}</span>
-                            <span className="text-xs text-red-500">Not available</span>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
             </div>
           )}
         </Card>
@@ -319,7 +322,7 @@ export function Screen2DateTime() {
       <div className="flex justify-center pt-6">
         <Button
           onClick={handleContinue}
-          disabled={!selectedDate || !isCustomTimeValid}
+          disabled={!selectedDate || (!selectedTimeBlock && !isCustomTimeValid)}
           size="lg"
           className="gradient-purple-pink glow-purple text-white font-semibold px-12"
         >
