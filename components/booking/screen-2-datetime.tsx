@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Calendar, Clock } from "lucide-react";
+import { Calendar, Clock, Phone, Mail, MessageCircle } from "lucide-react";
 import { DayPicker } from "react-day-picker";
 import { format, addHours, isAfter } from "date-fns";
 import { TIME_BLOCKS, MIN_HOURS_ADVANCE } from "@/lib/constants";
@@ -34,19 +34,17 @@ export function Screen2DateTime() {
   // Initialize custom time fields from saved booking data
   useEffect(() => {
     if (bookingData.timeBlock) {
-      // Check if the saved time block is a custom time (not in predefined TIME_BLOCKS)
       const isPredefinedBlock = TIME_BLOCKS.some(block => block.value === bookingData.timeBlock);
 
       if (!isPredefinedBlock) {
-        // It's a custom time, parse and populate the fields
         const [start, end] = bookingData.timeBlock.split("-");
         setIsCustomTime(true);
         setCustomStartTime(start);
         setCustomEndTime(end);
-        setSelectedTimeBlock(null); // Clear the predefined selection
+        setSelectedTimeBlock(null);
       }
     }
-  }, []); // Only run on mount
+  }, []);
 
   // Check availability when date changes
   useEffect(() => {
@@ -83,7 +81,7 @@ export function Screen2DateTime() {
 
   const handleDateSelect = (date: Date | undefined) => {
     setSelectedDate(date);
-    setSelectedTimeBlock(null); // Reset time block when date changes
+    setSelectedTimeBlock(null);
     setIsCustomTime(false);
     setCustomStartTime("");
     setCustomEndTime("");
@@ -120,14 +118,12 @@ export function Screen2DateTime() {
   const getAvailableTimeBlocks = () => {
     if (!selectedDate) return TIME_BLOCKS;
 
-    const dayOfWeek = selectedDate.getDay(); // 0 = Sunday, 6 = Saturday
+    const dayOfWeek = selectedDate.getDay();
     const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
 
     if (isWeekend) {
-      // Weekend: Show all time slots
       return TIME_BLOCKS;
     } else {
-      // Weekday (Mon-Fri): Only show 5:00 PM - 8:00 PM
       return TIME_BLOCKS.filter(block => block.value === "17:00-20:00");
     }
   };
@@ -162,23 +158,37 @@ export function Screen2DateTime() {
             Venue: <span className="text-primary font-semibold">{bookingData.product}</span>
           </p>
         )}
+
+        {/* Compact 48-hour contact notice */}
+        <div className="mt-2 flex flex-col sm:flex-row items-center justify-center gap-1.5 text-xs">
+          <span className="text-muted-foreground">Need to book sooner?</span>
+          <div className="flex gap-2">
+            <a
+              href="tel:6027995856"
+              className="inline-flex items-center gap-1 text-primary hover:underline font-medium"
+            >
+              <Phone className="w-3 h-3" />
+              Call/Text
+            </a>
+            <span className="text-muted-foreground">or</span>
+            <a
+              href="mailto:partylabaz@gmail.com"
+              className="inline-flex items-center gap-1 text-primary hover:underline font-medium"
+            >
+              <Mail className="w-3 h-3" />
+              Email
+            </a>
+          </div>
+        </div>
       </div>
 
-      {/* Daylight projector warning - Top position */}
+      {/* Daylight projector warning */}
       {isDaylightBooking() && (
-        <Card className="max-w-3xl mx-auto p-6 bg-amber-500/10 border-2 border-amber-500/30">
-          <div className="flex items-start gap-3">
-            <span className="text-2xl">☀️</span>
-            <div>
-              <h4 className="font-semibold text-amber-700 dark:text-amber-400 mb-2">
-                Daylight Booking Notice
-              </h4>
-              <p className="text-sm text-amber-600 dark:text-amber-300">
-                LED lights and projector visibility will be limited with daylight bookings. For best visual effects, we recommend evening events or indoor setups with minimal natural light.
-              </p>
-            </div>
-          </div>
-        </Card>
+        <div className="max-w-3xl mx-auto px-4 py-3 bg-amber-500/5 border border-amber-500/20 rounded-lg">
+          <p className="text-xs text-amber-600 dark:text-amber-400 text-center">
+            ☀️ Note: LED lights and projector visibility may be limited with daylight bookings. We recommend evening events for best visual effects.
+          </p>
+        </div>
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
@@ -208,9 +218,6 @@ export function Screen2DateTime() {
               }}
             />
           </div>
-          <p className="text-xs text-muted-foreground text-center mt-4">
-            For bookings within 48 hours, please call or text (602) 799-5856
-          </p>
         </Card>
 
         {/* Time Blocks */}
