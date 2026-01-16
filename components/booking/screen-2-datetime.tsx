@@ -153,33 +153,34 @@ export function Screen2DateTime() {
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
           Select a date at least 48 hours in advance
         </p>
-        {bookingData.product && (
-          <p className="text-sm text-muted-foreground mt-2">
-            Venue: <span className="text-primary font-semibold">{bookingData.product}</span>
-          </p>
-        )}
 
         {/* Compact 48-hour contact notice */}
-        <div className="mt-2 flex flex-col sm:flex-row items-center justify-center gap-1.5 text-xs">
+        <div className="mt-2 flex flex-col sm:flex-row items-center justify-center gap-2 text-lg">
           <span className="text-muted-foreground">Need to book sooner?</span>
           <div className="flex gap-2">
             <a
               href="tel:6027995856"
-              className="inline-flex items-center gap-1 text-primary hover:underline font-medium"
+              className="inline-flex items-center gap-1.5 text-primary hover:underline font-medium"
             >
-              <Phone className="w-3 h-3" />
+              <Phone className="w-4 h-4" />
               Call/Text
             </a>
             <span className="text-muted-foreground">or</span>
             <a
               href="mailto:partylabaz@gmail.com"
-              className="inline-flex items-center gap-1 text-primary hover:underline font-medium"
+              className="inline-flex items-center gap-1.5 text-primary hover:underline font-medium"
             >
-              <Mail className="w-3 h-3" />
+              <Mail className="w-4 h-4" />
               Email
             </a>
           </div>
         </div>
+
+        {bookingData.product && (
+          <p className="text-sm text-muted-foreground mt-2">
+            Venue: <span className="text-primary font-semibold">{bookingData.product}</span>
+          </p>
+        )}
       </div>
 
       {/* Daylight projector warning */}
