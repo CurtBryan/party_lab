@@ -12,6 +12,7 @@ import { sendConfirmationEmail } from "@/app/actions/send-confirmation-email";
 import { Loader2, CreditCard, Shield, Lock, ChevronDown, ChevronUp, CheckCircle2, Smartphone, Wallet } from "lucide-react";
 import { format } from "date-fns";
 import type { PaymentRequest } from "@stripe/stripe-js";
+import { formatTime12Hour } from "@/lib/format-time";
 
 function PaymentForm() {
   const stripe = useStripe();
@@ -304,17 +305,9 @@ export function Screen6Payment() {
   const formattedDate = format(new Date(year, month - 1, day), "MMMM d, yyyy");
   const [startTime, endTime] = bookingData.timeBlock.split("-");
 
-  // Convert military time to 12-hour format
-  const formatTime = (time: string) => {
-    const [hours, minutes] = time.split(":");
-    const hour = parseInt(hours);
-    const ampm = hour >= 12 ? "PM" : "AM";
-    const displayHour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
-    return `${displayHour}:${minutes} ${ampm}`;
-  };
-
-  const formattedStartTime = formatTime(startTime);
-  const formattedEndTime = formatTime(endTime);
+  // Format times in 12-hour format
+  const formattedStartTime = formatTime12Hour(startTime);
+  const formattedEndTime = formatTime12Hour(endTime);
 
   return (
     <div className="space-y-6 sm:space-y-8 pb-32 lg:pb-8">

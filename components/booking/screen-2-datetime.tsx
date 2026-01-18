@@ -28,8 +28,43 @@ export function Screen2DateTime() {
   const [customStartTime, setCustomStartTime] = useState("");
   const [customEndTime, setCustomEndTime] = useState("");
 
+  // 12-hour format state
+  const [startHour, setStartHour] = useState("5");
+  const [startMinute, setStartMinute] = useState("00");
+  const [startPeriod, setStartPeriod] = useState("PM");
+  const [endHour, setEndHour] = useState("8");
+  const [endMinute, setEndMinute] = useState("00");
+  const [endPeriod, setEndPeriod] = useState("PM");
+
   // Calculate minimum date (48 hours from now)
   const minDate = addHours(new Date(), MIN_HOURS_ADVANCE);
+
+  // Convert 12-hour to 24-hour format
+  const convertTo24Hour = (hour: string, minute: string, period: string): string => {
+    let hour24 = parseInt(hour);
+    if (period === "PM" && hour24 !== 12) {
+      hour24 += 12;
+    } else if (period === "AM" && hour24 === 12) {
+      hour24 = 0;
+    }
+    return `${hour24.toString().padStart(2, '0')}:${minute}`;
+  };
+
+  // Update customStartTime when 12-hour inputs change
+  useEffect(() => {
+    if (startHour && startMinute && startPeriod) {
+      const time24 = convertTo24Hour(startHour, startMinute, startPeriod);
+      setCustomStartTime(time24);
+    }
+  }, [startHour, startMinute, startPeriod]);
+
+  // Update customEndTime when 12-hour inputs change
+  useEffect(() => {
+    if (endHour && endMinute && endPeriod) {
+      const time24 = convertTo24Hour(endHour, endMinute, endPeriod);
+      setCustomEndTime(time24);
+    }
+  }, [endHour, endMinute, endPeriod]);
 
   // Initialize custom time fields from saved booking data
   useEffect(() => {
@@ -84,8 +119,13 @@ export function Screen2DateTime() {
     setSelectedTimeBlock(null);
     // Automatically open custom time picker when date is selected
     setIsCustomTime(true);
-    setCustomStartTime("");
-    setCustomEndTime("");
+    // Reset to default times
+    setStartHour("5");
+    setStartMinute("00");
+    setStartPeriod("PM");
+    setEndHour("8");
+    setEndMinute("00");
+    setEndPeriod("PM");
   };
 
   const handleTimeBlockSelect = (block: TimeBlock) => {
@@ -244,33 +284,80 @@ export function Screen2DateTime() {
                 </div>
               </button>
 
-              {/* Custom Time Inputs */}
+              {/* Custom Time Inputs - 12 Hour Format */}
               {isCustomTime && (
                 <Card className="p-4 bg-primary/5 border-primary/20">
                   <div className="space-y-4">
+                    {/* Start Time */}
                     <div>
-                      <Label htmlFor="startTime" className="text-sm font-medium">
-                        Start Time
-                      </Label>
-                      <Input
-                        id="startTime"
-                        type="time"
-                        value={customStartTime}
-                        onChange={(e) => setCustomStartTime(e.target.value)}
-                        className="mt-1"
-                      />
+                      <Label className="text-sm font-medium">Start Time</Label>
+                      <div className="flex gap-2 mt-1">
+                        <select
+                          value={startHour}
+                          onChange={(e) => setStartHour(e.target.value)}
+                          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                        >
+                          {Array.from({ length: 12 }, (_, i) => i + 1).map((hour) => (
+                            <option key={hour} value={hour}>
+                              {hour}
+                            </option>
+                          ))}
+                        </select>
+                        <select
+                          value={startMinute}
+                          onChange={(e) => setStartMinute(e.target.value)}
+                          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                        >
+                          <option value="00">00</option>
+                          <option value="15">15</option>
+                          <option value="30">30</option>
+                          <option value="45">45</option>
+                        </select>
+                        <select
+                          value={startPeriod}
+                          onChange={(e) => setStartPeriod(e.target.value)}
+                          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                        >
+                          <option value="AM">AM</option>
+                          <option value="PM">PM</option>
+                        </select>
+                      </div>
                     </div>
+
+                    {/* End Time */}
                     <div>
-                      <Label htmlFor="endTime" className="text-sm font-medium">
-                        End Time
-                      </Label>
-                      <Input
-                        id="endTime"
-                        type="time"
-                        value={customEndTime}
-                        onChange={(e) => setCustomEndTime(e.target.value)}
-                        className="mt-1"
-                      />
+                      <Label className="text-sm font-medium">End Time</Label>
+                      <div className="flex gap-2 mt-1">
+                        <select
+                          value={endHour}
+                          onChange={(e) => setEndHour(e.target.value)}
+                          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                        >
+                          {Array.from({ length: 12 }, (_, i) => i + 1).map((hour) => (
+                            <option key={hour} value={hour}>
+                              {hour}
+                            </option>
+                          ))}
+                        </select>
+                        <select
+                          value={endMinute}
+                          onChange={(e) => setEndMinute(e.target.value)}
+                          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                        >
+                          <option value="00">00</option>
+                          <option value="15">15</option>
+                          <option value="30">30</option>
+                          <option value="45">45</option>
+                        </select>
+                        <select
+                          value={endPeriod}
+                          onChange={(e) => setEndPeriod(e.target.value)}
+                          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                        >
+                          <option value="AM">AM</option>
+                          <option value="PM">PM</option>
+                        </select>
+                      </div>
                     </div>
                     {customStartTime && customEndTime && (
                       <p className="text-xs text-muted-foreground">

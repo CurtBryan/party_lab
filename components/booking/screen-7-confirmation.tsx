@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { CheckCircle2, Calendar, Mail, Phone } from "lucide-react";
 import { format } from "date-fns";
+import { formatTime12Hour } from "@/lib/format-time";
 
 interface Screen7ConfirmationProps {
   onClose: () => void;
@@ -22,17 +23,9 @@ export function Screen7Confirmation({ onClose }: Screen7ConfirmationProps) {
   const formattedDate = format(new Date(year, month - 1, day), "MMMM d, yyyy");
   const [startTime, endTime] = bookingData.timeBlock.split("-");
 
-  // Convert military time to 12-hour format
-  const formatTime = (time: string) => {
-    const [hours, minutes] = time.split(":");
-    const hour = parseInt(hours);
-    const ampm = hour >= 12 ? "PM" : "AM";
-    const displayHour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
-    return `${displayHour}:${minutes} ${ampm}`;
-  };
-
-  const formattedStartTime = formatTime(startTime);
-  const formattedEndTime = formatTime(endTime);
+  // Format times in 12-hour format
+  const formattedStartTime = formatTime12Hour(startTime);
+  const formattedEndTime = formatTime12Hour(endTime);
 
   const handleClose = () => {
     resetBooking();

@@ -3,6 +3,7 @@
 import { Resend } from "resend";
 import type { BookingData } from "@/types/booking";
 import { format } from "date-fns";
+import { formatTime12Hour } from "@/lib/format-time";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -16,6 +17,10 @@ export async function sendConfirmationEmail(bookingData: BookingData, bookingId:
     // Parse date as local timezone to avoid off-by-one errors
     const [year, month, day] = bookingData.date.split('-').map(Number);
     const formattedDate = format(new Date(year, month - 1, day), "MMMM d, yyyy");
+
+    // Format times in 12-hour format
+    const formattedStartTime = formatTime12Hour(startTime);
+    const formattedEndTime = formatTime12Hour(endTime);
 
     // Build add-ons list
     const addOnsList = [];
@@ -44,7 +49,7 @@ Booking ID: ${bookingId}
 Product: ${bookingData.product}
 Package: ${bookingData.package}
 Date: ${formattedDate}
-Time: ${startTime} - ${endTime}
+Time: ${formattedStartTime} - ${formattedEndTime}
 Location: ${bookingData.customer.address}
 
 ${addOnsList.length > 0 ? `ADD-ONS:\n${addOnsList.map(addon => `• ${addon}`).join('\n')}\n\n` : ''}PRE-EVENT READINESS INFO:
@@ -97,7 +102,7 @@ Booking ID: ${bookingId}
 Product: ${bookingData.product}
 Package: ${bookingData.package}
 Date: ${formattedDate}
-Time: ${startTime} - ${endTime}
+Time: ${formattedStartTime} - ${formattedEndTime}
 
 CUSTOMER INFO:
 Name: ${bookingData.customer.name}
