@@ -63,7 +63,7 @@ export function HeroSection({ onBookNowClick }: HeroSectionProps = {}) {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 bg-black/60 backdrop-blur-md border border-primary rounded-full px-4 py-2 sm:px-6 mb-8 glow-purple">
             <Sparkles className="w-4 h-4 text-primary" />
-            <span className="text-xs sm:text-sm font-semibold text-white">Arizona's Premier Inflatable Nightclub for Kids</span>
+            <span className="text-xs sm:text-sm font-semibold text-white">From Backyard Parties to Community Events — Arizona's Premier Inflatable Nightclub Experience</span>
           </div>
 
           {/* Headline */}
