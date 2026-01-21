@@ -60,8 +60,8 @@ The trip charge feature uses **OpenStreetMap's Nominatim API** - a free, open-so
    - Customer can change address or contact you
 
 ### Base Location:
-- **Address:** Kyrene Rd & De La Mariposa Dr, Phoenix, AZ 85044
-- **Coordinates:** 33.3003° N, 111.9825° W (Ahwatukee area)
+- **Address:** Mill Avenue & University Drive, Tempe, AZ 85281
+- **Coordinates:** 33.4255° N, 111.9400° W (Downtown Tempe)
 
 ---
 

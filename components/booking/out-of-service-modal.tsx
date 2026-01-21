@@ -61,7 +61,7 @@ export function OutOfServiceModal({
             <div className="bg-blue-500/10 border border-blue-500/20 rounded p-3 flex gap-2 mt-4">
               <AlertTriangle className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" />
               <p className="text-xs text-blue-600 dark:text-blue-400">
-                We currently service the Phoenix metro area and surrounding cities within 50 miles of our base location in Ahwatukee.
+                We currently service the Phoenix metro area and surrounding cities within 50 miles of our base location in Tempe.
               </p>
             </div>
           </div>

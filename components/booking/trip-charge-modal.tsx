@@ -73,7 +73,7 @@ export function TripChargeModal({
             <div className="bg-blue-500/10 border border-blue-500/20 rounded p-3 flex gap-2">
               <AlertCircle className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" />
               <p className="text-xs text-blue-600 dark:text-blue-400">
-                A one-time $50 trip charge applies for locations beyond 25 miles from our base in Ahwatukee. This helps cover additional travel time and fuel costs.
+                A one-time $50 trip charge applies for locations beyond 25 miles from our base in Tempe. This helps cover additional travel time and fuel costs.
               </p>
             </div>
           </div>

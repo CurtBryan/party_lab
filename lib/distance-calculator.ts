@@ -3,11 +3,11 @@
  * Returns distance in miles
  */
 
-// Starting location: Kyrene Rd & De La Mariposa Dr, Ahwatukee, Phoenix, AZ
+// Starting location: Downtown Tempe (Mill Avenue area)
 export const STARTING_LOCATION = {
-  lat: 33.3003,
-  lng: -111.9825,
-  address: "Kyrene Rd & De La Mariposa Dr, Phoenix, AZ 85044"
+  lat: 33.4255,
+  lng: -111.9400,
+  address: "Mill Avenue & University Drive, Tempe, AZ 85281"
 };
 
 /**
