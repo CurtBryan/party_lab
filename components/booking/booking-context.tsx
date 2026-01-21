@@ -7,10 +7,11 @@ import { BOOKING_FEE } from "@/lib/constants";
 interface BookingContextType {
   bookingData: BookingData;
   updateProduct: (product: BookingData["product"]) => void;
-  updateDateTime: (date: string, timeBlock: BookingData["timeBlock"]) => void;
+  updateDateTime: (date: string, timeBlock: BookingData["timeBlock"], extraHours?: number) => void;
   updatePackage: (pkg: BookingData["package"], price: number) => void;
   updateAddOns: (addOns: AddOns) => void;
   updateCustomer: (customer: CustomerInfo) => void;
+  updateTripCharge: (tripCharge: number) => void;
   updateBookingId: (bookingId: string, paymentIntentId: string, clientSecret?: string) => void;
   nextStep: () => void;
   prevStep: () => void;
@@ -32,6 +33,9 @@ const initialAddOns: AddOns = {
 const initialPricing: Pricing = {
   subtotal: 0,
   bookingFee: BOOKING_FEE,
+  extraHours: 0,
+  extraHoursCost: 0,
+  tripCharge: 0,
   total: BOOKING_FEE,
 };
 
@@ -76,8 +80,37 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
     setBookingData((prev) => ({ ...prev, product }));
   };
 
-  const updateDateTime = (date: string, timeBlock: BookingData["timeBlock"]) => {
-    setBookingData((prev) => ({ ...prev, date, timeBlock }));
+  const updateDateTime = (date: string, timeBlock: BookingData["timeBlock"], extraHours: number = 0) => {
+    setBookingData((prev) => {
+      // Tiered pricing: $50 for first extra hour, $75 for each additional hour
+      let extraHoursCost = 0;
+      if (extraHours === 1) {
+        extraHoursCost = 50;
+      } else if (extraHours > 1) {
+        extraHoursCost = 50 + (75 * (extraHours - 1));
+      }
+
+      const currentAddOnsCost =
+        (prev.addOns.playlistProjector ? 100 : 0) +
+        (prev.addOns.extraHour ? 50 : 0) +
+        (prev.addOns.glowBags ? 50 : 0);
+
+      const basePackagePrice = prev.pricing.subtotal - currentAddOnsCost - prev.pricing.extraHoursCost;
+      const newSubtotal = basePackagePrice + currentAddOnsCost + extraHoursCost;
+
+      return {
+        ...prev,
+        date,
+        timeBlock,
+        pricing: {
+          ...prev.pricing,
+          extraHours,
+          extraHoursCost,
+          subtotal: newSubtotal,
+          total: newSubtotal,
+        },
+      };
+    });
   };
 
   const updatePackage = (pkg: BookingData["package"], price: number) => {
@@ -100,17 +133,18 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
       // Calculate add-on prices
       let addOnTotal = 0;
       if (addOns.playlistProjector) addOnTotal += 100;
-      if (addOns.extraHour) addOnTotal += 75;
+      if (addOns.extraHour) addOnTotal += 50; // Changed from $75 to $50
       if (addOns.glowBags) addOnTotal += 50;
 
-      // Get base package price from current subtotal
-      const basePackagePrice = prev.pricing.subtotal - (
+      // Get base package price from current subtotal (excluding previous add-ons and extra hours)
+      const previousAddOnsCost =
         (prev.addOns.playlistProjector ? 100 : 0) +
-        (prev.addOns.extraHour ? 75 : 0) +
-        (prev.addOns.glowBags ? 50 : 0)
-      );
+        (prev.addOns.extraHour ? 50 : 0) + // Changed from $75 to $50
+        (prev.addOns.glowBags ? 50 : 0);
 
-      const newSubtotal = basePackagePrice + addOnTotal;
+      const basePackagePrice = prev.pricing.subtotal - previousAddOnsCost - prev.pricing.extraHoursCost;
+
+      const newSubtotal = basePackagePrice + addOnTotal + prev.pricing.extraHoursCost;
 
       return {
         ...prev,
@@ -126,6 +160,20 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
 
   const updateCustomer = (customer: CustomerInfo) => {
     setBookingData((prev) => ({ ...prev, customer }));
+  };
+
+  const updateTripCharge = (tripCharge: number) => {
+    setBookingData((prev) => {
+      const newTotal = prev.pricing.subtotal + tripCharge;
+      return {
+        ...prev,
+        pricing: {
+          ...prev.pricing,
+          tripCharge,
+          total: newTotal,
+        },
+      };
+    });
   };
 
   const updateBookingId = (bookingId: string, paymentIntentId: string, clientSecret?: string) => {
@@ -194,6 +242,7 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
         updatePackage,
         updateAddOns,
         updateCustomer,
+        updateTripCharge,
         updateBookingId,
         nextStep,
         prevStep,

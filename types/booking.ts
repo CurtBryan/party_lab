@@ -27,6 +27,9 @@ export interface CustomerInfo {
 export interface Pricing {
   subtotal: number;
   bookingFee: number;
+  extraHours: number;
+  extraHoursCost: number;
+  tripCharge: number;
   total: number;
 }
 

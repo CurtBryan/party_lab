@@ -8,10 +8,13 @@ import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { EVENT_TYPES } from "@/lib/constants";
 import type { CustomerInfo } from "@/types/booking";
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, Loader2 } from "lucide-react";
+import { TripChargeModal } from "./trip-charge-modal";
+import { OutOfServiceModal } from "./out-of-service-modal";
+import { calculateDistanceFromBase, calculateTripCharge } from "@/lib/distance-calculator";
 
 export function Screen5Customer() {
-  const { bookingData, updateCustomer, nextStep, arePreviousStepsCompleted } = useBooking();
+  const { bookingData, updateCustomer, updateTripCharge, nextStep, arePreviousStepsCompleted } = useBooking();
 
   const [formData, setFormData] = useState<CustomerInfo>({
     name: bookingData.customer?.name || "",
@@ -29,6 +32,12 @@ export function Screen5Customer() {
 
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [errors, setErrors] = useState<Partial<Record<keyof CustomerInfo, string>>>({});
+
+  // Trip charge and service area modal state
+  const [showTripChargeModal, setShowTripChargeModal] = useState(false);
+  const [showOutOfServiceModal, setShowOutOfServiceModal] = useState(false);
+  const [calculatedDistance, setCalculatedDistance] = useState<number | null>(null);
+  const [isCalculatingDistance, setIsCalculatingDistance] = useState(false);
 
   // Track if "Other" is selected for surface type
   const [otherSurfaceDescription, setOtherSurfaceDescription] = useState(() => {
@@ -124,11 +133,65 @@ export function Screen5Customer() {
     }
   };
 
-  const handleContinue = () => {
-    if (validateForm() && agreedToTerms) {
-      updateCustomer(formData);
+  const handleContinue = async () => {
+    if (!validateForm() || !agreedToTerms) return;
+
+    // Save customer data
+    updateCustomer(formData);
+
+    // Calculate distance and check for service area / trip charge
+    setIsCalculatingDistance(true);
+
+    try {
+      const distance = await calculateDistanceFromBase(formData.address);
+
+      if (distance === null) {
+        // Couldn't calculate distance - proceed without trip charge but warn user
+        console.warn("Could not calculate distance for address:", formData.address);
+        updateTripCharge(0);
+        nextStep();
+        return;
+      }
+
+      setCalculatedDistance(distance);
+
+      // Check service area limits
+      if (distance > 50) {
+        // BLOCK: Out of service area
+        setShowOutOfServiceModal(true);
+        setIsCalculatingDistance(false);
+        return;
+      }
+
+      const tripCharge = calculateTripCharge(distance);
+
+      if (tripCharge > 0) {
+        // 25-50 miles: Show trip charge modal
+        setShowTripChargeModal(true);
+      } else {
+        // <25 miles: No trip charge needed
+        updateTripCharge(0);
+        nextStep();
+      }
+    } catch (error) {
+      console.error("Error calculating distance:", error);
+      // Proceed without trip charge on error
+      updateTripCharge(0);
       nextStep();
+    } finally {
+      setIsCalculatingDistance(false);
     }
+  };
+
+  const handleAcceptTripCharge = () => {
+    updateTripCharge(50);
+    setShowTripChargeModal(false);
+    nextStep();
+  };
+
+  const handleCloseOutOfService = () => {
+    setShowOutOfServiceModal(false);
+    // User stays on this screen to change their address
   };
 
   return (
@@ -408,13 +471,40 @@ export function Screen5Customer() {
       <div className="flex justify-center pt-6">
         <Button
           onClick={handleContinue}
-          disabled={!agreedToTerms}
+          disabled={!agreedToTerms || isCalculatingDistance}
           size="lg"
           className="gradient-purple-pink glow-purple text-white font-semibold px-12"
         >
-          Continue to Payment →
+          {isCalculatingDistance ? (
+            <>
+              <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+              Checking Distance...
+            </>
+          ) : (
+            "Continue to Payment →"
+          )}
         </Button>
       </div>
+
+      {/* Trip Charge Modal */}
+      {calculatedDistance !== null && (
+        <TripChargeModal
+          isOpen={showTripChargeModal}
+          distance={calculatedDistance}
+          customerAddress={formData.address}
+          onAccept={handleAcceptTripCharge}
+        />
+      )}
+
+      {/* Out of Service Area Modal */}
+      {calculatedDistance !== null && (
+        <OutOfServiceModal
+          isOpen={showOutOfServiceModal}
+          distance={calculatedDistance}
+          customerAddress={formData.address}
+          onClose={handleCloseOutOfService}
+        />
+      )}
     </div>
   );
 }

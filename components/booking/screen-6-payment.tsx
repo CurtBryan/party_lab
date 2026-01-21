@@ -375,6 +375,14 @@ export function Screen6Payment() {
               <div className="text-muted-foreground mb-1">Location</div>
               <div className="font-semibold">{bookingData.customer.address}</div>
             </div>
+            {bookingData.pricing.extraHours > 0 && (
+              <div>
+                <div className="text-muted-foreground mb-1">Extra Hours</div>
+                <div className="text-xs">
+                  {bookingData.pricing.extraHours} {bookingData.pricing.extraHours === 1 ? 'hour' : 'hours'} beyond included 3 hours (+${bookingData.pricing.extraHoursCost})
+                </div>
+              </div>
+            )}
             {(bookingData.addOns.playlistProjector || bookingData.addOns.extraHour || bookingData.addOns.glowBags) && (
               <div>
                 <div className="text-muted-foreground mb-1">Add-Ons</div>
@@ -383,7 +391,7 @@ export function Screen6Payment() {
                     <li className="text-xs">• Playlist + Projector (+$100)</li>
                   )}
                   {bookingData.addOns.extraHour && (
-                    <li className="text-xs">• Extra Hour (+$75)</li>
+                    <li className="text-xs">• Extra Hour (+$50)</li>
                   )}
                   {bookingData.addOns.glowBags && (
                     <li className="text-xs">• Glow-Up Party Bags (+$50)</li>

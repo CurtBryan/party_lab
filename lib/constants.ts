@@ -87,7 +87,7 @@ export const ADD_ONS: AddOnOption[] = [
   {
     id: "extraHour",
     name: "Extra Hour",
-    price: 75,
+    price: 50,
     description: "Extend your party by one additional hour",
   },
   {

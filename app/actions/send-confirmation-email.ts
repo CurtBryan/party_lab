@@ -26,8 +26,18 @@ export async function sendConfirmationEmail(bookingData: BookingData, bookingId:
     const addOnsList = [];
     if (bookingData.addOns.playlistProjector) addOnsList.push("Playlist + Projector (+$100)");
     if (bookingData.addOns.redRopesCarpet) addOnsList.push("Red Ropes & Carpet (+$40)");
-    if (bookingData.addOns.extraHour) addOnsList.push("Extra Hour (+$75)");
+    if (bookingData.addOns.extraHour) addOnsList.push("Extra Hour (+$50)");
     if (bookingData.addOns.glowBags) addOnsList.push("Glow-Up Party Bags (+$50)");
+
+    // Build additional charges list
+    const additionalCharges = [];
+    if (bookingData.pricing.extraHours > 0) {
+      const hourText = bookingData.pricing.extraHours === 1 ? 'hour' : 'hours';
+      additionalCharges.push(`Extended Hours (${bookingData.pricing.extraHours} ${hourText}): +$${bookingData.pricing.extraHoursCost}`);
+    }
+    if (bookingData.pricing.tripCharge > 0) {
+      additionalCharges.push(`Trip Charge: +$${bookingData.pricing.tripCharge}`);
+    }
 
     // Build checklist info (all required fields)
     const checklistInfo = [
@@ -52,7 +62,7 @@ Date: ${formattedDate}
 Time: ${formattedStartTime} - ${formattedEndTime}
 Location: ${bookingData.customer.address}
 
-${addOnsList.length > 0 ? `ADD-ONS:\n${addOnsList.map(addon => `• ${addon}`).join('\n')}\n\n` : ''}PRE-EVENT READINESS INFO:
+${addOnsList.length > 0 ? `ADD-ONS:\n${addOnsList.map(addon => `• ${addon}`).join('\n')}\n\n` : ''}${additionalCharges.length > 0 ? `ADDITIONAL CHARGES:\n${additionalCharges.map(charge => `• ${charge}`).join('\n')}\n\n` : ''}PRE-EVENT READINESS INFO:
 ${checklistInfo.map(info => `• ${info}`).join('\n')}
 
 PAYMENT:
@@ -111,7 +121,7 @@ Phone: ${bookingData.customer.phone}
 Location: ${bookingData.customer.address}
 Event Type: ${bookingData.customer.eventType}
 ${bookingData.customer.specialRequests ? `Special Requests: ${bookingData.customer.specialRequests}\n` : ''}
-${addOnsList.length > 0 ? `\nADD-ONS:\n${addOnsList.map(addon => `• ${addon}`).join('\n')}\n` : ''}
+${addOnsList.length > 0 ? `\nADD-ONS:\n${addOnsList.map(addon => `• ${addon}`).join('\n')}\n` : ''}${additionalCharges.length > 0 ? `\nADDITIONAL CHARGES:\n${additionalCharges.map(charge => `• ${charge}`).join('\n')}\n` : ''}
 PRE-EVENT READINESS INFO:
 ${checklistInfo.map(info => `• ${info}`).join('\n')}
 

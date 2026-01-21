@@ -24,6 +24,8 @@ export function Screen2DateTime() {
   );
   const [availableBlocks, setAvailableBlocks] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isDateBlocked, setIsDateBlocked] = useState(false);
+  const [blockedReason, setBlockedReason] = useState<string | null>(null);
   const [isCustomTime, setIsCustomTime] = useState(false);
   const [customStartTime, setCustomStartTime] = useState("");
   const [customEndTime, setCustomEndTime] = useState("");
@@ -48,6 +50,15 @@ export function Screen2DateTime() {
       hour24 = 0;
     }
     return `${hour24.toString().padStart(2, '0')}:${minute}`;
+  };
+
+  // Calculate duration in hours
+  const calculateDuration = (startTime: string, endTime: string): number => {
+    if (!startTime || !endTime) return 0;
+    const start = new Date(`1970-01-01T${startTime}`);
+    const end = new Date(`1970-01-01T${endTime}`);
+    const durationMs = end.getTime() - start.getTime();
+    return durationMs / (1000 * 60 * 60); // Convert to hours
   };
 
   // Update customStartTime when 12-hour inputs change
@@ -96,6 +107,8 @@ export function Screen2DateTime() {
 
       if (!product) {
         setAvailableBlocks([]);
+        setIsDateBlocked(false);
+        setBlockedReason(null);
         return;
       }
 
@@ -103,12 +116,18 @@ export function Screen2DateTime() {
 
       if (result.success) {
         setAvailableBlocks(result.availableBlocks);
+        setIsDateBlocked(result.isBlocked || false);
+        setBlockedReason(result.reason || null);
       } else {
         setAvailableBlocks([]);
+        setIsDateBlocked(false);
+        setBlockedReason(null);
       }
     } catch (error) {
       console.error("Failed to check availability:", error);
       setAvailableBlocks([]);
+      setIsDateBlocked(false);
+      setBlockedReason(null);
     } finally {
       setIsLoading(false);
     }
@@ -140,8 +159,9 @@ export function Screen2DateTime() {
 
   const handleContinue = () => {
     if (selectedDate && customStartTime && customEndTime && customStartTime < customEndTime) {
+      // Just save the time selection, don't charge yet (charge based on package later)
       const timeBlock: TimeBlock = `${customStartTime}-${customEndTime}`;
-      updateDateTime(format(selectedDate, "yyyy-MM-dd"), timeBlock);
+      updateDateTime(format(selectedDate, "yyyy-MM-dd"), timeBlock, 0);
       nextStep();
     }
   };
@@ -264,6 +284,39 @@ export function Screen2DateTime() {
             <p className="text-muted-foreground text-center py-8">
               Checking availability...
             </p>
+          ) : isDateBlocked ? (
+            <div className="py-8 space-y-4">
+              <div className="flex items-center justify-center gap-2 text-amber-500">
+                <Calendar className="w-6 h-6" />
+                <p className="font-semibold text-lg">Date Already Booked</p>
+              </div>
+              <p className="text-center text-muted-foreground">
+                {blockedReason || `${bookingData.product} is already booked for ${selectedDate ? format(selectedDate, "MMMM d, yyyy") : "this date"}`}
+              </p>
+              <p className="text-center text-sm text-muted-foreground">
+                Please select a different date from the calendar
+              </p>
+              <div className="flex flex-col gap-2 items-center pt-4 border-t border-border">
+                <p className="text-sm text-muted-foreground">Need help finding an available date?</p>
+                <div className="flex gap-2">
+                  <a
+                    href="tel:6027995856"
+                    className="inline-flex items-center gap-1.5 text-primary hover:underline font-medium text-sm"
+                  >
+                    <Phone className="w-4 h-4" />
+                    Call/Text Us
+                  </a>
+                  <span className="text-muted-foreground">or</span>
+                  <a
+                    href="mailto:partylabaz@gmail.com"
+                    className="inline-flex items-center gap-1.5 text-primary hover:underline font-medium text-sm"
+                  >
+                    <Mail className="w-4 h-4" />
+                    Email Us
+                  </a>
+                </div>
+              </div>
+            </div>
           ) : (
             <div className="space-y-3">
               {/* Custom Time Option - Always visible when date is selected */}
@@ -360,15 +413,35 @@ export function Screen2DateTime() {
                       </div>
                     </div>
                     {customStartTime && customEndTime && (
-                      <p className="text-xs text-muted-foreground">
-                        {customStartTime < customEndTime ? (
-                          <span className="text-green-500">
-                            ✓ Duration: {Math.round((new Date(`1970-01-01T${customEndTime}`).getTime() - new Date(`1970-01-01T${customStartTime}`).getTime()) / (1000 * 60 * 60) * 10) / 10} hours
-                          </span>
-                        ) : (
-                          <span className="text-red-500">End time must be after start time</span>
-                        )}
-                      </p>
+                      <div className="space-y-2">
+                        <p className="text-xs text-muted-foreground">
+                          {customStartTime < customEndTime ? (
+                            <span className="text-green-500">
+                              ✓ Duration: {Math.round((new Date(`1970-01-01T${customEndTime}`).getTime() - new Date(`1970-01-01T${customStartTime}`).getTime()) / (1000 * 60 * 60) * 10) / 10} hours
+                            </span>
+                          ) : (
+                            <span className="text-red-500">End time must be after start time</span>
+                          )}
+                        </p>
+                        {(() => {
+                          const duration = calculateDuration(customStartTime, customEndTime);
+                          if (duration > 3) {
+                            const extraHours = Math.ceil(duration - 3);
+                            const extraHoursCost = extraHours === 1 ? 50 : 50 + 75 * (extraHours - 1);
+                            return (
+                              <div className="bg-blue-500/10 border border-blue-500/20 rounded p-3 flex gap-2">
+                                <span className="text-blue-500 text-lg">⏰</span>
+                                <p className="text-xs text-blue-600 dark:text-blue-400">
+                                  <strong>Extended hours selected ({extraHours} {extraHours === 1 ? 'hour' : 'hours'} beyond 3):</strong><br />
+                                  • <strong>All-Star VIP</strong> includes extended hours at no extra charge<br />
+                                  • <strong>Party Starter</strong> or <strong>Glow Getter</strong>: Add ${extraHoursCost} (${extraHours === 1 ? '$50 for 1 hour' : `$50 first hour + $75 × ${extraHours - 1} hours`})
+                                </p>
+                              </div>
+                            );
+                          }
+                          return null;
+                        })()}
+                      </div>
                     )}
                   </div>
                 </Card>
@@ -413,6 +486,7 @@ export function Screen2DateTime() {
           Continue to Packages →
         </Button>
       </div>
+
     </div>
   );
 }

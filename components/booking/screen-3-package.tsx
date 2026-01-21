@@ -1,13 +1,17 @@
 "use client";
 
+import { useState } from "react";
 import { useBooking } from "./booking-context";
 import { Button } from "@/components/ui/button";
 import { PackageCard } from "@/components/package-card";
 import { PACKAGES } from "@/lib/constants";
 import type { PackageType } from "@/types/booking";
+import { ExtraHoursModal } from "./extra-hours-modal";
 
 export function Screen3Package() {
-  const { bookingData, updatePackage, nextStep } = useBooking();
+  const { bookingData, updatePackage, updateDateTime, nextStep, prevStep } = useBooking();
+  const [showExtraHoursModal, setShowExtraHoursModal] = useState(false);
+  const [pendingPackage, setPendingPackage] = useState<PackageType | null>(null);
 
   // Get product-specific pricing
   const getPackagePrice = (packageName: PackageType): number => {
@@ -25,15 +29,71 @@ export function Screen3Package() {
     }
   };
 
+  // Calculate duration from time block
+  const calculateDuration = (timeBlock: string | null): number => {
+    if (!timeBlock) return 0;
+    const [startTime, endTime] = timeBlock.split("-");
+    const start = new Date(`1970-01-01T${startTime}`);
+    const end = new Date(`1970-01-01T${endTime}`);
+    const durationMs = end.getTime() - start.getTime();
+    return durationMs / (1000 * 60 * 60);
+  };
+
+  // Calculate extra hours cost with tiered pricing
+  const calculateExtraHoursCost = (extraHours: number): number => {
+    if (extraHours === 1) {
+      return 50;
+    } else if (extraHours > 1) {
+      return 50 + 75 * (extraHours - 1);
+    }
+    return 0;
+  };
+
   const handleSelect = (packageName: PackageType) => {
     const price = getPackagePrice(packageName);
     updatePackage(packageName, price);
   };
 
   const handleContinue = () => {
-    if (bookingData.package) {
+    if (!bookingData.package) return;
+
+    const duration = calculateDuration(bookingData.timeBlock);
+    const extraHours = duration > 3 ? Math.ceil(duration - 3) : 0;
+
+    // Check if package needs extra hours charge
+    const needsExtraHoursCharge =
+      extraHours > 0 &&
+      (bookingData.package === "Party Starter" || bookingData.package === "Glow Getter");
+
+    if (needsExtraHoursCharge) {
+      // Show modal for Party Starter or Glow Getter with >3 hours
+      setPendingPackage(bookingData.package);
+      setShowExtraHoursModal(true);
+    } else {
+      // All-Star VIP or ≤3 hours: proceed normally
+      if (extraHours > 0 && bookingData.package === "All-Star VIP") {
+        // Make sure extra hours cost is 0 for All-Star VIP
+        updateDateTime(bookingData.date!, bookingData.timeBlock!, 0);
+      }
       nextStep();
     }
+  };
+
+  const handleConfirmExtraHours = () => {
+    if (!bookingData.timeBlock || !bookingData.date) return;
+
+    const duration = calculateDuration(bookingData.timeBlock);
+    const extraHours = Math.ceil(duration - 3);
+
+    // Update booking with extra hours cost
+    updateDateTime(bookingData.date, bookingData.timeBlock, extraHours);
+    setShowExtraHoursModal(false);
+    nextStep();
+  };
+
+  const handleChangePackage = () => {
+    setShowExtraHoursModal(false);
+    // User stays on this screen to pick a different package
   };
 
   return (
@@ -95,6 +155,25 @@ export function Screen3Package() {
           Continue to Add-Ons →
         </Button>
       </div>
+
+      {/* Extra Hours Confirmation Modal */}
+      {bookingData.timeBlock && (() => {
+        const duration = calculateDuration(bookingData.timeBlock);
+        const extraHours = duration > 3 ? Math.ceil(duration - 3) : 0;
+        const extraHoursCost = calculateExtraHoursCost(extraHours);
+
+        return (
+          <ExtraHoursModal
+            isOpen={showExtraHoursModal}
+            totalHours={Math.ceil(duration)}
+            extraHours={extraHours}
+            extraHoursCost={extraHoursCost}
+            onContinue={handleConfirmExtraHours}
+            onChangeTime={handleChangePackage}
+            changeButtonText="Choose Different Package"
+          />
+        );
+      })()}
     </div>
   );
 }
