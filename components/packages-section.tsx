@@ -111,9 +111,9 @@ export function PackagesSection({ onBookNowClick }: PackagesSectionProps = {}) {
               price={getPricing("400", "500")}
               features={[
                 "Everything in Glow Getter",
-                "Themed Video Projector",
-                "Extended hours included",
-                "Overnight Parties",
+                "Unlimited Extended Hours",
+                "Overnight Parties Welcome",
+                "Perfect for All-Night Events",
                 "⚠️ LED lights limited in daylight",
               ]}
               glowColor="teal"

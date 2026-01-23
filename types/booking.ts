@@ -7,6 +7,7 @@ export interface AddOns {
   redRopesCarpet: boolean;
   extraHour: boolean;
   glowBags: boolean;
+  themedVideoProjector: boolean;
 }
 
 export interface CustomerInfo {
@@ -89,6 +90,7 @@ export interface BookingRecord {
   addon_red_ropes_carpet: boolean;
   addon_extra_hour: boolean;
   addon_glow_bags: boolean;
+  addon_themed_video_projector: boolean;
   subtotal: number;
   booking_fee: number;
   total: number;

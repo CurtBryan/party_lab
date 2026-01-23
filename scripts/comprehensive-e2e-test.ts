@@ -289,6 +289,7 @@ test("BookingData: Required fields exist", () => {
       redRopesCarpet: false,
       extraHour: false,
       glowBags: false,
+      themedVideoProjector: false,
     },
     pricing: {
       subtotal: 300,

@@ -62,9 +62,9 @@ export const PACKAGES: Package[] = [
     description: "Big wins deserve big celebrations! The All-Star VIP Package brings extra time, nonstop music, and the full nightclub experience — perfect for schools, teams, and community events ready to party all night!",
     features: [
       "Everything in Glow Getter",
-      "Themed Video Projector",
-      "Extended hours included",
-      "Overnight Parties",
+      "Unlimited Extended Hours",
+      "Overnight Parties Welcome",
+      "Perfect for All-Night Events",
       "⚠️ Note: LED lights have limited visibility in daylight",
     ],
     glowColor: "teal",
@@ -72,6 +72,12 @@ export const PACKAGES: Package[] = [
 ];
 
 export const ADD_ONS: AddOnOption[] = [
+  {
+    id: "themedVideoProjector",
+    name: "Themed Video Projector",
+    price: 100,
+    description: "Music video projector with themed visuals for the ultimate nightclub experience",
+  },
   {
     id: "playlistProjector",
     name: "Playlist + Projector",

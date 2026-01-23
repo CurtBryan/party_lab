@@ -72,6 +72,7 @@ const mockBooking: BookingData = {
     redRopesCarpet: false,
     extraHour: false,
     glowBags: true,
+    themedVideoProjector: false,
   },
   customer: {
     name: "Test Customer",

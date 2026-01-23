@@ -33,6 +33,7 @@ export async function createBooking(bookingData: BookingData, paymentIntentId: s
         addon_red_ropes_carpet: bookingData.addOns.redRopesCarpet,
         addon_extra_hour: bookingData.addOns.extraHour,
         addon_glow_bags: bookingData.addOns.glowBags,
+        addon_themed_video_projector: bookingData.addOns.themedVideoProjector,
         extra_hours: bookingData.pricing.extraHours,
         extra_hours_cost: bookingData.pricing.extraHoursCost,
         trip_charge: bookingData.pricing.tripCharge,

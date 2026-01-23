@@ -28,6 +28,7 @@ const initialAddOns: AddOns = {
   redRopesCarpet: false,
   extraHour: false,
   glowBags: false,
+  themedVideoProjector: false,
 };
 
 const initialPricing: Pricing = {
@@ -91,6 +92,7 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
       }
 
       const currentAddOnsCost =
+        (prev.addOns.themedVideoProjector ? 100 : 0) +
         (prev.addOns.playlistProjector ? 100 : 0) +
         (prev.addOns.extraHour ? 50 : 0) +
         (prev.addOns.glowBags ? 50 : 0);
@@ -132,14 +134,16 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
     setBookingData((prev) => {
       // Calculate add-on prices
       let addOnTotal = 0;
+      if (addOns.themedVideoProjector) addOnTotal += 100;
       if (addOns.playlistProjector) addOnTotal += 100;
-      if (addOns.extraHour) addOnTotal += 50; // Changed from $75 to $50
+      if (addOns.extraHour) addOnTotal += 50;
       if (addOns.glowBags) addOnTotal += 50;
 
       // Get base package price from current subtotal (excluding previous add-ons and extra hours)
       const previousAddOnsCost =
+        (prev.addOns.themedVideoProjector ? 100 : 0) +
         (prev.addOns.playlistProjector ? 100 : 0) +
-        (prev.addOns.extraHour ? 50 : 0) + // Changed from $75 to $50
+        (prev.addOns.extraHour ? 50 : 0) +
         (prev.addOns.glowBags ? 50 : 0);
 
       const basePackagePrice = prev.pricing.subtotal - previousAddOnsCost - prev.pricing.extraHoursCost;
