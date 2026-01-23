@@ -15,7 +15,22 @@ export function Screen7Confirmation({ onClose }: Screen7ConfirmationProps) {
   const { bookingData, resetBooking } = useBooking();
 
   if (!bookingData.customer || !bookingData.date || !bookingData.timeBlock || !bookingData.bookingId) {
-    return <div>Error: Missing booking information</div>;
+    return (
+      <div className="text-center py-12 space-y-4">
+        <p className="text-lg text-muted-foreground">
+          Your booking session has expired or is incomplete.
+        </p>
+        <Button
+          onClick={() => {
+            resetBooking();
+            onClose();
+          }}
+          className="gradient-purple-pink text-white"
+        >
+          Start New Booking
+        </Button>
+      </div>
+    );
   }
 
   // Parse date as local timezone to avoid off-by-one errors

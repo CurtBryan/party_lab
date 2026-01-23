@@ -63,9 +63,23 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
     if (savedData) {
       try {
         const parsed = JSON.parse(savedData);
-        setBookingData(parsed);
+        // Merge with initial state to ensure all fields exist (handles schema updates)
+        setBookingData({
+          ...initialBookingData,
+          ...parsed,
+          addOns: {
+            ...initialAddOns,
+            ...(parsed.addOns || {}),
+          },
+          pricing: {
+            ...initialPricing,
+            ...(parsed.pricing || {}),
+          },
+        });
       } catch (error) {
         console.error("Failed to parse saved booking data:", error);
+        // Clear corrupted data
+        localStorage.removeItem("partylab_booking");
       }
     }
   }, []);

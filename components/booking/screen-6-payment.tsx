@@ -296,8 +296,23 @@ export function Screen6Payment() {
     initializePayment();
   }, []);
 
-  if (!bookingData.customer || !bookingData.date || !bookingData.timeBlock) {
-    return <div>Error: Missing booking information</div>;
+  if (!bookingData.customer || !bookingData.date || !bookingData.timeBlock || !bookingData.package) {
+    return (
+      <div className="text-center py-12 space-y-4">
+        <p className="text-lg text-muted-foreground">
+          Your booking session has expired or is incomplete.
+        </p>
+        <Button
+          onClick={() => {
+            localStorage.removeItem("partylab_booking");
+            window.location.reload();
+          }}
+          className="gradient-purple-pink text-white"
+        >
+          Start New Booking
+        </Button>
+      </div>
+    );
   }
 
   // Parse date as local timezone to avoid off-by-one errors
