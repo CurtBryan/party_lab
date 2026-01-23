@@ -447,30 +447,6 @@ export function Screen2DateTime() {
                 </Card>
               )}
 
-              {/* Show unavailable time blocks */}
-              {getAvailableTimeBlocks().some(block => !availableBlocks.includes(block.value)) && (
-                <div className="mt-4 pt-4 border-t border-border">
-                  <p className="text-sm font-medium text-muted-foreground mb-2">Unavailable Time Blocks:</p>
-                  <div className="space-y-2">
-                    {getAvailableTimeBlocks().map((block) => {
-                      const isAvailable = availableBlocks.includes(block.value);
-                      if (isAvailable) return null;
-
-                      return (
-                        <div
-                          key={block.value}
-                          className="p-3 rounded-lg border border-border bg-muted/30 opacity-60"
-                        >
-                          <div className="flex items-center justify-between">
-                            <span className="text-sm font-medium text-muted-foreground">{block.label}</span>
-                            <span className="text-xs text-red-500">Not available</span>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
             </div>
           )}
         </Card>
