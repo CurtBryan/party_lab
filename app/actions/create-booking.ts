@@ -44,6 +44,7 @@ export async function createBooking(bookingData: BookingData, paymentIntentId: s
         payment_status: "paid",
         booking_status: "confirmed",
         special_requests: bookingData.customer.specialRequests || null,
+        playlist_request: bookingData.customer.playlistRequest || null,
         space_type: bookingData.customer.spaceType,
         power_source: bookingData.customer.powerSource,
         wifi_music_access: bookingData.customer.wifiMusicAccess,

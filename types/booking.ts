@@ -17,6 +17,7 @@ export interface CustomerInfo {
   address: string;
   eventType: string;
   specialRequests?: string;
+  playlistRequest?: string;
   // Pre-Event Readiness Checklist (Required)
   spaceType: string;
   powerSource: "Yes" | "No" | "N/A" | string;
@@ -98,6 +99,7 @@ export interface BookingRecord {
   payment_status: string;
   booking_status: string;
   special_requests: string | null;
+  playlist_request: string | null;
   // Pre-Event Readiness Checklist
   space_type: string | null;
   power_source: string | null;

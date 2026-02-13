@@ -48,7 +48,7 @@ export const PACKAGES: Package[] = [
     features: [
       "Everything in Party Starter",
       "Red Ropes & Carpet",
-      "Glow Up Kit (20) Included",
+      "Glow Up Party Bags (15) Included",
       "Wireless Microphones Included",
       "Curated Playlist",
       "⚠️ Note: LED lights have limited visibility in daylight",
@@ -100,7 +100,7 @@ export const ADD_ONS: AddOnOption[] = [
     id: "glowBags",
     name: "Glow-Up Party Bags",
     price: 50,
-    description: "Party favor bags with glow accessories for up to 20 guests",
+    description: "Party favor bags with glow accessories for up to 15 guests",
   },
 ];
 

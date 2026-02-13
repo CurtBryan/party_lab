@@ -23,6 +23,7 @@ export function Screen5Customer() {
     address: bookingData.customer?.address || "",
     eventType: bookingData.customer?.eventType || "",
     specialRequests: bookingData.customer?.specialRequests || "",
+    playlistRequest: bookingData.customer?.playlistRequest || "",
     spaceType: bookingData.customer?.spaceType || "",
     powerSource: bookingData.customer?.powerSource || "",
     wifiMusicAccess: bookingData.customer?.wifiMusicAccess || "",
@@ -320,6 +321,24 @@ export function Screen5Customer() {
               className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
           </div>
+
+          {/* Playlist Request - only for packages that include curated playlists */}
+          {(bookingData.package === "Glow Getter" || bookingData.package === "All-Star VIP") && (
+            <div>
+              <Label htmlFor="playlistRequest">What kind of playlist would you like? (Optional)</Label>
+              <textarea
+                id="playlistRequest"
+                value={formData.playlistRequest}
+                onChange={(e) => handleChange("playlistRequest", e.target.value)}
+                placeholder="e.g. Pop hits, Disney songs, hip hop clean edits, 2000s throwbacks..."
+                rows={3}
+                className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              />
+              <p className="text-xs text-muted-foreground mt-1">
+                Your package includes a curated playlist! Let us know your vibe and we&apos;ll put together the perfect mix.
+              </p>
+            </div>
+          )}
 
           {/* Pre-Event Readiness Checklist */}
           <div className="pt-6 border-t border-border">

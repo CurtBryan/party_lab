@@ -182,7 +182,7 @@ Phone: ${booking.customer_phone}
 BOOKING DETAILS:
 Product: ${booking.product}
 Package: ${booking.package}
-${addOnsList.length > 0 ? `Add-Ons: ${addOnsList.join(', ')}\n` : ''}
+${addOnsList.length > 0 ? `Add-Ons: ${addOnsList.join(', ')}\n` : ''}${booking.playlist_request ? `Playlist Request: ${booking.playlist_request}\n` : ''}
 ARRIVAL TIME:
 Arrive between ${estimatedArrival} - ${startTime} for setup
 
