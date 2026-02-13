@@ -30,7 +30,7 @@ const faqs = [
   },
   {
     question: "Can I extend my rental time?",
-    answer: "Absolutely! The first extra hour is $50, and each additional hour after that is $75. Just let us know during your event and we'll extend your party time."
+    answer: "Absolutely! The first extra hour is $50, and each additional hour after that is $75."
   },
   {
     question: "What music themes are available?",
