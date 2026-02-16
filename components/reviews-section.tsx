@@ -5,13 +5,12 @@ import { Button } from "@/components/ui/button";
 
 // Add real customer reviews here as you collect them
 const reviews: { name: string; eventType: string; rating: number; text: string }[] = [
-  // Example format - uncomment and replace with real reviews:
-  // {
-  //   name: "Sarah M.",
-  //   eventType: "Birthday Party",
-  //   rating: 5,
-  //   text: "Customer's actual review text here...",
-  // },
+  {
+    name: "Samantha B.",
+    eventType: "Birthday Party",
+    rating: 5,
+    text: "We rented the blow up nightclub for our 7-year-old's birthday party, and it was a hit! From start to finish, they were easy to schedule with and very quick to communicate. The setup and takedown were smooth and efficient, and everything was handled professionally. The kids were beyond excited — the red carpet entrance made them feel like VIPs, and they loved the disco ball. I would absolutely recommend Partylabaz for any age range!",
+  },
 ];
 
 export function ReviewsSection() {
