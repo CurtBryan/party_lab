@@ -22,9 +22,22 @@ export function ReviewsSection() {
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-glow-pink">
             What People Are Saying
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-6">
             Don't just take our word for it — hear from families and party-goers who've experienced the Partylab magic!
           </p>
+          <a
+            href="https://www.facebook.com/61579352249971/reviews"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button
+              size="lg"
+              className="gradient-purple-pink glow-pink text-white font-semibold px-8"
+            >
+              Leave a Review on Facebook
+              <ExternalLink className="w-4 h-4 ml-2" />
+            </Button>
+          </a>
         </div>
 
         {/* Reviews Grid - Shows when reviews exist */}
@@ -56,25 +69,6 @@ export function ReviewsSection() {
           </div>
         )}
 
-        {/* CTA */}
-        <div className="text-center space-y-4">
-          <p className="text-muted-foreground">
-            Had a great experience? We'd love to hear about it!
-          </p>
-          <a
-            href="https://www.facebook.com/61579352249971/reviews"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Button
-              size="lg"
-              className="gradient-purple-pink glow-pink text-white font-semibold px-8"
-            >
-              Leave a Review
-              <ExternalLink className="w-4 h-4 ml-2" />
-            </Button>
-          </a>
-        </div>
       </div>
     </section>
   );
