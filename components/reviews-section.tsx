@@ -67,7 +67,7 @@ export function ReviewsSection() {
             Had a great experience? We'd love to hear about it!
           </p>
           <a
-            href="https://www.facebook.com/profile.php?id=61579352249971&sk=reviews"
+            href="https://www.facebook.com/profile.php?id=61579352249971"
             target="_blank"
             rel="noopener noreferrer"
           >
