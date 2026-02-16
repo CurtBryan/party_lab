@@ -7,7 +7,8 @@ import { PackagesSection } from "@/components/packages-section";
 import { ContactForm } from "@/components/contact-form";
 import { FAQSection } from "@/components/faq-section";
 import { BookingModal } from "@/components/booking/booking-modal";
-import { Instagram, Mail, Phone, Check } from "lucide-react";
+import { Instagram, Mail, Phone } from "lucide-react";
+import { ReviewsSection } from "@/components/reviews-section";
 import Image from "next/image";
 
 export default function Home() {
@@ -72,17 +73,8 @@ export default function Home() {
       {/* Contact Form */}
       <ContactForm />
 
-      {/* Social Proof / Testimonials Placeholder */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/10">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-glow-teal">
-            Ready to Party?
-          </h2>
-          <p className="text-xl text-muted-foreground">
-            We're excited to help you throw an unforgettable party — PartyLab is a locally owned start-up bringing nightclub vibes to celebrations across our community.
-          </p>
-        </div>
-      </section>
+      {/* Reviews Section */}
+      <ReviewsSection />
 
       {/* Footer */}
       <footer className="bg-card border-t border-border py-12 px-4 sm:px-6 lg:px-8">
