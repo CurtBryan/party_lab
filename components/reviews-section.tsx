@@ -1,6 +1,6 @@
 "use client";
 
-import { Star, ExternalLink } from "lucide-react";
+import { CheckCircle, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // Add real customer reviews here as you collect them
@@ -35,14 +35,10 @@ export function ReviewsSection() {
                 key={index}
                 className="bg-card border border-border rounded-xl p-6 hover:border-primary/50 transition-all duration-300 hover:glow-purple"
               >
-                {/* Stars */}
-                <div className="flex gap-1 mb-4">
-                  {[...Array(review.rating)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className="w-5 h-5 fill-yellow-400 text-yellow-400"
-                    />
-                  ))}
+                {/* Verified Badge */}
+                <div className="flex items-center gap-2 mb-4 text-green-500">
+                  <CheckCircle className="w-5 h-5" />
+                  <span className="text-sm font-medium">Verified Customer</span>
                 </div>
 
                 {/* Review Text */}
