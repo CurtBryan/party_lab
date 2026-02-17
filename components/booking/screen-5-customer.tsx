@@ -24,6 +24,7 @@ export function Screen5Customer() {
     eventType: bookingData.customer?.eventType || "",
     specialRequests: bookingData.customer?.specialRequests || "",
     playlistRequest: bookingData.customer?.playlistRequest || "",
+    hearAboutUs: bookingData.customer?.hearAboutUs || "",
     spaceType: bookingData.customer?.spaceType || "",
     powerSource: bookingData.customer?.powerSource || "",
     wifiMusicAccess: bookingData.customer?.wifiMusicAccess || "",
@@ -339,6 +340,39 @@ export function Screen5Customer() {
               </p>
             </div>
           )}
+
+          {/* How did you hear about us? */}
+          <div>
+            <Label>How did you hear about us?</Label>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-2">
+              {[
+                { value: "Facebook", label: "Facebook" },
+                { value: "Instagram", label: "Instagram" },
+                { value: "Google", label: "Google" },
+                { value: "Referral", label: "Referral" },
+                { value: "Other", label: "Other" },
+              ].map((option) => (
+                <label
+                  key={option.value}
+                  className={`flex items-center justify-center gap-2 p-3 rounded-lg border cursor-pointer transition-all ${
+                    formData.hearAboutUs === option.value
+                      ? "border-primary bg-primary/10 text-primary"
+                      : "border-input hover:border-primary/50"
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="hearAboutUs"
+                    value={option.value}
+                    checked={formData.hearAboutUs === option.value}
+                    onChange={(e) => handleChange("hearAboutUs", e.target.value)}
+                    className="sr-only"
+                  />
+                  <span className="text-sm font-medium">{option.label}</span>
+                </label>
+              ))}
+            </div>
+          </div>
 
           {/* Pre-Event Readiness Checklist */}
           <div className="pt-6 border-t border-border">

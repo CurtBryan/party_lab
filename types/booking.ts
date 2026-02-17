@@ -18,6 +18,7 @@ export interface CustomerInfo {
   eventType: string;
   specialRequests?: string;
   playlistRequest?: string;
+  hearAboutUs?: string;
   // Pre-Event Readiness Checklist (Required)
   spaceType: string;
   powerSource: "Yes" | "No" | "N/A" | string;
@@ -106,4 +107,5 @@ export interface BookingRecord {
   wifi_music_access: string | null;
   surface_type: string | null;
   access_path: string | null;
+  hear_about_us: string | null;
 }

@@ -128,7 +128,7 @@ Email: ${bookingData.customer.email}
 Phone: ${bookingData.customer.phone}
 Location: ${bookingData.customer.address}
 Event Type: ${bookingData.customer.eventType}
-${bookingData.customer.specialRequests ? `Special Requests: ${bookingData.customer.specialRequests}\n` : ''}${bookingData.customer.playlistRequest ? `Playlist Request: ${bookingData.customer.playlistRequest}\n` : ''}
+${bookingData.customer.specialRequests ? `Special Requests: ${bookingData.customer.specialRequests}\n` : ''}${bookingData.customer.playlistRequest ? `Playlist Request: ${bookingData.customer.playlistRequest}\n` : ''}${bookingData.customer.hearAboutUs ? `How They Found Us: ${bookingData.customer.hearAboutUs}\n` : ''}
 ${addOnsList.length > 0 ? `\nADD-ONS:\n${addOnsList.map(addon => `• ${addon}`).join('\n')}\n` : ''}${additionalCharges.length > 0 ? `\nADDITIONAL CHARGES:\n${additionalCharges.map(charge => `• ${charge}`).join('\n')}\n` : ''}
 PRE-EVENT READINESS INFO:
 ${checklistInfo.map(info => `• ${info}`).join('\n')}

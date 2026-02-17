@@ -50,6 +50,7 @@ export async function createBooking(bookingData: BookingData, paymentIntentId: s
         wifi_music_access: bookingData.customer.wifiMusicAccess,
         surface_type: bookingData.customer.surfaceType,
         access_path: bookingData.customer.accessPath,
+        hear_about_us: bookingData.customer.hearAboutUs || null,
       })
       .select()
       .single();
