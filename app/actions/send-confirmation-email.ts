@@ -24,6 +24,7 @@ export async function sendConfirmationEmail(bookingData: BookingData, bookingId:
 
     // Build add-ons list
     const addOnsList = [];
+    if (bookingData.addOns.themedVideoProjector) addOnsList.push("Themed Video Projector (+$100)");
     if (bookingData.addOns.playlistProjector) addOnsList.push("Playlist + Projector (+$100)");
     if (bookingData.addOns.redRopesCarpet) addOnsList.push("Red Ropes & Carpet (+$40)");
     if (bookingData.addOns.extraHour) addOnsList.push("Extra Hour (+$50)");
