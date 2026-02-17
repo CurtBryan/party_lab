@@ -54,6 +54,13 @@ Hi ${bookingData.customer.name},
 
 Your booking is confirmed! 🎉
 
+YOUR INFO:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Name: ${bookingData.customer.name}
+Email: ${bookingData.customer.email}
+Phone: ${bookingData.customer.phone}
+Event Type: ${bookingData.customer.eventType}
+${bookingData.customer.specialRequests ? `Special Requests: ${bookingData.customer.specialRequests}\n` : ''}${bookingData.customer.playlistRequest ? `Playlist Request: ${bookingData.customer.playlistRequest}\n` : ''}
 BOOKING DETAILS:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Booking ID: ${bookingId}
@@ -121,7 +128,7 @@ Email: ${bookingData.customer.email}
 Phone: ${bookingData.customer.phone}
 Location: ${bookingData.customer.address}
 Event Type: ${bookingData.customer.eventType}
-${bookingData.customer.specialRequests ? `Special Requests: ${bookingData.customer.specialRequests}\n` : ''}
+${bookingData.customer.specialRequests ? `Special Requests: ${bookingData.customer.specialRequests}\n` : ''}${bookingData.customer.playlistRequest ? `Playlist Request: ${bookingData.customer.playlistRequest}\n` : ''}
 ${addOnsList.length > 0 ? `\nADD-ONS:\n${addOnsList.map(addon => `• ${addon}`).join('\n')}\n` : ''}${additionalCharges.length > 0 ? `\nADDITIONAL CHARGES:\n${additionalCharges.map(charge => `• ${charge}`).join('\n')}\n` : ''}
 PRE-EVENT READINESS INFO:
 ${checklistInfo.map(info => `• ${info}`).join('\n')}
