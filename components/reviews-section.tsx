@@ -11,6 +11,18 @@ const reviews: { name: string; eventType: string; rating: number; text: string }
     rating: 5,
     text: "We rented the blow up nightclub for our 7-year-old's birthday party, and it was a hit! From start to finish, they were easy to schedule with and very quick to communicate. The setup and takedown were smooth and efficient, and everything was handled professionally. The kids were beyond excited — the red carpet entrance made them feel like VIPs, and they loved the disco ball. I would absolutely recommend Partylabaz for any age range!",
   },
+  {
+    name: "Kyrene de la Mariposa PTO",
+    eventType: "School/PTO Event",
+    rating: 5,
+    text: "We highly recommend Party Lab AZ for school and PTO events. We have had them set up various sizes for our last 3 events and the kids LOVE it! They make it easy by doing all of the set up and breakdown, and it adds so much to the fun atmosphere of our events. Kids have a great time dancing inside to all their favorite songs. We'll definitely use them for our PTO events again!",
+  },
+  {
+    name: "Brittany W.",
+    eventType: "Neighborhood Festival",
+    rating: 5,
+    text: "We rented the dance dome for our Winter themed neighborhood festival and both the kids and adults had a blast! The red carpet entrance and ropes are such a fun way to elevate the \"VIP\" experience. Booking was seamless and communication was top notch from start to finish. Excellent experience all around and such a fun and unique addition to our event. Highly recommend Partylabaz!",
+  },
 ];
 
 export function ReviewsSection() {
