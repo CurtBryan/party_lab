@@ -31,6 +31,9 @@ export default function Home() {
       {/* Packages Section */}
       <PackagesSection onBookNowClick={() => setIsBookingModalOpen(true)} />
 
+      {/* Reviews Section */}
+      <ReviewsSection />
+
       {/* FAQ Section */}
       <FAQSection />
 
@@ -72,9 +75,6 @@ export default function Home() {
 
       {/* Contact Form */}
       <ContactForm />
-
-      {/* Reviews Section */}
-      <ReviewsSection />
 
       {/* Footer */}
       <footer className="bg-card border-t border-border py-12 px-4 sm:px-6 lg:px-8">
