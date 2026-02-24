@@ -18,33 +18,49 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "The Partylab | Inflatable Nightclub Rentals Arizona | Birthday Party Entertainment",
-  description: "Turn any space into a nightclub in 30 minutes! The Partylab offers inflatable nightclub rentals with LED lighting, curated playlists, and VIP setups. Perfect for birthdays, teen parties, school events, community events & more in Phoenix & Arizona. Starting at $250.",
+  title: "Partylab AZ | Inflatable Nightclub Rentals for Kids Parties | Phoenix Arizona",
+  description: "Partylab brings the party to you! Inflatable nightclub rentals with LED lights, disco ball, fog machine & curated playlists. Perfect for kids birthday parties, teen events, school dances & community events in Phoenix, Scottsdale, Mesa, Tempe & all Arizona. Book now - starting at $250!",
   icons: {
     icon: "/favicon.ico",
     apple: "/logo-small.png",
   },
   keywords: [
-    "inflatable nightclub rental Arizona",
-    "party rentals Phoenix",
-    "birthday party entertainment",
-    "teen party ideas Arizona",
-    "kids dance party Phoenix",
-    "inflatable party dome rental",
-    "LED nightclub rental",
-    "Sweet 16 party ideas",
-    "Quinceañera entertainment Arizona",
+    "partylab",
+    "party lab",
+    "partylab az",
+    "partylabaz",
+    "inflatable nightclub",
+    "inflatable nightclub rental",
+    "inflatable nightclub for kids",
+    "kids party ideas",
+    "kids birthday party ideas",
+    "kids birthday party Phoenix",
+    "kids dance party",
+    "birthday party entertainment Phoenix",
+    "birthday party rentals Arizona",
+    "teen party ideas",
+    "teen birthday party Phoenix",
+    "Sweet 16 party ideas Arizona",
+    "inflatable party dome",
+    "inflatable disco",
     "mobile nightclub rental",
-    "VIP party setup Phoenix",
-    "glow party rentals",
-    "Disney party theme",
-    "backyard party entertainment",
-    "Arizona event rentals",
-    "school event entertainment",
+    "LED party rental",
+    "glow party for kids",
+    "bounce house nightclub",
+    "party rentals Phoenix",
+    "party rentals Scottsdale",
+    "party rentals Mesa",
+    "party rentals Tempe",
+    "party rentals Gilbert",
+    "party rentals Chandler",
+    "school dance party",
+    "PTO event entertainment",
+    "school carnival rentals",
     "community event rentals Arizona",
-    "school dance party rentals",
-    "PTO fundraiser entertainment",
-    "school carnival rentals Phoenix"
+    "backyard party entertainment",
+    "VIP party setup kids",
+    "disco party for kids",
+    "unique birthday party ideas Arizona"
   ],
   authors: [{ name: "The Partylab" }],
   creator: "The Partylab",
@@ -57,22 +73,22 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://partylabaz.com",
-    title: "The Partylab | Inflatable Nightclub Rentals in Arizona",
-    description: "Turn any space into a nightclub in 30 minutes! Inflatable nightclub rentals with LED lighting, curated playlists, and VIP setups for birthdays, teen parties, school events, community events & more.",
-    siteName: "The Partylab",
+    title: "Partylab AZ | Inflatable Nightclub Rentals for Kids Parties",
+    description: "Partylab brings the party to you! Inflatable nightclub with LED lights, disco ball & fog machine. Perfect for kids birthday parties, teen events & school dances in Phoenix, Arizona.",
+    siteName: "Partylab AZ",
     images: [
       {
         url: "/hero.JPG",
         width: 1200,
         height: 630,
-        alt: "The Partylab - Inflatable Nightclub Rentals",
+        alt: "Partylab AZ - Inflatable Nightclub for Kids Birthday Parties in Arizona",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "The Partylab | Inflatable Nightclub Rentals Arizona",
-    description: "Turn any space into a nightclub in 30 minutes! Perfect for birthdays, teen parties, school events, community events & more in Phoenix & Arizona.",
+    title: "Partylab AZ | Inflatable Nightclub for Kids Parties",
+    description: "Partylab brings the party to you! Inflatable nightclub with LED lights & disco vibes. Perfect for kids birthdays, teen parties & school events in Phoenix, Arizona.",
     images: ["/hero.JPG"],
     creator: "@partylabaz",
   },
@@ -105,7 +121,7 @@ export default function RootLayout({
     "@type": "LocalBusiness",
     "name": "The Partylab",
     "image": "https://partylabaz.com/hero.JPG",
-    "description": "Inflatable nightclub rentals with LED lighting, curated playlists, and VIP setups for birthdays, teen parties, school events, community events and more in Arizona.",
+    "description": "Partylab AZ offers inflatable nightclub rentals for kids birthday parties, teen events, school dances, and community events. Features LED lighting, disco ball, fog machine, and curated playlists. Serving Phoenix, Scottsdale, Mesa, Tempe, Chandler, Gilbert and all Arizona.",
     "telephone": "(602) 799-5856",
     "email": "partylabaz@gmail.com",
     "address": {
@@ -163,12 +179,40 @@ export default function RootLayout({
       {
         "@type": "City",
         "name": "Gilbert"
+      },
+      {
+        "@type": "City",
+        "name": "Glendale"
+      },
+      {
+        "@type": "City",
+        "name": "Peoria"
+      },
+      {
+        "@type": "City",
+        "name": "Surprise"
+      },
+      {
+        "@type": "City",
+        "name": "Queen Creek"
+      },
+      {
+        "@type": "City",
+        "name": "Goodyear"
+      },
+      {
+        "@type": "City",
+        "name": "Avondale"
+      },
+      {
+        "@type": "City",
+        "name": "Buckeye"
       }
     ],
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "5",
-      "reviewCount": "100"
+      "reviewCount": "3"
     },
     "sameAs": [
       "https://instagram.com/partylabaz",
