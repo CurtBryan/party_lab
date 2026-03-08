@@ -97,7 +97,7 @@ export function PackagesSection({ onBookNowClick }: PackagesSectionProps = {}) {
                 "Everything in Party Starter",
                 "Red Ropes & Carpet",
                 "Glow Up Party Bags (15) Included",
-                "Wireless Microphones Included",
+                "Wireless Microphone Included",
                 "Curated Playlist",
                 "⚠️ LED lights limited in daylight",
               ]}

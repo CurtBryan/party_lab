@@ -49,7 +49,7 @@ export const PACKAGES: Package[] = [
       "Everything in Party Starter",
       "Red Ropes & Carpet",
       "Glow Up Party Bags (15) Included",
-      "Wireless Microphones Included",
+      "Wireless Microphone Included",
       "Curated Playlist",
       "⚠️ Note: LED lights have limited visibility in daylight",
     ],
