@@ -143,3 +143,4 @@ export const BOOKING_FEE = 100;
 
 // Minimum hours in advance for booking
 export const MIN_HOURS_ADVANCE = 48;
+
