@@ -2,7 +2,6 @@
 
 import { useBooking } from "./booking-context";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import Image from "next/image";
 import { Users, Maximize2 } from "lucide-react";
 import { PRODUCTS } from "@/lib/constants";
@@ -21,67 +20,69 @@ export function Screen1Product() {
     }
   };
 
+  // Get base price for each product
+  const getBasePrice = (productName: string): number => {
+    return productName === "Dance Dome" ? 250 : 300;
+  };
+
   return (
     <div className="space-y-8">
       <div className="text-center">
-        <h2 className="text-4xl font-bold mb-4 text-glow-purple">
+        <h2 className="text-3xl sm:text-4xl font-bold mb-3 text-glow-pink">
           Choose Your Venue
         </h2>
-        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+        <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
           Select the perfect inflatable nightclub for your event
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
         {PRODUCTS.map((product) => {
           const isSelected = bookingData.product === product.name;
-
-          const glowClass = {
-            purple: "glow-purple",
-            pink: "glow-pink",
-            teal: "glow-teal",
-          }[product.glowColor];
-
-          const textGlowClass = {
-            purple: "text-glow-purple",
-            pink: "text-glow-pink",
-            teal: "text-glow-teal",
-          }[product.glowColor];
+          const basePrice = getBasePrice(product.name);
 
           return (
-            <Card
+            <button
               key={product.name}
               onClick={() => handleSelect(product.name)}
-              className={`relative overflow-hidden bg-card border-2 transition-all hover:scale-105 group cursor-pointer ${
-                isSelected ? `border-primary ${glowClass}` : "border-border hover:border-primary"
+              className={`rounded-2xl border-2 overflow-hidden transition-all p-4 sm:p-6 text-left ${
+                isSelected
+                  ? "border-primary bg-primary/10 glow-purple"
+                  : "border-border bg-card hover:border-primary/50"
               }`}
             >
-              <div className="relative h-72 overflow-hidden bg-black">
+              <div className="relative aspect-[4/3] bg-black rounded-xl overflow-hidden mb-4">
                 <Image
                   src={product.imageUrl}
                   alt={product.name}
                   fill
-                  className="object-contain group-hover:scale-110 transition-transform duration-300"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 33vw"
                 />
+                {isSelected && (
+                  <div className="absolute top-3 right-3 w-6 h-6 bg-primary rounded-full flex items-center justify-center">
+                    <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                )}
               </div>
-              <div className="p-6 text-center">
-                <h3 className={`text-2xl font-bold mb-2 ${isSelected ? textGlowClass : "text-foreground"}`}>
-                  {product.name}
-                </h3>
-                <p className="text-muted-foreground mb-3">{product.description}</p>
-                <div className="flex flex-col gap-2">
-                  <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+              <div className="text-center">
+                <h3 className="text-xl sm:text-2xl font-bold mb-2">{product.name}</h3>
+                <p className="text-sm sm:text-base text-muted-foreground mb-3">{product.description}</p>
+                <p className="text-2xl sm:text-3xl font-bold text-primary mb-3">Starting at ${basePrice}</p>
+                <div className="flex flex-col items-center gap-1.5 text-sm text-muted-foreground">
+                  <span className="inline-flex items-center gap-2">
                     <Users className="w-4 h-4" />
-                    <span>Capacity: {product.capacity}</span>
-                  </div>
-                  <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+                    Capacity: {product.capacity}
+                  </span>
+                  <span className="inline-flex items-center gap-2">
                     <Maximize2 className="w-4 h-4" />
-                    <span>Size: {product.dimensions}</span>
-                  </div>
+                    Size: {product.dimensions}
+                  </span>
                 </div>
               </div>
-            </Card>
+            </button>
           );
         })}
       </div>
@@ -93,7 +94,7 @@ export function Screen1Product() {
           size="lg"
           className="gradient-purple-pink glow-purple text-white font-semibold px-12"
         >
-          Continue to Date & Time →
+          Continue to Experience →
         </Button>
       </div>
     </div>

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Sparkles, Calendar, Instagram, MessageCircle } from "lucide-react";
+import { Sparkles, ChevronDown, Instagram, MessageCircle, Gift } from "lucide-react";
 import Image from "next/image";
 import { TalkToUsModal } from "@/components/talk-to-us-modal";
 
@@ -14,26 +14,26 @@ export function HeroSection({ onBookNowClick }: HeroSectionProps = {}) {
   const [isTalkToUsOpen, setIsTalkToUsOpen] = useState(false);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <section className="relative min-h-[100dvh] flex items-center justify-center px-4 sm:px-6 overflow-hidden">
       {/* Logo - Top Left */}
       <div className="absolute top-4 left-4 sm:top-6 sm:left-6 z-20">
         <Image
           src="/logo-small.png"
           alt="The Partylab"
-          width={128}
-          height={128}
-          className="w-16 h-16 sm:w-24 sm:h-24 md:w-32 md:h-32"
+          width={96}
+          height={96}
+          className="w-14 h-14 sm:w-20 sm:h-20"
           priority
         />
       </div>
 
       {/* Social Links - Top Right */}
-      <div className="absolute top-4 right-4 sm:top-6 sm:right-6 z-20 flex gap-2 sm:gap-3">
+      <div className="absolute top-4 right-4 sm:top-6 sm:right-6 z-20 flex gap-2">
         <a
           href="https://instagram.com/partylabaz"
           target="_blank"
           rel="noopener noreferrer"
-          className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-card/80 backdrop-blur-sm border border-border flex items-center justify-center hover:bg-primary hover:border-primary hover:glow-purple transition-all"
+          className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-card/80 backdrop-blur-sm border border-border flex items-center justify-center hover:bg-primary hover:border-primary transition-all"
           aria-label="Follow us on Instagram"
         >
           <Instagram className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -42,7 +42,7 @@ export function HeroSection({ onBookNowClick }: HeroSectionProps = {}) {
           href="https://www.facebook.com/people/Partylabaz/61579352249971"
           target="_blank"
           rel="noopener noreferrer"
-          className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-card/80 backdrop-blur-sm border border-border flex items-center justify-center hover:bg-secondary hover:border-secondary hover:glow-pink transition-all"
+          className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-card/80 backdrop-blur-sm border border-border flex items-center justify-center hover:bg-secondary hover:border-secondary transition-all"
           aria-label="Follow us on Facebook"
         >
           <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -51,23 +51,23 @@ export function HeroSection({ onBookNowClick }: HeroSectionProps = {}) {
         </a>
       </div>
 
-      {/* Background Image - Very Visible */}
+      {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-[url('/hero.JPG')] bg-cover bg-center" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-background z-0" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-background" />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-6xl mx-auto text-center pt-28 pb-20 sm:py-20 px-4">
+      <div className="relative z-10 max-w-4xl mx-auto text-center pt-20 pb-16 sm:py-16 px-4">
         <div className="animate-fade-in">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 bg-black/60 backdrop-blur-md border border-primary rounded-full px-4 py-2 sm:px-6 mb-8 glow-purple">
-            <Sparkles className="w-4 h-4 text-primary" />
-            <span className="text-xs sm:text-sm font-semibold text-white">From Backyard Parties to Community Events — Arizona's Premier Inflatable Nightclub Experience</span>
+          <div className="inline-flex items-center gap-2 bg-black/60 backdrop-blur-md border border-primary/50 rounded-full px-4 py-1.5 mb-6 sm:mb-8">
+            <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-primary" />
+            <span className="text-xs sm:text-sm font-medium text-white/90">From Backyard Parties to Community Events — Arizona&apos;s Premier Inflatable Nightclub Experience</span>
           </div>
 
           {/* Headline */}
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight text-white drop-shadow-2xl">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 leading-tight text-white drop-shadow-2xl">
             Bring the{" "}
             <span className="text-glow-purple bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
               Nightclub
@@ -77,67 +77,62 @@ export function HeroSection({ onBookNowClick }: HeroSectionProps = {}) {
           </h1>
 
           {/* Subheadline */}
-          <div className="bg-black/50 backdrop-blur-sm rounded-2xl p-6 mb-12 max-w-3xl mx-auto">
-            <p className="text-xl sm:text-2xl text-white">
-              Turn any space into a nightclub! Inflatable nightclubs with LED lighting, visual dance videos on a projector,
-              and curated playlists—made for birthdays, teen parties, and unforgettable celebrations.
-            </p>
-          </div>
+          <p className="text-base sm:text-lg md:text-xl text-white/90 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed bg-black/50 backdrop-blur-sm rounded-2xl px-6 py-4">
+            Turn any space into a nightclub! Inflatable nightclubs with LED lighting, visual dance videos on a projector, and curated playlists—made for birthdays, teen parties, and unforgettable celebrations.
+          </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col gap-4 justify-center items-center">
-            {/* Main Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button
-                size="lg"
-                className="text-2xl px-12 py-8 gradient-purple-pink hover:opacity-90 hover:scale-105 transition-all glow-purple text-white font-bold group shadow-2xl animate-pulse-glow"
-                onClick={onBookNowClick}
-              >
-                <Sparkles className="w-6 h-6 mr-3 group-hover:rotate-12 transition-transform" />
-                Book Now
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="text-xl px-10 py-8 border-2 border-primary bg-primary/10 backdrop-blur-sm text-white hover:bg-primary/20 hover:scale-105 transition-all group glow-purple"
-                onClick={() => setIsTalkToUsOpen(true)}
-              >
-                <MessageCircle className="w-6 h-6 mr-3 group-hover:scale-110 transition-transform" />
-                Talk to Us First
-              </Button>
-            </div>
-
-            {/* Secondary Button */}
+          <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+            <Button
+              size="lg"
+              className="w-full sm:w-auto text-base sm:text-lg px-8 py-6 gradient-purple-pink hover:opacity-90 hover:scale-105 transition-all glow-pink text-white font-semibold shadow-xl"
+              onClick={onBookNowClick}
+            >
+              <Sparkles className="w-5 h-5 mr-2" />
+              Book Now
+            </Button>
             <Button
               size="lg"
               variant="outline"
-              className="text-lg px-8 py-6 border-2 border-white bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transition-all group"
-              onClick={() => {
-                document.getElementById("packages")?.scrollIntoView({ behavior: "smooth" });
-              }}
+              className="w-full sm:w-auto text-base sm:text-lg px-8 py-6 border-2 border-white/30 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transition-all"
+              onClick={() => setIsTalkToUsOpen(true)}
             >
-              <Calendar className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
+              <MessageCircle className="w-5 h-5 mr-2" />
+              Talk to Us First
+            </Button>
+          </div>
+
+          {/* View Packages Button */}
+          <div className="mt-4">
+            <Button
+              size="lg"
+              variant="outline"
+              className="text-base sm:text-lg px-8 py-6 border-2 border-primary/50 bg-black/40 backdrop-blur-sm text-white hover:bg-primary/20 transition-all"
+              onClick={() => document.getElementById("packages")?.scrollIntoView({ behavior: "smooth" })}
+            >
+              <Gift className="w-5 h-5 mr-2" />
               View Packages
             </Button>
           </div>
 
-          {/* Stats or Social Proof */}
-          <div className="mt-16 flex flex-col gap-4 max-w-md mx-auto">
-           <div className="text-center bg-black/50 backdrop-blur-sm rounded-xl p-4">
-              <div className="text-4xl font-bold text-accent mb-2">AZ</div>
-              <div className="text-sm text-white">Statewide Service</div>
+          {/* Trust Badges */}
+          <div className="mt-8 flex flex-col items-center gap-4 mb-6">
+            <div className="bg-black/60 backdrop-blur-md rounded-2xl px-8 py-4 text-center">
+              <p className="text-3xl sm:text-4xl font-bold text-accent">AZ</p>
+              <p className="text-sm sm:text-base text-white/90">Statewide Service</p>
             </div>
-            <div className="text-center bg-black/50 backdrop-blur-sm rounded-xl p-4">
-              <div className="text-2xl font-bold text-white mb-2">✅ Fully Insured</div>
+            <div className="flex items-center gap-2 text-lg sm:text-xl font-semibold text-white">
+              <span className="text-2xl">✅</span>
+              <span>Fully Insured</span>
             </div>
           </div>
-        </div>
-      </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-primary rounded-full flex items-start justify-center p-2">
-          <div className="w-1 h-3 bg-primary rounded-full animate-pulse" />
+          {/* Scroll Indicator */}
+          <div className="flex flex-col items-center gap-2 animate-bounce">
+            <div className="w-6 h-10 border-2 border-primary rounded-full flex justify-center pt-2">
+              <div className="w-1 h-2 bg-primary rounded-full"></div>
+            </div>
+          </div>
         </div>
       </div>
 

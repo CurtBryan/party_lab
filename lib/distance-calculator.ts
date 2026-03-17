@@ -3,11 +3,11 @@
  * Returns distance in miles
  */
 
-// Starting location: Downtown Tempe (Mill Avenue area)
+// Starting location: Kyrene de la Mariposa Elementary School
 export const STARTING_LOCATION = {
-  lat: 33.4255,
-  lng: -111.9400,
-  address: "Mill Avenue & University Drive, Tempe, AZ 85281"
+  lat: 33.3631,
+  lng: -111.9426,
+  address: "1111 W Guadalupe Rd, Tempe, AZ 85283"
 };
 
 /**
@@ -94,10 +94,29 @@ export async function calculateDistanceFromBase(address: string): Promise<number
 }
 
 /**
- * Calculate trip charge based on distance
+ * Calculate travel surcharge based on distance
  * @param distance Distance in miles
- * @returns Trip charge amount ($50 if >25 miles, $0 otherwise)
+ * @returns Travel surcharge amount:
+ *   - 0-14 miles: $0 (free)
+ *   - 15-20 miles: $40
+ *   - 21-30 miles: $50
+ *   - 31-40 miles: $75
+ *   - 41+ miles: -1 (contact us - out of standard service)
  */
 export function calculateTripCharge(distance: number): number {
-  return distance > 25 ? 50 : 0;
+  if (distance < 15) {
+    return 0;
+  } else if (distance <= 20) {
+    return 40;
+  } else if (distance <= 30) {
+    return 50;
+  } else if (distance <= 40) {
+    return 75;
+  } else {
+    return -1; // Signal to show "contact us" modal
+  }
 }
+
+// Constants for display
+export const FREE_MILES = 15;
+export const MAX_STANDARD_MILES = 40;

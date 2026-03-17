@@ -8,6 +8,7 @@ interface TripChargeModalProps {
   isOpen: boolean;
   distance: number;
   customerAddress: string;
+  chargeAmount: number;
   onAccept: () => void;
 }
 
@@ -15,9 +16,21 @@ export function TripChargeModal({
   isOpen,
   distance,
   customerAddress,
+  chargeAmount,
   onAccept,
 }: TripChargeModalProps) {
   if (!isOpen) return null;
+
+  // Determine the distance range text
+  const getDistanceRangeText = () => {
+    if (distance <= 20) {
+      return "15-20 miles";
+    } else if (distance <= 30) {
+      return "21-30 miles";
+    } else {
+      return "31-40 miles";
+    }
+  };
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
@@ -29,10 +42,10 @@ export function TripChargeModal({
               <MapPin className="w-8 h-8 text-primary" />
             </div>
             <h3 className="text-2xl font-bold text-glow-purple">
-              Trip Charge Applies
+              Travel Surcharge Applies
             </h3>
             <p className="text-muted-foreground">
-              Your event location is beyond our standard 25-mile service area
+              Your event location is beyond our free 15-mile service area
             </p>
           </div>
 
@@ -54,8 +67,8 @@ export function TripChargeModal({
             </div>
 
             <div className="flex items-center justify-between text-sm">
-              <span className="text-muted-foreground">Standard service area:</span>
-              <span className="font-semibold">25 miles</span>
+              <span className="text-muted-foreground">Free service area:</span>
+              <span className="font-semibold">Up to 15 miles</span>
             </div>
 
             <div className="h-px bg-border" />
@@ -63,17 +76,17 @@ export function TripChargeModal({
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <DollarSign className="w-4 h-4 text-primary" />
-                <span className="font-semibold">Trip Charge:</span>
+                <span className="font-semibold">Travel Surcharge ({getDistanceRangeText()}):</span>
               </div>
               <span className="text-2xl font-bold text-primary">
-                $50
+                ${chargeAmount}
               </span>
             </div>
 
             <div className="bg-blue-500/10 border border-blue-500/20 rounded p-3 flex gap-2">
               <AlertCircle className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" />
               <p className="text-xs text-blue-600 dark:text-blue-400">
-                A one-time $50 trip charge applies for locations beyond 25 miles from our base in Tempe. This helps cover additional travel time and fuel costs.
+                A travel surcharge applies for locations beyond 15 miles from our base in Tempe. This helps cover additional travel time and fuel costs.
               </p>
             </div>
           </div>
@@ -85,12 +98,12 @@ export function TripChargeModal({
               size="lg"
               className="w-full gradient-purple-pink glow-purple text-white font-semibold"
             >
-              Accept & Continue (Add $50)
+              Accept & Continue (Add ${chargeAmount})
             </Button>
 
             <div className="text-center">
               <p className="text-sm text-muted-foreground mb-2">
-                Have questions about the trip charge?
+                Have questions about the travel surcharge?
               </p>
               <div className="flex flex-col sm:flex-row gap-2 justify-center">
                 <a

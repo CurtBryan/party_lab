@@ -228,10 +228,20 @@ export function Screen2DateTime() {
           </div>
         </div>
 
+        {/* Selection Summary */}
         {bookingData.product && (
-          <p className="text-sm text-muted-foreground mt-2">
-            Venue: <span className="text-primary font-semibold">{bookingData.product}</span>
-          </p>
+          <div className="mt-4 inline-flex flex-wrap items-center justify-center gap-2 bg-card border border-border rounded-lg px-4 py-2">
+            <span className="text-sm text-muted-foreground">Your selection:</span>
+            <span className="text-sm font-semibold text-primary">{bookingData.product}</span>
+            {bookingData.package && (
+              <>
+                <span className="text-muted-foreground">•</span>
+                <span className="text-sm font-semibold text-primary">{bookingData.package}</span>
+              </>
+            )}
+            <span className="text-muted-foreground">•</span>
+            <span className="text-sm font-bold text-green-500">${bookingData.pricing.subtotal}</span>
+          </div>
         )}
       </div>
 
@@ -459,7 +469,7 @@ export function Screen2DateTime() {
           size="lg"
           className="gradient-purple-pink glow-purple text-white font-semibold px-12"
         >
-          Continue to Packages →
+          Continue to Info →
         </Button>
       </div>
 

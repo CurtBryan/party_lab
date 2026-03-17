@@ -12,19 +12,19 @@ export function ContactForm() {
     <>
       <section
         id="contact"
-        className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-background to-muted/20"
+        className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-background to-muted/20"
       >
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-glow-purple">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 text-glow-purple">
               Still Have Questions?
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
               Get in touch with us and we'll help you plan the perfect party experience!
             </p>
           </div>
 
-          <div className="bg-card border-2 border-primary rounded-2xl p-12 glow-purple text-center">
+          <div className="bg-card border-2 border-primary rounded-2xl p-8 sm:p-12 glow-purple text-center">
             <Button
               size="lg"
               onClick={() => setIsTalkToUsOpen(true)}
@@ -35,35 +35,24 @@ export function ContactForm() {
             </Button>
 
             <div className="mt-8 pt-8 border-t border-border">
-              <p className="text-sm text-muted-foreground mb-4">
+              <p className="text-base text-muted-foreground mb-6">
                 Or reach out directly:
               </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-center md:text-left">
-                <div className="flex items-center justify-center md:justify-start gap-3">
+              <div className="flex flex-col sm:flex-row gap-6 justify-center">
+                <a
+                  href="tel:+16027995856"
+                  className="inline-flex items-center justify-center gap-3 text-lg font-semibold text-foreground hover:text-primary transition-colors"
+                >
                   <Phone className="w-5 h-5 text-primary" />
-                  <div>
-                    <p className="text-sm text-muted-foreground">Call or Text</p>
-                    <a
-                      href="tel:+16027995856"
-                      className="font-semibold text-foreground hover:text-primary transition-colors"
-                    >
-                      (602) 799-5856
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-center md:justify-start gap-3">
+                  (602) 799-5856
+                </a>
+                <a
+                  href="mailto:partylabaz@gmail.com"
+                  className="inline-flex items-center justify-center gap-3 text-lg font-semibold text-foreground hover:text-primary transition-colors"
+                >
                   <Mail className="w-5 h-5 text-primary" />
-                  <div>
-                    <p className="text-sm text-muted-foreground">Email us</p>
-                    <a
-                      href="mailto:partylabaz@gmail.com"
-                      className="font-semibold text-foreground hover:text-primary transition-colors"
-                    >
-                      partylabaz@gmail.com
-                    </a>
-                  </div>
-                </div>
+                  partylabaz@gmail.com
+                </a>
               </div>
             </div>
           </div>

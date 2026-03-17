@@ -1,8 +1,7 @@
 "use client";
 
-import { Card } from "@/components/ui/card";
 import Image from "next/image";
-import { Users, Maximize2 } from "lucide-react";
+import { Check, Users, Maximize2 } from "lucide-react";
 
 interface ProductOption {
   name: string;
@@ -11,94 +10,144 @@ interface ProductOption {
   dimensions: string;
   imageUrl: string;
   glowColor: "purple" | "pink" | "teal";
+  basePrice: number;
 }
 
 const products: ProductOption[] = [
   {
     name: "Dance Dome",
-    description: "Classic igloo-style inflatable nightclub perfect for any celebration",
+    description: "Classic igloo-style inflatable nightclub",
     capacity: "10-15 guests",
     dimensions: "16x16",
     imageUrl: "/igloo_shape.jpg",
     glowColor: "pink",
+    basePrice: 250,
   },
   {
     name: "Light Haus",
-    description: "Modern cube design with maximum space and style",
-    capacity: "20-30 guests",
+    description: "Modern cube design with maximum space",
+    capacity: "15-30 guests",
     dimensions: "20x20x12",
     imageUrl: "/box_shape.JPG",
     glowColor: "purple",
+    basePrice: 300,
   },
   {
     name: "Club Noir",
-    description: "Premium house-style venue for the ultimate party experience",
-    capacity: "20-30 guests",
+    description: "Premium house-style venue",
+    capacity: "15-30 guests",
     dimensions: "23x16x12",
     imageUrl: "/house_shape.jpg",
     glowColor: "teal",
+    basePrice: 300,
   },
 ];
 
 interface ProductSelectorProps {
   selectedProduct: string | null;
   onProductSelect: (productName: string) => void;
+  compact?: boolean;
 }
 
-export function ProductSelector({ selectedProduct, onProductSelect }: ProductSelectorProps) {
+export function ProductSelector({ selectedProduct, onProductSelect, compact = false }: ProductSelectorProps) {
+  if (compact) {
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+        {products.map((product) => {
+          const isSelected = selectedProduct === product.name;
+
+          return (
+            <button
+              key={product.name}
+              onClick={() => onProductSelect(product.name)}
+              className={`rounded-2xl border-2 overflow-hidden transition-all p-4 sm:p-6 ${
+                isSelected
+                  ? "border-primary bg-primary/10 glow-purple"
+                  : "border-border bg-card hover:border-primary/50"
+              }`}
+            >
+              <div className="relative aspect-[4/3] bg-black rounded-xl overflow-hidden mb-4">
+                <Image
+                  src={product.imageUrl}
+                  alt={product.name}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  loading="lazy"
+                  quality={85}
+                />
+                {isSelected && (
+                  <div className="absolute top-3 right-3 w-6 h-6 bg-primary rounded-full flex items-center justify-center">
+                    <Check className="w-4 h-4 text-white" />
+                  </div>
+                )}
+              </div>
+              <div className="text-center">
+                <h3 className="text-xl sm:text-2xl font-bold mb-2">{product.name}</h3>
+                <p className="text-sm sm:text-base text-muted-foreground mb-3">{product.description}</p>
+                <p className="text-2xl sm:text-3xl font-bold text-primary mb-3">Starting at ${product.basePrice}</p>
+                <div className="flex flex-col items-center gap-1.5 text-sm text-muted-foreground">
+                  <span className="inline-flex items-center gap-2">
+                    <Users className="w-4 h-4" />
+                    Capacity: {product.capacity}
+                  </span>
+                  <span className="inline-flex items-center gap-2">
+                    <Maximize2 className="w-4 h-4" />
+                    Size: {product.dimensions}
+                  </span>
+                </div>
+              </div>
+            </button>
+          );
+        })}
+      </div>
+    );
+  }
+
+  // Full mode - for booking modal
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
       {products.map((product) => {
         const isSelected = selectedProduct === product.name;
-        
-        const glowClass = {
-          purple: "glow-purple",
-          pink: "glow-pink",
-          teal: "glow-teal",
-        }[product.glowColor];
-
-        const textGlowClass = {
-          purple: "text-glow-purple",
-          pink: "text-glow-pink",
-          teal: "text-glow-teal",
-        }[product.glowColor];
 
         return (
-          <Card
+          <button
             key={product.name}
             onClick={() => onProductSelect(product.name)}
-            className={`relative overflow-hidden bg-card border-2 transition-all hover:scale-105 group cursor-pointer ${
-              isSelected ? `border-primary ${glowClass}` : "border-border hover:border-primary"
+            className={`rounded-xl border-2 overflow-hidden transition-all text-left ${
+              isSelected
+                ? "border-primary bg-primary/10 glow-purple"
+                : "border-border bg-card hover:border-primary/50"
             }`}
           >
-            <div className="relative h-72 overflow-hidden bg-black">
+            <div className="relative h-40 bg-black">
               <Image
                 src={product.imageUrl}
                 alt={product.name}
                 fill
-                className="object-contain group-hover:scale-110 transition-transform duration-300"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-contain"
+                sizes="(max-width: 768px) 100vw, 33vw"
                 loading="lazy"
                 quality={85}
               />
+              {isSelected && (
+                <div className="absolute top-2 right-2 w-6 h-6 bg-primary rounded-full flex items-center justify-center">
+                  <Check className="w-4 h-4 text-white" />
+                </div>
+              )}
             </div>
-            <div className="p-6 text-center">
-              <h3 className={`text-2xl font-bold mb-2 ${isSelected ? textGlowClass : "text-foreground"}`}>
-                {product.name}
-              </h3>
-              <p className="text-muted-foreground mb-3">{product.description}</p>
-              <div className="flex flex-col gap-2">
-                <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-                  <Users className="w-4 h-4" />
-                  <span>Capacity: {product.capacity}</span>
-                </div>
-                <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-                  <Maximize2 className="w-4 h-4" />
-                  <span>Size: {product.dimensions}</span>
-                </div>
+            <div className="p-4">
+              <div className="flex justify-between items-start mb-1">
+                <h3 className="text-base sm:text-lg font-bold">{product.name}</h3>
+                <span className="text-base sm:text-lg font-bold text-primary">${product.basePrice}</span>
+              </div>
+              <p className="text-sm text-muted-foreground mb-2">{product.description}</p>
+              <div className="flex gap-3 text-xs sm:text-sm text-muted-foreground">
+                <span>{product.capacity}</span>
+                <span>{product.dimensions}</span>
               </div>
             </div>
-          </Card>
+          </button>
         );
       })}
     </div>

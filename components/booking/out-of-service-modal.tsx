@@ -29,10 +29,10 @@ export function OutOfServiceModal({
               <AlertTriangle className="w-8 h-8 text-amber-500" />
             </div>
             <h3 className="text-2xl font-bold">
-              Out of Service Area
+              Contact Us for This Location
             </h3>
             <p className="text-muted-foreground">
-              Sorry, we don't currently service that area
+              Your event is over 40 miles away — please contact us to discuss options
             </p>
           </div>
 
@@ -54,14 +54,14 @@ export function OutOfServiceModal({
             </div>
 
             <div className="flex items-center justify-between text-sm">
-              <span className="text-muted-foreground">Maximum service area:</span>
-              <span className="font-semibold">50 miles</span>
+              <span className="text-muted-foreground">Standard service area:</span>
+              <span className="font-semibold">Up to 40 miles</span>
             </div>
 
             <div className="bg-blue-500/10 border border-blue-500/20 rounded p-3 flex gap-2 mt-4">
               <AlertTriangle className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" />
               <p className="text-xs text-blue-600 dark:text-blue-400">
-                We currently service the Phoenix metro area and surrounding cities within 50 miles of our base location in Tempe.
+                For locations over 40 miles from our base in Tempe, please contact us directly to discuss availability and pricing.
               </p>
             </div>
           </div>

@@ -35,10 +35,11 @@ export function Screen5Customer() {
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [errors, setErrors] = useState<Partial<Record<keyof CustomerInfo, string>>>({});
 
-  // Trip charge and service area modal state
+  // Travel surcharge and service area modal state
   const [showTripChargeModal, setShowTripChargeModal] = useState(false);
   const [showOutOfServiceModal, setShowOutOfServiceModal] = useState(false);
   const [calculatedDistance, setCalculatedDistance] = useState<number | null>(null);
+  const [calculatedCharge, setCalculatedCharge] = useState<number>(0);
   const [isCalculatingDistance, setIsCalculatingDistance] = useState(false);
 
   // Track if "Other" is selected for surface type
@@ -157,21 +158,21 @@ export function Screen5Customer() {
 
       setCalculatedDistance(distance);
 
-      // Check service area limits
-      if (distance > 50) {
-        // BLOCK: Out of service area
+      const travelSurcharge = calculateTripCharge(distance);
+
+      if (travelSurcharge === -1) {
+        // Over 40 miles: Show contact us modal
         setShowOutOfServiceModal(true);
         setIsCalculatingDistance(false);
         return;
       }
 
-      const tripCharge = calculateTripCharge(distance);
-
-      if (tripCharge > 0) {
-        // 25-50 miles: Show trip charge modal
+      if (travelSurcharge > 0) {
+        // 21-40 miles: Show travel surcharge modal ($40 or $50)
+        setCalculatedCharge(travelSurcharge);
         setShowTripChargeModal(true);
       } else {
-        // <25 miles: No trip charge needed
+        // 0-20 miles: No surcharge needed
         updateTripCharge(0);
         nextStep();
       }
@@ -186,7 +187,7 @@ export function Screen5Customer() {
   };
 
   const handleAcceptTripCharge = () => {
-    updateTripCharge(50);
+    updateTripCharge(calculatedCharge);
     setShowTripChargeModal(false);
     nextStep();
   };
@@ -539,12 +540,13 @@ export function Screen5Customer() {
         </Button>
       </div>
 
-      {/* Trip Charge Modal */}
+      {/* Travel Surcharge Modal */}
       {calculatedDistance !== null && (
         <TripChargeModal
           isOpen={showTripChargeModal}
           distance={calculatedDistance}
           customerAddress={formData.address}
+          chargeAmount={calculatedCharge}
           onAccept={handleAcceptTripCharge}
         />
       )}

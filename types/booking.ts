@@ -3,11 +3,14 @@ export type PackageType = "Party Starter" | "Glow Getter" | "All-Star VIP";
 export type TimeBlock = "10:00-13:00" | "13:30-16:30" | "17:00-20:00" | string;
 
 export interface AddOns {
-  playlistProjector: boolean;
+  discoBall: boolean;
   redRopesCarpet: boolean;
-  extraHour: boolean;
+  curatedPlaylist: boolean;
+  wirelessMicrophone: boolean;
   glowBags: boolean;
   themedVideoProjector: boolean;
+  extraHour: boolean;
+  overnightPackage: boolean;
 }
 
 export interface CustomerInfo {
@@ -66,13 +69,23 @@ export interface Package {
   features: string[];
   glowColor: "purple" | "pink" | "teal";
   featured?: boolean;
+  savings?: number;
 }
 
 export interface AddOnOption {
-  id: keyof AddOns;
+  id: string;
   name: string;
   price: number;
   description: string;
+}
+
+// Initial booking data passed from "Build Your Party" section
+export interface InitialBookingData {
+  product: ProductType;
+  buildMode: "package" | "custom";
+  package: PackageType | null;
+  selectedAddOns: string[]; // Array of add-on IDs for custom mode
+  totalPrice: number;
 }
 
 export interface BookingRecord {
@@ -88,11 +101,14 @@ export interface BookingRecord {
   customer_phone: string;
   event_address: string;
   event_type: string | null;
-  addon_playlist_projector: boolean;
+  addon_disco_ball: boolean;
   addon_red_ropes_carpet: boolean;
-  addon_extra_hour: boolean;
+  addon_curated_playlist: boolean;
+  addon_wireless_microphone: boolean;
   addon_glow_bags: boolean;
   addon_themed_video_projector: boolean;
+  addon_extra_hour: boolean;
+  addon_overnight_package: boolean;
   subtotal: number;
   booking_fee: number;
   total: number;

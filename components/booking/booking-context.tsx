@@ -1,8 +1,8 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect } from "react";
-import type { BookingData, AddOns, CustomerInfo, Pricing } from "@/types/booking";
-import { BOOKING_FEE } from "@/lib/constants";
+import type { BookingData, AddOns, CustomerInfo, Pricing, InitialBookingData } from "@/types/booking";
+import { BOOKING_FEE, ADD_ONS } from "@/lib/constants";
 
 interface BookingContextType {
   bookingData: BookingData;
@@ -24,11 +24,14 @@ interface BookingContextType {
 const BookingContext = createContext<BookingContextType | undefined>(undefined);
 
 const initialAddOns: AddOns = {
-  playlistProjector: false,
+  discoBall: false,
   redRopesCarpet: false,
-  extraHour: false,
+  curatedPlaylist: false,
+  wirelessMicrophone: false,
   glowBags: false,
   themedVideoProjector: false,
+  extraHour: false,
+  overnightPackage: false,
 };
 
 const initialPricing: Pricing = {
@@ -54,11 +57,53 @@ const initialBookingData: BookingData = {
   clientSecret: null,
 };
 
-export function BookingProvider({ children }: { children: React.ReactNode }) {
-  const [bookingData, setBookingData] = useState<BookingData>(initialBookingData);
+interface BookingProviderProps {
+  children: React.ReactNode;
+  initialData?: InitialBookingData;
+}
 
-  // Load from localStorage on mount
+export function BookingProvider({ children, initialData }: BookingProviderProps) {
+  const [bookingData, setBookingData] = useState<BookingData>(() => {
+    // If we have initial data from Build Your Party, use it
+    if (initialData) {
+      // Convert selected add-on IDs to AddOns object
+      const addOns: AddOns = { ...initialAddOns };
+      if (initialData.buildMode === "custom" && initialData.selectedAddOns.length > 0) {
+        initialData.selectedAddOns.forEach((addOnId) => {
+          if (addOnId === "discoBall") addOns.discoBall = true;
+          if (addOnId === "redRopesCarpet") addOns.redRopesCarpet = true;
+          if (addOnId === "curatedPlaylist") addOns.curatedPlaylist = true;
+          if (addOnId === "wirelessMicrophone") addOns.wirelessMicrophone = true;
+          if (addOnId === "glowBags") addOns.glowBags = true;
+          if (addOnId === "themedVideoProjector") addOns.themedVideoProjector = true;
+          if (addOnId === "extraHour") addOns.extraHour = true;
+          if (addOnId === "overnightPackage") addOns.overnightPackage = true;
+        });
+      }
+
+      // Calculate pricing
+      let subtotal = initialData.totalPrice;
+
+      return {
+        ...initialBookingData,
+        currentStep: 3, // Skip to date selection since venue + experience is pre-selected
+        product: initialData.product,
+        package: initialData.buildMode === "package" ? initialData.package : "Party Starter",
+        addOns,
+        pricing: {
+          ...initialPricing,
+          subtotal,
+          total: subtotal,
+        },
+      };
+    }
+    return initialBookingData;
+  });
+
+  // Load from localStorage on mount (only if no initial data provided)
   useEffect(() => {
+    if (initialData) return; // Skip localStorage if we have initial data
+
     const savedData = localStorage.getItem("partylab_booking");
     if (savedData) {
       try {
@@ -82,7 +127,7 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
         localStorage.removeItem("partylab_booking");
       }
     }
-  }, []);
+  }, [initialData]);
 
   // Save to localStorage whenever bookingData changes
   useEffect(() => {
@@ -106,10 +151,14 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
       }
 
       const currentAddOnsCost =
+        (prev.addOns.discoBall ? 30 : 0) +
+        (prev.addOns.redRopesCarpet ? 75 : 0) +
+        (prev.addOns.curatedPlaylist ? 50 : 0) +
+        (prev.addOns.wirelessMicrophone ? 50 : 0) +
+        (prev.addOns.glowBags ? 50 : 0) +
         (prev.addOns.themedVideoProjector ? 100 : 0) +
-        (prev.addOns.playlistProjector ? 100 : 0) +
         (prev.addOns.extraHour ? 50 : 0) +
-        (prev.addOns.glowBags ? 50 : 0);
+        (prev.addOns.overnightPackage ? 150 : 0);
 
       const basePackagePrice = prev.pricing.subtotal - currentAddOnsCost - prev.pricing.extraHoursCost;
       const newSubtotal = basePackagePrice + currentAddOnsCost + extraHoursCost;
@@ -148,17 +197,25 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
     setBookingData((prev) => {
       // Calculate add-on prices
       let addOnTotal = 0;
-      if (addOns.themedVideoProjector) addOnTotal += 100;
-      if (addOns.playlistProjector) addOnTotal += 100;
-      if (addOns.extraHour) addOnTotal += 50;
+      if (addOns.discoBall) addOnTotal += 30;
+      if (addOns.redRopesCarpet) addOnTotal += 75;
+      if (addOns.curatedPlaylist) addOnTotal += 50;
+      if (addOns.wirelessMicrophone) addOnTotal += 50;
       if (addOns.glowBags) addOnTotal += 50;
+      if (addOns.themedVideoProjector) addOnTotal += 100;
+      if (addOns.extraHour) addOnTotal += 50;
+      if (addOns.overnightPackage) addOnTotal += 150;
 
       // Get base package price from current subtotal (excluding previous add-ons and extra hours)
       const previousAddOnsCost =
+        (prev.addOns.discoBall ? 30 : 0) +
+        (prev.addOns.redRopesCarpet ? 75 : 0) +
+        (prev.addOns.curatedPlaylist ? 50 : 0) +
+        (prev.addOns.wirelessMicrophone ? 50 : 0) +
+        (prev.addOns.glowBags ? 50 : 0) +
         (prev.addOns.themedVideoProjector ? 100 : 0) +
-        (prev.addOns.playlistProjector ? 100 : 0) +
         (prev.addOns.extraHour ? 50 : 0) +
-        (prev.addOns.glowBags ? 50 : 0);
+        (prev.addOns.overnightPackage ? 150 : 0);
 
       const basePackagePrice = prev.pricing.subtotal - previousAddOnsCost - prev.pricing.extraHoursCost;
 
@@ -204,7 +261,7 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
   };
 
   const nextStep = () => {
-    setBookingData((prev) => ({ ...prev, currentStep: Math.min(prev.currentStep + 1, 7) }));
+    setBookingData((prev) => ({ ...prev, currentStep: Math.min(prev.currentStep + 1, 6) }));
   };
 
   const prevStep = () => {
@@ -220,21 +277,20 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
     localStorage.removeItem("partylab_booking");
   };
 
+  // New 6-step flow: 1-Venue, 2-Experience, 3-Date, 4-Info, 5-Payment, 6-Done
   const isStepCompleted = (step: number): boolean => {
     switch (step) {
-      case 1: // Product
+      case 1: // Venue
         return bookingData.product !== null;
-      case 2: // Date & Time
-        return bookingData.date !== null && bookingData.timeBlock !== null;
-      case 3: // Package
+      case 2: // Experience (package/add-ons)
         return bookingData.package !== null;
-      case 4: // Add-Ons (complete if user has moved past this step)
-        return bookingData.currentStep > 4;
-      case 5: // Customer Info
+      case 3: // Date & Time
+        return bookingData.date !== null && bookingData.timeBlock !== null;
+      case 4: // Customer Info
         return bookingData.customer !== null;
-      case 6: // Payment
+      case 5: // Payment
         return bookingData.bookingId !== null;
-      case 7: // Confirmation
+      case 6: // Confirmation
         return bookingData.bookingId !== null;
       default:
         return false;

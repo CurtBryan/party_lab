@@ -10,7 +10,7 @@ const faqs = [
   },
   {
     question: "What areas do you serve in Arizona?",
-    answer: "We serve the entire Phoenix metro area, including Scottsdale, Mesa, Tempe, Chandler, Gilbert, and surrounding cities within a 25-mile radius. We also travel throughout Arizona for an additional $50 beyond 25 miles — please contact us for delivery availability!"
+    answer: "We serve the entire Phoenix metro area, including Scottsdale, Mesa, Tempe, Chandler, Gilbert, and surrounding cities within 15 miles at no extra charge. A travel surcharge applies beyond 15 miles: $40 for 15-20 miles, $50 for 21-30 miles, $75 for 31-40 miles. For locations over 40 miles, please contact us."
   },
   {
     question: "What's included in the rental packages?",
@@ -22,7 +22,7 @@ const faqs = [
   },
   {
     question: "Do I need to provide power?",
-    answer: "Yes, we need access to standard electrical outlets (110V) for the blower, lights, and sound system. We bring all necessary extension cords and equipment. You can also rent our generator for and extra $75."
+    answer: "Yes, we need access to standard electrical outlets (110V) for the blower, lights, and sound system. We bring all necessary extension cords and equipment. You can also rent our generator for an extra $75."
   },
   {
     question: "What if it rains or weather is bad?",
@@ -45,7 +45,6 @@ export function FAQSection() {
     setOpenIndex(openIndex === index ? null : index);
   };
 
-  // Structured data for SEO
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -60,18 +59,18 @@ export function FAQSection() {
   };
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-background">
+    <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-background">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-glow-purple">
+        <div className="text-center mb-10">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 text-glow-purple">
             Frequently Asked Questions
           </h2>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-sm sm:text-base text-muted-foreground">
             Got questions? We've got answers!
           </p>
         </div>
@@ -80,13 +79,13 @@ export function FAQSection() {
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className="bg-card border border-border rounded-lg overflow-hidden hover:border-primary transition-colors"
+              className="bg-card border border-border rounded-xl overflow-hidden hover:border-primary/50 transition-colors"
             >
               <button
                 onClick={() => toggleFAQ(index)}
-                className="w-full px-6 py-4 flex items-center justify-between text-left"
+                className="w-full px-6 py-5 flex items-center justify-between text-left"
               >
-                <span className="font-semibold text-foreground pr-4">
+                <span className="font-semibold text-base sm:text-lg text-foreground pr-4">
                   {faq.question}
                 </span>
                 <ChevronDown
@@ -96,7 +95,7 @@ export function FAQSection() {
                 />
               </button>
               {openIndex === index && (
-                <div className="px-6 pb-4 text-muted-foreground animate-fade-in">
+                <div className="px-6 pb-5 text-base text-muted-foreground animate-fade-in">
                   {faq.answer}
                 </div>
               )}

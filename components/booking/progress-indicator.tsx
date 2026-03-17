@@ -43,13 +43,12 @@ export function ProgressIndicator({
                   )}
                 </button>
                 <span className="text-xs mt-2 text-center hidden sm:block">
-                  {step === 1 && "Product"}
-                  {step === 2 && "Date & Time"}
-                  {step === 3 && "Package"}
-                  {step === 4 && "Add-Ons"}
-                  {step === 5 && "Info"}
-                  {step === 6 && "Payment"}
-                  {step === 7 && "Done"}
+                  {step === 1 && "Venue"}
+                  {step === 2 && "Experience"}
+                  {step === 3 && "Date & Time"}
+                  {step === 4 && "Info"}
+                  {step === 5 && "Payment"}
+                  {step === 6 && "Done"}
                 </span>
               </div>
               {step < totalSteps && (

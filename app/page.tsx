@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { HeroSection } from "@/components/hero-section";
-import { FeaturesSection } from "@/components/features-section";
 import { PackagesSection } from "@/components/packages-section";
 import { ContactForm } from "@/components/contact-form";
 import { FAQSection } from "@/components/faq-section";
@@ -10,26 +9,36 @@ import { BookingModal } from "@/components/booking/booking-modal";
 import { Instagram, Mail, Phone } from "lucide-react";
 import { ReviewsSection } from "@/components/reviews-section";
 import Image from "next/image";
+import type { InitialBookingData } from "@/types/booking";
 
 export default function Home() {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+  const [initialBookingData, setInitialBookingData] = useState<InitialBookingData | undefined>(undefined);
+
+  const handleBookNowClick = (initialData?: InitialBookingData) => {
+    setInitialBookingData(initialData);
+    setIsBookingModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsBookingModalOpen(false);
+    setInitialBookingData(undefined);
+  };
 
   return (
     <main className="min-h-screen">
       {/* Booking Modal */}
       <BookingModal
         isOpen={isBookingModalOpen}
-        onClose={() => setIsBookingModalOpen(false)}
+        onClose={handleCloseModal}
+        initialData={initialBookingData}
       />
 
       {/* Hero Section */}
-      <HeroSection onBookNowClick={() => setIsBookingModalOpen(true)} />
-
-      {/* Features Section */}
-      <FeaturesSection />
+      <HeroSection onBookNowClick={() => handleBookNowClick()} />
 
       {/* Packages Section */}
-      <PackagesSection onBookNowClick={() => setIsBookingModalOpen(true)} />
+      <PackagesSection onBookNowClick={handleBookNowClick} />
 
       {/* Reviews Section */}
       <ReviewsSection />
