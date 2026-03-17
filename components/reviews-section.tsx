@@ -86,7 +86,7 @@ export function ReviewsSection() {
             Don't just take our word for it — hear from families who've experienced the Partylab magic!
           </p>
           <a
-            href="https://g.page/r/CYnYUmoj222SEAI/review"
+            href="https://g.page/r/CYnYUmoj222SEBM/review"
             target="_blank"
             rel="noopener noreferrer"
           >
