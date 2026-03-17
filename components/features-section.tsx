@@ -3,55 +3,44 @@ import { Lightbulb, Music, Users } from "lucide-react";
 const features = [
   {
     icon: Lightbulb,
-    title: "Immersive Club Vibes",
-    description: "Inflatable nightclubs with LED lighting and projected dance videos create a high-energy, fully immersive experience.",
-    color: "text-primary",
+    title: "Immersive Lighting",
+    description: "LED lights and projected dance videos create an electric atmosphere.",
   },
   {
     icon: Music,
     title: "Curated Playlists",
-    description: "No DJ needed—just press play and choose from themed playlists for every age and vibe.",
-    color: "text-secondary",
+    description: "Age-appropriate themed music. No DJ needed.",
   },
   {
     icon: Users,
-    title: "Made for All Ages",
-    description: "From kids' dance parties to teen nightclub experiences, PartyLab brings the energy to every celebration.",
-    color: "text-accent",
+    title: "All Ages Welcome",
+    description: "Kids dance parties to teen nightclub experiences.",
   },
 ];
 
 export function FeaturesSection() {
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-background">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-glow-purple">
-            Why Choose The Partylab?
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Experience the ultimate party with our inflatable nightclubs, designed to bring unforgettable energy to any celebration.
-          </p>
-        </div>
+    <section className="py-8 sm:py-12 px-4 sm:px-6 bg-background border-b border-border/50">
+      <div className="max-w-4xl mx-auto">
+        <h2 className="text-lg sm:text-xl font-bold text-center mb-6 text-glow-purple">
+          Why Choose The Partylab?
+        </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
               <div
                 key={index}
-                className="group bg-card border border-border rounded-lg p-6 hover:border-primary transition-all hover:scale-105 animate-slide-up"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                className="flex items-start gap-3 p-4 bg-card/30 border border-border/50 rounded-xl"
               >
-                <div className={`w-12 h-12 rounded-full bg-muted flex items-center justify-center mb-4 group-hover:glow-purple transition-all ${feature.color}`}>
-                  <Icon className="w-6 h-6" />
+                <div className="w-10 h-10 rounded-full bg-primary/15 flex items-center justify-center flex-shrink-0">
+                  <Icon className="w-5 h-5 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2 text-foreground">
-                  {feature.title}
-                </h3>
-                <p className="text-muted-foreground">
-                  {feature.description}
-                </p>
+                <div>
+                  <h3 className="text-sm font-semibold mb-1">{feature.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-snug">{feature.description}</p>
+                </div>
               </div>
             );
           })}

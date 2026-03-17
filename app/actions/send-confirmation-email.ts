@@ -24,11 +24,14 @@ export async function sendConfirmationEmail(bookingData: BookingData, bookingId:
 
     // Build add-ons list
     const addOnsList = [];
-    if (bookingData.addOns.themedVideoProjector) addOnsList.push("Themed Video Projector (+$100)");
-    if (bookingData.addOns.playlistProjector) addOnsList.push("Playlist + Projector (+$100)");
-    if (bookingData.addOns.redRopesCarpet) addOnsList.push("Red Ropes & Carpet (+$40)");
-    if (bookingData.addOns.extraHour) addOnsList.push("Extra Hour (+$50)");
+    if (bookingData.addOns.discoBall) addOnsList.push("Disco Ball (+$30)");
+    if (bookingData.addOns.redRopesCarpet) addOnsList.push("Red Ropes & Carpet (+$75)");
+    if (bookingData.addOns.curatedPlaylist) addOnsList.push("Curated Playlist (+$50)");
+    if (bookingData.addOns.wirelessMicrophone) addOnsList.push("Wireless Microphone (+$50)");
     if (bookingData.addOns.glowBags) addOnsList.push("Glow-Up Party Bags (+$50)");
+    if (bookingData.addOns.themedVideoProjector) addOnsList.push("Themed Video Projector (+$100)");
+    if (bookingData.addOns.extraHour) addOnsList.push("Extra Hour (+$50)");
+    if (bookingData.addOns.overnightPackage) addOnsList.push("Overnight Package (+$150)");
 
     // Build additional charges list
     const additionalCharges = [];

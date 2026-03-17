@@ -10,10 +10,10 @@ import type { AddOns } from "@/types/booking";
 export function Screen4AddOns() {
   const { bookingData, updateAddOns, nextStep } = useBooking();
 
-  const handleToggle = (addonId: keyof AddOns) => {
+  const handleToggle = (addonId: string) => {
     updateAddOns({
       ...bookingData.addOns,
-      [addonId]: !bookingData.addOns[addonId],
+      [addonId]: !bookingData.addOns[addonId as keyof AddOns],
     });
   };
 
@@ -23,7 +23,7 @@ export function Screen4AddOns() {
 
   const calculateAddOnsTotal = () => {
     return ADD_ONS.reduce((total, addon) => {
-      return total + (bookingData.addOns[addon.id] ? addon.price : 0);
+      return total + (bookingData.addOns[addon.id as keyof AddOns] ? addon.price : 0);
     }, 0);
   };
 
@@ -37,23 +37,20 @@ export function Screen4AddOns() {
         return true;
       }
 
-      // Playlist + Projector: For Party Starter and Glow Getter (included in All-Star VIP)
-      if (addon.id === "playlistProjector") {
-        return selectedPackage === "Party Starter" || selectedPackage === "Glow Getter";
-      }
-
-      // Red Ropes & Carpet: Only for Party Starter (included in Glow Getter & All-Star VIP)
-      if (addon.id === "redRopesCarpet") {
-        return selectedPackage === "Party Starter";
-      }
-
-      // Glow-Up Party Bags: Only for Party Starter (included in Glow Getter & All-Star VIP)
-      if (addon.id === "glowBags") {
+      // These are included in Glow Getter & All-Star VIP
+      if (addon.id === "discoBall" || addon.id === "redRopesCarpet" ||
+          addon.id === "curatedPlaylist" || addon.id === "wirelessMicrophone" ||
+          addon.id === "glowBags") {
         return selectedPackage === "Party Starter";
       }
 
       // Extra Hour: For Party Starter and Glow Getter only (All-Star VIP has extended hours)
       if (addon.id === "extraHour") {
+        return selectedPackage === "Party Starter" || selectedPackage === "Glow Getter";
+      }
+
+      // Overnight Package: Only for Party Starter and Glow Getter (included in All-Star VIP)
+      if (addon.id === "overnightPackage") {
         return selectedPackage === "Party Starter" || selectedPackage === "Glow Getter";
       }
 
@@ -77,7 +74,7 @@ export function Screen4AddOns() {
       <div className="max-w-3xl mx-auto space-y-4">
         {availableAddOns.length > 0 ? (
           availableAddOns.map((addon) => {
-            const isSelected = bookingData.addOns[addon.id];
+            const isSelected = bookingData.addOns[addon.id as keyof AddOns];
 
             return (
               <Card

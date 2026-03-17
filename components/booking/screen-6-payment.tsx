@@ -398,18 +398,33 @@ export function Screen6Payment() {
                 </div>
               </div>
             )}
-            {(bookingData.addOns.playlistProjector || bookingData.addOns.extraHour || bookingData.addOns.glowBags) && (
+            {(bookingData.addOns.discoBall || bookingData.addOns.redRopesCarpet || bookingData.addOns.curatedPlaylist || bookingData.addOns.wirelessMicrophone || bookingData.addOns.glowBags || bookingData.addOns.themedVideoProjector || bookingData.addOns.extraHour || bookingData.addOns.overnightPackage) && (
               <div>
                 <div className="text-muted-foreground mb-1">Add-Ons</div>
                 <ul className="space-y-1">
-                  {bookingData.addOns.playlistProjector && (
-                    <li className="text-xs">• Playlist + Projector (+$100)</li>
+                  {bookingData.addOns.discoBall && (
+                    <li className="text-xs">• Disco Ball (+$30)</li>
+                  )}
+                  {bookingData.addOns.redRopesCarpet && (
+                    <li className="text-xs">• Red Ropes & Carpet (+$75)</li>
+                  )}
+                  {bookingData.addOns.curatedPlaylist && (
+                    <li className="text-xs">• Curated Playlist (+$50)</li>
+                  )}
+                  {bookingData.addOns.wirelessMicrophone && (
+                    <li className="text-xs">• Wireless Microphone (+$50)</li>
+                  )}
+                  {bookingData.addOns.glowBags && (
+                    <li className="text-xs">• Glow-Up Party Bags (+$50)</li>
+                  )}
+                  {bookingData.addOns.themedVideoProjector && (
+                    <li className="text-xs">• Themed Video Projector (+$100)</li>
                   )}
                   {bookingData.addOns.extraHour && (
                     <li className="text-xs">• Extra Hour (+$50)</li>
                   )}
-                  {bookingData.addOns.glowBags && (
-                    <li className="text-xs">• Glow-Up Party Bags (+$50)</li>
+                  {bookingData.addOns.overnightPackage && (
+                    <li className="text-xs">• Overnight Package (+$150)</li>
                   )}
                 </ul>
               </div>
