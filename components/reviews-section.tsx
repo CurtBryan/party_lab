@@ -24,9 +24,9 @@ const reviews: { name: string; eventType: string; text: string; source: "google"
     source: "facebook",
   },
   {
-    name: "Happy Customer",
-    eventType: "Birthday Party",
-    text: "Amazing experience! The kids had so much fun and the setup was perfect. Will definitely book again!",
+    name: "Leeann Garcia",
+    eventType: "Special Event",
+    text: "We had Party Lab bring their igloo set up to our event and it was such a hit! Great communication leading up to the event and the setup was quick and easy. Even though our event was during the day, it was still so fun to have and everyone loved it. They also brought the music, which made it even better. Highly recommend!",
     source: "google",
   },
 ];
