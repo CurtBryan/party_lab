@@ -12,7 +12,7 @@ export const PRODUCTS: Product[] = [
   {
     name: "Light Haus",
     description: "Modern cube design with maximum space and style",
-    capacity: "20-30 guests",
+    capacity: "15-30 guests",
     dimensions: "20x20x12",
     imageUrl: "/box_shape.JPG",
     glowColor: "purple",
@@ -20,7 +20,7 @@ export const PRODUCTS: Product[] = [
   {
     name: "Club Noir",
     description: "Premium house-style venue for the ultimate party experience",
-    capacity: "20-30 guests",
+    capacity: "15-30 guests",
     dimensions: "23x16x12",
     imageUrl: "/house_shape.jpg",
     glowColor: "teal",
@@ -30,65 +30,83 @@ export const PRODUCTS: Product[] = [
 export const PACKAGES: Package[] = [
   {
     name: "Party Starter",
-    price: 300,
+    price: 0, // Base price only - no upgrade
     description: "Perfect for birthdays & small gatherings",
     features: [
       "Color-Changing LED Lighting",
       "Bluetooth Speaker Sound System",
       "3-Hour Rental",
       "Setup & Teardown Included",
-      "⚠️ Note: LED lights have limited visibility in daylight",
     ],
     glowColor: "purple",
   },
   {
     name: "Glow Getter",
-    price: 400,
-    description: "A VIP vibe with built-in extras",
+    price: 150, // Upgrade price on top of base
+    description: "VIP vibes with premium extras",
     features: [
       "Everything in Party Starter",
+      "Disco Ball",
       "Red Ropes & Carpet",
-      "Glow Up Party Bags (15) Included",
-      "Wireless Microphone Included",
       "Curated Playlist",
-      "⚠️ Note: LED lights have limited visibility in daylight",
+      "Wireless Microphone",
+      "Glow-Up Party Bags (15)",
     ],
     glowColor: "pink",
     featured: true,
+    savings: 105, // Would cost $255 separately
   },
   {
     name: "All-Star VIP",
-    price: 500,
-    description: "Big wins deserve big celebrations! The All-Star VIP Package brings extra time, nonstop music, and the full nightclub experience — perfect for schools, teams, and community events ready to party all night!",
+    price: 250, // Upgrade price on top of base
+    description: "The ultimate all-night party experience",
     features: [
       "Everything in Glow Getter",
+      "Overnight Package",
       "Unlimited Extended Hours",
-      "Overnight Parties Welcome",
       "Perfect for All-Night Events",
-      "⚠️ Note: LED lights have limited visibility in daylight",
     ],
     glowColor: "teal",
+    savings: 155, // Would cost $405 separately
   },
 ];
 
 export const ADD_ONS: AddOnOption[] = [
   {
-    id: "themedVideoProjector",
-    name: "Themed Video Projector",
-    price: 100,
-    description: "Music video projector with themed visuals for the ultimate nightclub experience",
-  },
-  {
-    id: "playlistProjector",
-    name: "Playlist + Projector",
-    price: 100,
-    description: "Curated themed playlist with music video projector setup",
+    id: "discoBall",
+    name: "Disco Ball",
+    price: 30,
+    description: "Spinning disco ball with LED spotlight for authentic nightclub vibes",
   },
   {
     id: "redRopesCarpet",
     name: "Red Ropes & Carpet",
-    price: 40,
+    price: 75,
     description: "VIP entrance with red carpet and velvet ropes",
+  },
+  {
+    id: "curatedPlaylist",
+    name: "Curated Playlist",
+    price: 50,
+    description: "Age-appropriate themed playlist curated for your event",
+  },
+  {
+    id: "wirelessMicrophone",
+    name: "Wireless Microphone",
+    price: 50,
+    description: "Wireless microphone for announcements and karaoke",
+  },
+  {
+    id: "glowBags",
+    name: "Glow-Up Party Bags",
+    price: 50,
+    description: "Party favor bags with glow accessories for up to 15 guests",
+  },
+  {
+    id: "themedVideoProjector",
+    name: "Themed Video Projector",
+    price: 100,
+    description: "Music video projector with themed visuals for the ultimate nightclub experience",
   },
   {
     id: "extraHour",
@@ -97,10 +115,10 @@ export const ADD_ONS: AddOnOption[] = [
     description: "Extend your party by one additional hour",
   },
   {
-    id: "glowBags",
-    name: "Glow-Up Party Bags",
-    price: 50,
-    description: "Party favor bags with glow accessories for up to 15 guests",
+    id: "overnightPackage",
+    name: "Overnight Package",
+    price: 150,
+    description: "Unlimited extended hours for all-night events and overnight parties",
   },
 ];
 

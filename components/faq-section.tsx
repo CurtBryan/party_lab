@@ -18,7 +18,7 @@ const faqs = [
   },
   {
     question: "How many guests can the inflatable nightclub accommodate?",
-    answer: "Our Dance Dome comfortably fits 10–15 guests, while our larger setups — the Light Haus and Club Noir — can accommodate 20–30 guests for the ultimate party experience!"
+    answer: "Our Dance Dome comfortably fits 10–15 guests, while our larger setups — the Light Haus and Club Noir — can accommodate 15–30 guests for the ultimate party experience!"
   },
   {
     question: "Do I need to provide power?",
