@@ -285,11 +285,14 @@ test("BookingData: Required fields exist", () => {
     timeBlock: "17:00-20:00",
     package: "Party Starter",
     addOns: {
-      playlistProjector: false,
+      discoBall: false,
       redRopesCarpet: false,
-      extraHour: false,
+      curatedPlaylist: false,
+      wirelessMicrophone: false,
       glowBags: false,
       themedVideoProjector: false,
+      extraHour: false,
+      overnightPackage: false,
     },
     pricing: {
       subtotal: 300,

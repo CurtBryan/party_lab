@@ -5,10 +5,18 @@ import type { BookingData } from "@/types/booking";
 import { format } from "date-fns";
 import { formatTime12Hour } from "@/lib/format-time";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function sendConfirmationEmail(bookingData: BookingData, bookingId: string) {
   try {
+    // Check for API key at runtime
+    if (!process.env.RESEND_API_KEY) {
+      console.error("RESEND_API_KEY is not configured");
+      return { 
+        success: false, 
+        error: "Email service is not configured. Please contact support." 
+      };
+    }
+    
+    const resend = new Resend(process.env.RESEND_API_KEY);
     if (!bookingData.customer || !bookingData.date || !bookingData.timeBlock) {
       return { success: false, error: "Missing customer information" };
     }

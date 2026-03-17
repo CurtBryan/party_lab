@@ -3,10 +3,18 @@ import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
 import { addDays, format } from 'date-fns';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function GET(request: Request) {
   try {
+    // Check for API key at runtime
+    if (!process.env.RESEND_API_KEY) {
+      console.error("[CRON] RESEND_API_KEY is not configured");
+      return NextResponse.json(
+        { error: "Email service is not configured" },
+        { status: 500 }
+      );
+    }
+    
+    const resend = new Resend(process.env.RESEND_API_KEY);
     // Verify cron secret to prevent unauthorized access
     const authHeader = request.headers.get('authorization');
     if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {

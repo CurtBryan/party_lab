@@ -2,8 +2,6 @@
 
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function submitContactForm(formData: {
   name: string;
   email: string;
@@ -12,6 +10,17 @@ export async function submitContactForm(formData: {
   message?: string;
 }) {
   try {
+    // Check for API key at runtime
+    if (!process.env.RESEND_API_KEY) {
+      console.error("RESEND_API_KEY is not configured");
+      return {
+        success: false,
+        error: "Email service is not configured. Please contact support.",
+      };
+    }
+    
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    
     const emailBody = `
 NEW CONTACT FORM SUBMISSION
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

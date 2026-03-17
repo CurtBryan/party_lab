@@ -68,11 +68,14 @@ const mockBooking: BookingData = {
   timeBlock: "17:00-22:00", // 5 PM - 10 PM (5 hours, 2 extra)
   package: "Party Starter",
   addOns: {
-    playlistProjector: true,
+    discoBall: false,
     redRopesCarpet: false,
-    extraHour: false,
+    curatedPlaylist: true,
+    wirelessMicrophone: false,
     glowBags: true,
     themedVideoProjector: false,
+    extraHour: false,
+    overnightPackage: false,
   },
   customer: {
     name: "Test Customer",
@@ -177,7 +180,7 @@ Location: ${mockBooking.customer!.address}
 
 test("Email", "Add-ons section includes selected items", () => {
   const addOnsList = [];
-  if (mockBooking.addOns.playlistProjector) addOnsList.push("Playlist + Projector (+$100)");
+  if (mockBooking.addOns.curatedPlaylist) addOnsList.push("Playlist + Projector (+$100)");
   if (mockBooking.addOns.redRopesCarpet) addOnsList.push("Red Ropes & Carpet (+$40)");
   if (mockBooking.addOns.extraHour) addOnsList.push("Extra Hour (+$50)");
   if (mockBooking.addOns.glowBags) addOnsList.push("Glow-Up Party Bags (+$50)");
@@ -257,7 +260,7 @@ test("Database", "Booking insert payload has all required fields", () => {
     customer_phone: mockBooking.customer!.phone,
     event_address: mockBooking.customer!.address,
     event_type: mockBooking.customer!.eventType,
-    addon_playlist_projector: mockBooking.addOns.playlistProjector,
+    addon_playlist_projector: mockBooking.addOns.curatedPlaylist,
     addon_red_ropes_carpet: mockBooking.addOns.redRopesCarpet,
     addon_extra_hour: mockBooking.addOns.extraHour,
     addon_glow_bags: mockBooking.addOns.glowBags,
@@ -353,7 +356,7 @@ test("BookingContext", "Customer object has all checklist fields", () => {
 test("BookingContext", "All add-ons are boolean values", () => {
   const addOns = mockBooking.addOns;
 
-  assertEqual(typeof addOns.playlistProjector, "boolean", "playlistProjector should be boolean");
+  assertEqual(typeof addOns.curatedPlaylist, "boolean", "curatedPlaylist should be boolean");
   assertEqual(typeof addOns.redRopesCarpet, "boolean", "redRopesCarpet should be boolean");
   assertEqual(typeof addOns.extraHour, "boolean", "extraHour should be boolean");
   assertEqual(typeof addOns.glowBags, "boolean", "glowBags should be boolean");

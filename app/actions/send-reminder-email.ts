@@ -3,8 +3,6 @@
 import { Resend } from "resend";
 import { format } from "date-fns";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 interface BookingReminder {
   id: string;
   customer_name: string;
@@ -32,6 +30,13 @@ interface BookingReminder {
 
 export async function sendReminderEmail(booking: BookingReminder) {
   try {
+    // Check for API key at runtime
+    if (!process.env.RESEND_API_KEY) {
+      console.error("RESEND_API_KEY is not configured");
+      return { success: false, customerSent: false, businessSent: false };
+    }
+    
+    const resend = new Resend(process.env.RESEND_API_KEY);
     // Parse date correctly
     const [year, month, day] = booking.event_date.split('-').map(Number);
     const formattedDate = format(new Date(year, month - 1, day), 'EEEE, MMMM d, yyyy');
