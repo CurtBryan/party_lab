@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useBooking } from "./booking-context";
 import { Button } from "@/components/ui/button";
-import { Check, ChevronDown, ChevronUp, Sparkles } from "lucide-react";
+import { Check, Sparkles } from "lucide-react";
 import { ADD_ONS, PACKAGES } from "@/lib/constants";
 import type { PackageType, AddOns } from "@/types/booking";
 
@@ -13,12 +13,11 @@ export function Screen2Experience() {
   const { bookingData, updatePackage, updateAddOns, nextStep } = useBooking();
 
   const [buildMode, setBuildMode] = useState<BuildMode>(
-    bookingData.package ? "package" : "package"
+    bookingData.package ? "package" : "custom"
   );
   const [selectedPackage, setSelectedPackage] = useState<PackageType>(
     bookingData.package || "Party Starter"
   );
-  const [showAllAddOns, setShowAllAddOns] = useState(false);
 
   // Get product-specific base price
   const getBasePrice = (): number => {
@@ -70,8 +69,6 @@ export function Screen2Experience() {
     nextStep();
   };
 
-  const primaryAddOns = ADD_ONS.slice(0, 4);
-  const additionalAddOns = ADD_ONS.slice(4);
 
   return (
     <div className="space-y-8">
@@ -170,7 +167,7 @@ export function Screen2Experience() {
       {buildMode === "custom" && (
         <div className="space-y-5 animate-fade-in max-w-3xl mx-auto">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
-            {primaryAddOns.map((addOn) => {
+            {ADD_ONS.map((addOn) => {
               const isSelected = bookingData.addOns[addOn.id as keyof AddOns];
               return (
                 <button
@@ -193,45 +190,6 @@ export function Screen2Experience() {
               );
             })}
           </div>
-
-          {additionalAddOns.length > 0 && (
-            <>
-              <button
-                onClick={() => setShowAllAddOns(!showAllAddOns)}
-                className="flex items-center justify-center gap-1.5 w-full text-sm sm:text-base text-muted-foreground hover:text-foreground transition-colors py-2"
-              >
-                {showAllAddOns ? "Show less" : `+${additionalAddOns.length} more options`}
-                {showAllAddOns ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-              </button>
-
-              {showAllAddOns && (
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 animate-fade-in">
-                  {additionalAddOns.map((addOn) => {
-                    const isSelected = bookingData.addOns[addOn.id as keyof AddOns];
-                    return (
-                      <button
-                        key={addOn.id}
-                        onClick={() => toggleAddOn(addOn.id)}
-                        className={`p-3 rounded-xl border-2 transition-all text-left ${
-                          isSelected
-                            ? "border-primary bg-primary/10 glow-purple"
-                            : "border-border bg-card hover:border-primary/50"
-                        }`}
-                      >
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="text-xs sm:text-sm font-semibold leading-tight">{addOn.name}</span>
-                          {isSelected && (
-                            <Check className="w-4 h-4 text-primary flex-shrink-0" />
-                          )}
-                        </div>
-                        <div className="text-base sm:text-lg font-bold text-primary">${addOn.price}</div>
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
-            </>
-          )}
 
           <p className="text-xs sm:text-sm text-muted-foreground text-center">
             Base includes LED lighting, Bluetooth speakers, 3-hour rental, setup & teardown
