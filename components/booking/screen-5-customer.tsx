@@ -326,8 +326,8 @@ export function Screen5Customer() {
             />
           </div>
 
-          {/* Playlist Request - only for packages that include curated playlists */}
-          {(bookingData.package === "Glow Getter" || bookingData.package === "All-Star VIP") && (
+          {/* Playlist Request - only when curated playlist is included */}
+          {(bookingData.package === "Glow Getter" || bookingData.package === "All-Star VIP" || bookingData.addOns.curatedPlaylist) && (
             <div>
               <Label htmlFor="playlistRequest">What kind of playlist would you like? (Optional)</Label>
               <textarea
