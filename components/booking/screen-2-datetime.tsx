@@ -261,6 +261,9 @@ export function Screen2DateTime() {
             <Calendar className="w-5 h-5 text-primary" />
             Select Date
           </h3>
+          <div className="mb-3 px-3 py-2 rounded-lg bg-amber-500/10 border border-amber-500/30 text-xs text-amber-500 text-center">
+            ☀️ Bookings unavailable May 2 – Sep 30 due to Arizona summer heat. We reopen October 1!
+          </div>
           <div className="flex justify-center">
             <DayPicker
               mode="single"
@@ -268,6 +271,7 @@ export function Screen2DateTime() {
               onSelect={handleDateSelect}
               disabled={[
                 { before: minDate },
+                { after: new Date("2026-05-01"), before: new Date("2026-10-01") },
               ]}
               className="border rounded-lg p-4"
               styles={{
