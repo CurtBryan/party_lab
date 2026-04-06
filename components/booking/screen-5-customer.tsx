@@ -52,9 +52,11 @@ export function Screen5Customer() {
   });
 
   const surfaceTypeOptions = [
-    "Grass / Turf (flat, even, free of rocks or sticks)",
-    "Concrete / Asphalt / Driveway (smooth, level, free of debris)",
-    "Indoor Flooring (gym floor, hardwood, tile, etc.)",
+    "Grass",
+    "Rocks (need a tarp)",
+    "Turf",
+    "Asphalt",
+    "Driveway",
     "Other"
   ];
 
@@ -403,6 +405,9 @@ export function Screen5Customer() {
 
               <div>
                 <Label htmlFor="surfaceType">Surface Type *</Label>
+                <p className="text-xs text-muted-foreground mb-2">
+                  This helps us know whether to bring stakes or sandbags for setup.
+                </p>
                 <select
                   id="surfaceType"
                   value={getCurrentSurfaceType()}
