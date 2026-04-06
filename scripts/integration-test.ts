@@ -180,15 +180,18 @@ Location: ${mockBooking.customer!.address}
 
 test("Email", "Add-ons section includes selected items", () => {
   const addOnsList = [];
-  if (mockBooking.addOns.curatedPlaylist) addOnsList.push("Playlist + Projector (+$100)");
-  if (mockBooking.addOns.redRopesCarpet) addOnsList.push("Red Ropes & Carpet (+$40)");
-  if (mockBooking.addOns.extraHour) addOnsList.push("Extra Hour (+$50)");
+  if (mockBooking.addOns.discoBall) addOnsList.push("Disco Ball (+$30)");
+  if (mockBooking.addOns.redRopesCarpet) addOnsList.push("Red Ropes & Carpet (+$75)");
+  if (mockBooking.addOns.curatedPlaylist) addOnsList.push("Curated Playlist (+$50)");
+  if (mockBooking.addOns.wirelessMicrophone) addOnsList.push("Wireless Microphone (+$50)");
   if (mockBooking.addOns.glowBags) addOnsList.push("Glow-Up Party Bags (+$50)");
+  if (mockBooking.addOns.themedVideoProjector) addOnsList.push("Themed Video Projector (+$100)");
+  if (mockBooking.addOns.extraHour) addOnsList.push("Extra Hour (+$50)");
+  if (mockBooking.addOns.overnightPackage) addOnsList.push("Overnight Package (+$150)");
 
   assertEqual(addOnsList.length, 2, "Should have 2 add-ons");
-  assertTrue(addOnsList.includes("Playlist + Projector (+$100)"), "Should include Playlist");
+  assertTrue(addOnsList.includes("Curated Playlist (+$50)"), "Should include Curated Playlist");
   assertTrue(addOnsList.includes("Glow-Up Party Bags (+$50)"), "Should include Glow Bags");
-  assertTrue(!addOnsList.includes("Extra Hour (+$75)"), "Should NOT have old $75 pricing");
 });
 
 test("Email", "Additional charges section includes extended hours", () => {
@@ -260,10 +263,14 @@ test("Database", "Booking insert payload has all required fields", () => {
     customer_phone: mockBooking.customer!.phone,
     event_address: mockBooking.customer!.address,
     event_type: mockBooking.customer!.eventType,
-    addon_playlist_projector: mockBooking.addOns.curatedPlaylist,
+    addon_disco_ball: mockBooking.addOns.discoBall,
     addon_red_ropes_carpet: mockBooking.addOns.redRopesCarpet,
-    addon_extra_hour: mockBooking.addOns.extraHour,
+    addon_curated_playlist: mockBooking.addOns.curatedPlaylist,
+    addon_wireless_microphone: mockBooking.addOns.wirelessMicrophone,
     addon_glow_bags: mockBooking.addOns.glowBags,
+    addon_themed_video_projector: mockBooking.addOns.themedVideoProjector,
+    addon_extra_hour: mockBooking.addOns.extraHour,
+    addon_overnight_package: mockBooking.addOns.overnightPackage,
     extra_hours: mockBooking.pricing.extraHours,
     extra_hours_cost: mockBooking.pricing.extraHoursCost,
     trip_charge: mockBooking.pricing.tripCharge,
@@ -356,10 +363,14 @@ test("BookingContext", "Customer object has all checklist fields", () => {
 test("BookingContext", "All add-ons are boolean values", () => {
   const addOns = mockBooking.addOns;
 
-  assertEqual(typeof addOns.curatedPlaylist, "boolean", "curatedPlaylist should be boolean");
+  assertEqual(typeof addOns.discoBall, "boolean", "discoBall should be boolean");
   assertEqual(typeof addOns.redRopesCarpet, "boolean", "redRopesCarpet should be boolean");
-  assertEqual(typeof addOns.extraHour, "boolean", "extraHour should be boolean");
+  assertEqual(typeof addOns.curatedPlaylist, "boolean", "curatedPlaylist should be boolean");
+  assertEqual(typeof addOns.wirelessMicrophone, "boolean", "wirelessMicrophone should be boolean");
   assertEqual(typeof addOns.glowBags, "boolean", "glowBags should be boolean");
+  assertEqual(typeof addOns.themedVideoProjector, "boolean", "themedVideoProjector should be boolean");
+  assertEqual(typeof addOns.extraHour, "boolean", "extraHour should be boolean");
+  assertEqual(typeof addOns.overnightPackage, "boolean", "overnightPackage should be boolean");
 });
 
 // ============================================================================

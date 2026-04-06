@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { AnnouncementBanner } from "@/components/announcement-banner";
 import { HeroSection } from "@/components/hero-section";
 import { PackagesSection } from "@/components/packages-section";
 import { ContactForm } from "@/components/contact-form";
@@ -27,6 +28,9 @@ export default function Home() {
 
   return (
     <main className="min-h-screen">
+      {/* Seasonal Announcement Banner */}
+      <AnnouncementBanner />
+
       {/* Booking Modal */}
       <BookingModal
         isOpen={isBookingModalOpen}
