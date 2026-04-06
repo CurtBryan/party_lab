@@ -12,9 +12,7 @@ type BuildMode = "package" | "custom";
 export function Screen2Experience() {
   const { bookingData, updatePackage, updateAddOns, nextStep } = useBooking();
 
-  const [buildMode, setBuildMode] = useState<BuildMode>(
-    bookingData.package ? "package" : "custom"
-  );
+  const [buildMode, setBuildMode] = useState<BuildMode>("custom");
   const [selectedPackage, setSelectedPackage] = useState<PackageType>(
     bookingData.package || "Party Starter"
   );
