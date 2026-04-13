@@ -261,8 +261,17 @@ export function Screen2DateTime() {
             <Calendar className="w-5 h-5 text-primary" />
             Select Date
           </h3>
-          <div className="mb-3 px-3 py-2 rounded-lg bg-amber-500/10 border border-amber-500/30 text-xs text-amber-500 text-center">
-            ☀️ Bookings unavailable May 2 – Sep 30 due to Arizona summer heat. We reopen October 1!
+          <div className="mb-3 px-3 py-3 rounded-lg bg-amber-500/10 border border-amber-500/30 text-xs text-amber-500 text-center space-y-1.5">
+            <p>☀️ Bookings unavailable May 2 – Sep 30 due to Arizona summer heat. We reopen October 1!</p>
+            <p>
+              For special requests or to book a future event,{" "}
+              <a
+                href="mailto:partylabaz@gmail.com"
+                className="font-semibold underline hover:no-underline"
+              >
+                contact us at partylabaz@gmail.com
+              </a>
+            </p>
           </div>
           <div className="flex justify-center">
             <DayPicker
