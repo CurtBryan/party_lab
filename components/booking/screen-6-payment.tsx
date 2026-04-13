@@ -68,7 +68,7 @@ function PaymentForm() {
           const bookingResult = await createBooking(bookingData, paymentIntent.id);
 
           if (!bookingResult.success) {
-            setErrorMessage(bookingResult.error || "Failed to create booking");
+            setErrorMessage("⚠️ Your payment was received but we had trouble saving your booking. Please call or text us at (602) 799-5856 right away and we will get you sorted out.");
             return;
           }
 
@@ -114,7 +114,7 @@ function PaymentForm() {
         const bookingResult = await createBooking(bookingData, paymentIntent.id);
 
         if (!bookingResult.success) {
-          setErrorMessage(bookingResult.error || "Failed to create booking");
+          setErrorMessage("⚠️ Your payment was received but we had trouble saving your booking. Please call or text us at (602) 799-5856 right away and we will get you sorted out.");
           setIsProcessing(false);
           return;
         }

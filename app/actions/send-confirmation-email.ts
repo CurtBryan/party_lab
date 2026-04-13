@@ -110,7 +110,7 @@ Instagram: @partylabaz
 
     // Send confirmation email to customer
     const { error: customerError } = await resend.emails.send({
-      from: "The Partylab <onboarding@resend.dev>",
+      from: "The Partylab <bookings@partylabaz.com>",
       to: [bookingData.customer.email],
       subject: `Booking Confirmed - ${bookingId}`,
       text: emailBody,
@@ -154,7 +154,7 @@ Customer has been sent a confirmation email.
     `.trim();
 
     const { error: businessError } = await resend.emails.send({
-      from: "Partylab Booking System <onboarding@resend.dev>",
+      from: "Partylab Booking System <bookings@partylabaz.com>",
       to: ["partylabaz@gmail.com"],
       subject: `🎉 New Booking: ${bookingData.customer.name} - ${formattedDate}`,
       text: businessEmailBody,
