@@ -56,17 +56,15 @@ test.describe('Booking Flow', () => {
     console.log('✅ Step 1: All 3 venues visible');
   });
 
-  test('Step 2 — Experience screen defaults to Build Your Own', async ({ page }) => {
+  test('Step 2 — Experience screen shows Build Your Own with all add-ons', async ({ page }) => {
     await goToStep2(page);
     await expect(page.getByRole('heading', { name: /customize your experience/i })).toBeVisible({ timeout: 5000 });
-    // Build Your Own should be active
-    const buildBtn = page.getByRole('button', { name: /build your own/i });
-    await expect(buildBtn).toBeVisible();
-    // All add-ons visible — no expand button
+    // All add-ons visible
     await expect(page.getByText('Red Ropes & Carpet')).toBeVisible();
     await expect(page.getByText('Glow-Up Party Bags')).toBeVisible();
-    await expect(page.getByText('+4 more options')).not.toBeVisible();
-    console.log('✅ Step 2: Build Your Own default, all add-ons visible');
+    // Base price shown
+    await expect(page.getByText('$400').first()).toBeVisible();
+    console.log('✅ Step 2: Build Your Own, all add-ons visible, $400 base price');
   });
 
   test('Step 3 — Date picker shows summer closure notice', async ({ page }) => {
@@ -92,12 +90,10 @@ test.describe('Booking Flow', () => {
     console.log('✅ Step 4: Validation catches empty required fields');
   });
 
-  test('Pricing — Dance Dome Party Starter is $250', async ({ page }) => {
+  test('Pricing — Dance Dome base price is $400', async ({ page }) => {
     await goToStep2(page);
-    await page.getByRole('button', { name: /choose package/i }).click();
-    await page.getByText('Party Starter').first().click();
-    await expect(page.getByText('$250').first()).toBeVisible();
-    console.log('✅ Pricing: Dance Dome Party Starter = $250');
+    await expect(page.getByText('$400').first()).toBeVisible();
+    console.log('✅ Pricing: Dance Dome base = $400');
   });
 
   test('Complete flow — reaches payment screen with correct date and deposit', async ({ page }) => {

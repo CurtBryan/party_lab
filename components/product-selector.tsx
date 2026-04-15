@@ -21,7 +21,7 @@ const products: ProductOption[] = [
     dimensions: "16x16",
     imageUrl: "/igloo_shape.jpg",
     glowColor: "pink",
-    basePrice: 250,
+    basePrice: 400,
   },
   {
     name: "Light Haus",
@@ -30,7 +30,7 @@ const products: ProductOption[] = [
     dimensions: "20x20x12",
     imageUrl: "/box_shape.JPG",
     glowColor: "purple",
-    basePrice: 300,
+    basePrice: 500,
   },
   {
     name: "Club Noir",
@@ -39,7 +39,7 @@ const products: ProductOption[] = [
     dimensions: "23x16x12",
     imageUrl: "/house_shape.jpg",
     glowColor: "teal",
-    basePrice: 300,
+    basePrice: 500,
   },
 ];
 

@@ -21,8 +21,8 @@ export function PackagesSection({ onBookNowClick }: PackagesSectionProps = {}) {
   const [showAllAddOns, setShowAllAddOns] = useState(false);
 
   const getBasePrice = () => {
-    if (selectedProduct === "Dance Dome") return 250;
-    return 300;
+    if (selectedProduct === "Dance Dome") return 400;
+    return 500;
   };
 
   const getPackageUpgrade = () => {
