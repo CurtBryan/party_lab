@@ -1,190 +1,165 @@
-/**
- * Create manual booking for Dance Dome - Jan 24, 2026, 2pm-5pm
- * Blocks time slot and sends confirmation to partylabaz@gmail.com
- */
-
 import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
-import { format } from 'date-fns';
-import { config } from 'dotenv';
-import { resolve } from 'path';
+import * as dotenv from 'dotenv';
 
-// Load environment variables from .env.local
-config({ path: resolve(process.cwd(), '.env.local') });
+dotenv.config({ path: '.env.local' });
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+const resendApiKey = process.env.RESEND_API_KEY!;
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const supabase = createClient(supabaseUrl, supabaseServiceKey);
+const resend = new Resend(resendApiKey);
 
-async function createManualBooking() {
-  console.log('\n🎉 Creating Manual Booking for Dance Dome\n');
-  console.log('═'.repeat(60));
-
-  // Booking details
-  const bookingDetails = {
-    product: 'Dance Dome',
-    package: 'Manual Booking',
-    event_date: '2026-01-24',
-    event_time_start: '14:00',
-    event_time_end: '17:00',
-    customer_name: 'Manual Block - Partylab Admin',
-    customer_email: 'partylabaz@gmail.com',
-    customer_phone: '(602) 799-5856',
-    event_address: 'TBD',
-    event_type: 'Internal Block',
-
-    // Add-ons (all false for manual block)
+async function createBooking() {
+  const bookingData = {
+    product: "Dance Dome",
+    package: "Party Starter",
+    event_date: "2026-04-17",
+    event_time_start: "17:00",  // Drop off 5 PM
+    event_time_end: "21:00",    // Pick up 9 PM
+    customer_name: "Jenny Downing",
+    customer_email: "downingjaynee2@gmail.com",
+    customer_phone: "520-257-6474",
+    event_address: "699 E Montebella Ave",
+    event_type: "5th Birthday Party",
     addon_playlist_projector: false,
     addon_red_ropes_carpet: false,
     addon_extra_hour: false,
     addon_glow_bags: false,
-
-    // Pricing (set to 0 for manual block)
-    subtotal: 0,
-    booking_fee: 0,
-    total: 0,
-
-    // Status
-    stripe_payment_intent_id: 'manual_block',
-    payment_status: 'manual',
-    booking_status: 'confirmed',
-
-    // Checklist (optional for manual block)
-    space_type: 'TBD',
-    power_source: 'TBD',
-    wifi_music_access: 'TBD',
-    surface_type: 'TBD',
-    access_path: 'TBD',
-    special_requests: 'Manual booking block created by admin',
+    addon_themed_video_projector: false,
+    extra_hours: 0,
+    extra_hours_cost: 0,
+    trip_charge: 0,
+    subtotal: 250,
+    booking_fee: 100,
+    total: 250,
+    stripe_payment_intent_id: "manual_april9_deposit_paid",
+    payment_status: "paid",
+    booking_status: "confirmed",
+    special_requests: "5 year old birthday party. Driveway surface — bring tarp and sandbags. Drop off by 5 PM, pick up at 9 PM.",
+    playlist_request: null,
+    space_type: "Outdoor - Driveway",
+    power_source: "Yes",
+    wifi_music_access: null,
+    surface_type: "Driveway",
+    access_path: "Yes",
+    hear_about_us: null,
   };
 
-  console.log('📋 Booking Details:');
-  console.log(`   Product: ${bookingDetails.product}`);
-  console.log(`   Date: ${bookingDetails.event_date}`);
-  console.log(`   Time: ${bookingDetails.event_time_start} - ${bookingDetails.event_time_end}`);
-  console.log(`   Customer: ${bookingDetails.customer_name}`);
-  console.log(`   Email: ${bookingDetails.customer_email}`);
+  console.log("Creating booking...");
 
-  try {
-    // Step 1: Insert booking into database
-    console.log('\n📝 Step 1: Creating booking in database...');
+  const { data, error } = await supabase
+    .from("bookings")
+    .insert(bookingData)
+    .select()
+    .single();
 
-    const { data: booking, error: dbError } = await supabase
-      .from('bookings')
-      .insert(bookingDetails)
-      .select()
-      .single();
+  if (error) {
+    console.error("Error creating booking:", error);
+    return null;
+  }
 
-    if (dbError) {
-      console.error('❌ Database error:', dbError);
-      throw dbError;
-    }
+  console.log("Booking created successfully:", data.id);
+  return data;
+}
 
-    console.log(`✅ Booking created successfully!`);
-    console.log(`   Booking ID: ${booking.id}`);
+async function sendConfirmationEmail(booking: any) {
+  const emailHtml = `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background: #ffffff;">
+      <div style="text-align: center; margin-bottom: 30px;">
+        <h1 style="color: #8B5CF6; margin-bottom: 5px;">The Partylab AZ</h1>
+        <h2 style="color: #333; margin-top: 0;">You're Confirmed! 🎉</h2>
+      </div>
 
-    // Step 2: Format date for email (manual parsing to avoid timezone issues)
-    const [year, month, day] = bookingDetails.event_date.split('-').map(Number);
-    const formattedDate = format(new Date(year, month - 1, day), 'MMMM d, yyyy');
+      <p style="color: #333; font-size: 16px;">Hi Jenny,</p>
+      <p style="color: #333;">We are SO sorry for the delay in getting you this confirmation — we had a technical hiccup on our end but your booking is 100% locked in. Your deposit was received and we cannot wait to celebrate with your little one!</p>
 
-    // Step 3: Send confirmation email to partylabaz@gmail.com
-    console.log('\n📧 Step 2: Sending confirmation email...');
+      <div style="background: #f8f9fa; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
+        <h3 style="color: #8B5CF6; margin-top: 0;">Event Details</h3>
+        <p><strong>Event:</strong> 5th Birthday Party</p>
+        <p><strong>Date:</strong> Friday, April 17, 2026</p>
+        <p><strong>Party Time:</strong> 6:00 PM – 9:00 PM</p>
+        <p><strong>Drop Off:</strong> 5:00 PM</p>
+        <p><strong>Pick Up:</strong> 9:00 PM</p>
+        <p><strong>Location:</strong> 699 E Montebella Ave</p>
+        <p><strong>Venue:</strong> Dance Dome</p>
+        <p><strong>Package:</strong> Party Starter</p>
+      </div>
 
-    const emailBody = `
-MANUAL BOOKING CREATED
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      <div style="background: #f8f9fa; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
+        <h3 style="color: #8B5CF6; margin-top: 0;">What's Included</h3>
+        <ul style="margin: 0; padding-left: 20px;">
+          <li>Dance Dome Inflatable Nightclub</li>
+          <li>Color-Changing LED Lighting</li>
+          <li>Bluetooth Speaker Sound System</li>
+          <li>3-Hour Rental</li>
+          <li>Setup &amp; Teardown Included</li>
+        </ul>
+      </div>
 
-BOOKING DETAILS:
-Booking ID: ${booking.id}
-Product: ${bookingDetails.product}
-Package: ${bookingDetails.package}
-Date: ${formattedDate}
-Time: ${bookingDetails.event_time_start} - ${bookingDetails.event_time_end}
-Status: Time Slot BLOCKED
+      <div style="background: #f8f9fa; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
+        <h3 style="color: #8B5CF6; margin-top: 0;">Pricing</h3>
+        <p><strong>Dance Dome – Party Starter:</strong> $250</p>
+        <p><strong>Trip Charge:</strong> $50</p>
+        <hr style="border: 1px solid #ddd; margin: 10px 0;">
+        <p style="font-size: 18px;"><strong>Total:</strong> $300</p>
+        <p><strong>Deposit Paid:</strong> $100 ✅</p>
+        <p><strong>Remaining Balance:</strong> $200 (due on event date)</p>
+      </div>
 
-NOTES:
-This is a manual booking block created to reserve the time slot.
-No customer payment required.
+      <div style="background: #fff8e1; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
+        <h3 style="color: #856404; margin-top: 0;">Setup Notes</h3>
+        <ul style="margin: 0; padding-left: 20px;">
+          <li>Driveway surface — we will bring a tarp and sandbags</li>
+          <li>We will arrive by 5:00 PM for setup</li>
+          <li>Pickup at 9:00 PM after your party ends</li>
+        </ul>
+      </div>
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      <p style="color: #333;">Thank you so much for your patience, Jenny. We promise to make it an amazing party for your little one! 🎈</p>
 
-This time slot is now BLOCKED and unavailable for online bookings.
+      <div style="text-align: center; color: #666; font-size: 14px; margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
+        <p>Questions? Call or text us at <strong>(602) 799-5856</strong></p>
+        <p>partylabaz@gmail.com | @partylabaz</p>
+      </div>
+    </div>
+  `;
 
-To remove this block, delete booking ID: ${booking.id} from the database.
+  console.log("Sending confirmation email to Jenny and partylabaz@gmail.com...");
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-The Partylab
-(602) 799-5856
-partylabaz@gmail.com
-    `.trim();
+  const { data, error } = await resend.emails.send({
+    from: "The Partylab <bookings@partylabaz.com>",
+    to: ["downingjaynee2@gmail.com"],
+    bcc: ["partylabaz@gmail.com"],
+    subject: "Your Partylab Booking is Confirmed! 🎉 April 17th Dance Dome",
+    html: emailHtml,
+  });
 
-    const { error: emailError } = await resend.emails.send({
-      from: 'Partylab Booking System <onboarding@resend.dev>',
-      to: ['partylabaz@gmail.com'],
-      subject: `🚫 Time Block Created: Dance Dome - ${formattedDate}`,
-      text: emailBody,
-    });
+  if (error) {
+    console.error("Error sending email:", error);
+    return false;
+  }
 
-    if (emailError) {
-      console.error('⚠️  Email send failed:', emailError);
-      console.log('   (Booking was created successfully, but email failed)');
-    } else {
-      console.log('✅ Confirmation email sent to partylabaz@gmail.com');
-    }
+  console.log("Email sent successfully:", data?.id);
+  return true;
+}
 
-    // Step 3: Verify the time slot is blocked
-    console.log('\n🔒 Step 3: Verifying time slot is blocked...');
+async function main() {
+  const booking = await createBooking();
 
-    const { data: conflictingBookings, error: checkError } = await supabase
-      .from('bookings')
-      .select('*')
-      .eq('product', 'Dance Dome')
-      .eq('event_date', '2026-01-24')
-      .eq('booking_status', 'confirmed');
-
-    if (checkError) {
-      console.error('❌ Error checking bookings:', checkError);
-    } else {
-      console.log(`✅ Found ${conflictingBookings.length} booking(s) for Dance Dome on Jan 24, 2026`);
-      conflictingBookings.forEach((b, i) => {
-        console.log(`   ${i + 1}. ${b.event_time_start} - ${b.event_time_end} (ID: ${b.id.slice(0, 8)}...)`);
-      });
-    }
-
-    // Summary
-    console.log('\n' + '═'.repeat(60));
-    console.log('✅ ALL STEPS COMPLETED SUCCESSFULLY');
-    console.log('═'.repeat(60));
-
-    console.log('\n📊 Summary:');
-    console.log(`   ✓ Booking created in database (ID: ${booking.id.slice(0, 8)}...)`);
-    console.log(`   ✓ Confirmation email sent to partylabaz@gmail.com`);
-    console.log(`   ✓ Time slot 14:00-17:00 is now BLOCKED for Dance Dome on Jan 24, 2026`);
-    console.log(`   ✓ Customers cannot book this time slot online`);
-
-    console.log('\n🎯 Next Steps:');
-    console.log('   - Check your email at partylabaz@gmail.com');
-    console.log('   - Time slot is now unavailable in booking flow');
-    console.log(`   - To remove block, delete booking ID: ${booking.id}`);
-    console.log('');
-
-    return {
-      success: true,
-      bookingId: booking.id,
-      message: 'Manual booking created and time slot blocked',
-    };
-
-  } catch (error) {
-    console.error('\n❌ Error creating manual booking:', error);
-    return {
-      success: false,
-      error: 'Failed to create manual booking',
-    };
+  if (booking) {
+    await sendConfirmationEmail(booking);
+    console.log("\nBooking Summary:");
+    console.log("================");
+    console.log("Booking ID:", booking.id);
+    console.log("Customer:", booking.customer_name);
+    console.log("Date: April 17, 2026");
+    console.log("Venue:", booking.product);
+    console.log("Package:", booking.package);
+    console.log("Total: $" + booking.total);
+    console.log("Status:", booking.payment_status);
   }
 }
 
-// Run the script
-createManualBooking().catch(console.error);
+main().catch(console.error);

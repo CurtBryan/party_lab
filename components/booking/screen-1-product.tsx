@@ -22,7 +22,7 @@ export function Screen1Product() {
 
   // Get base price for each product
   const getBasePrice = (productName: string): number => {
-    return productName === "Dance Dome" ? 400 : 500;
+    return productName === "Dance Dome" ? 450 : 500;
   };
 
   return (

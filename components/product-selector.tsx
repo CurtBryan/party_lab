@@ -21,7 +21,7 @@ const products: ProductOption[] = [
     dimensions: "16x16",
     imageUrl: "/igloo_shape.jpg",
     glowColor: "pink",
-    basePrice: 400,
+    basePrice: 450,
   },
   {
     name: "Light Haus",

@@ -63,8 +63,8 @@ test.describe('Booking Flow', () => {
     await expect(page.getByText('Red Ropes & Carpet')).toBeVisible();
     await expect(page.getByText('Glow-Up Party Bags')).toBeVisible();
     // Base price shown
-    await expect(page.getByText('$400').first()).toBeVisible();
-    console.log('✅ Step 2: Build Your Own, all add-ons visible, $400 base price');
+    await expect(page.getByText('$450').first()).toBeVisible();
+    console.log('✅ Step 2: Build Your Own, all add-ons visible, $450 base price');
   });
 
   test('Step 3 — Date picker shows summer closure notice', async ({ page }) => {
@@ -90,10 +90,10 @@ test.describe('Booking Flow', () => {
     console.log('✅ Step 4: Validation catches empty required fields');
   });
 
-  test('Pricing — Dance Dome base price is $400', async ({ page }) => {
+  test('Pricing — Dance Dome base price is $450', async ({ page }) => {
     await goToStep2(page);
-    await expect(page.getByText('$400').first()).toBeVisible();
-    console.log('✅ Pricing: Dance Dome base = $400');
+    await expect(page.getByText('$450').first()).toBeVisible();
+    console.log('✅ Pricing: Dance Dome base = $450');
   });
 
   test('Complete flow — reaches payment screen with correct date and deposit', async ({ page }) => {

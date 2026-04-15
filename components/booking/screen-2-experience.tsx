@@ -11,7 +11,7 @@ export function Screen2Experience() {
 
   // Get product-specific base price
   const getBasePrice = (): number => {
-    return bookingData.product === "Dance Dome" ? 400 : 500;
+    return bookingData.product === "Dance Dome" ? 450 : 500;
   };
 
   // Calculate total from base + add-ons
