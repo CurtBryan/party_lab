@@ -69,14 +69,14 @@ export function PackagesSection({ onBookNowClick }: PackagesSectionProps = {}) {
             Build Your Party
           </h2>
           <p className="text-sm sm:text-base text-muted-foreground max-w-xl mx-auto">
-            Choose your venue, then customize with add-ons or pick a package to save
+            Choose your venue, then customize with add-ons
           </p>
         </div>
 
         {/* Step 1: Choose Venue */}
         <div className="mb-10">
           <h3 className="text-lg sm:text-xl font-bold mb-4 text-center text-glow-purple">
-            Step 1: Choose Your Venue
+            Choose Your Venue
           </h3>
           <ProductSelector
             selectedProduct={selectedProduct}
