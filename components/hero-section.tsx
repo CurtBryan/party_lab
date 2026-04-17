@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Sparkles, ChevronDown, Instagram, MessageCircle, Gift } from "lucide-react";
+import { Sparkles, ChevronDown, Instagram, MessageCircle, DollarSign } from "lucide-react";
 import Image from "next/image";
 import { TalkToUsModal } from "@/components/talk-to-us-modal";
 
@@ -81,38 +81,29 @@ export function HeroSection({ onBookNowClick }: HeroSectionProps = {}) {
             Turn any space into a nightclub! Inflatable nightclubs with LED lighting, visual dance videos on a projector, and curated playlists—made for birthdays, teen parties, and unforgettable celebrations.
           </p>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
-            <Button
-              size="lg"
-              className="w-full sm:w-auto text-base sm:text-lg px-8 py-6 gradient-purple-pink hover:opacity-90 hover:scale-105 transition-all glow-pink text-white font-semibold shadow-xl"
-              onClick={onBookNowClick}
-            >
-              <Sparkles className="w-5 h-5 mr-2" />
-              Book Now
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="w-full sm:w-auto text-base sm:text-lg px-8 py-6 border-2 border-white/30 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transition-all"
-              onClick={() => setIsTalkToUsOpen(true)}
-            >
-              <MessageCircle className="w-5 h-5 mr-2" />
-              Talk to Us First
-            </Button>
-          </div>
-
-          {/* View Packages Button */}
-          <div className="mt-4">
-            <Button
-              size="lg"
-              variant="outline"
-              className="text-base sm:text-lg px-8 py-6 border-2 border-primary/50 bg-black/40 backdrop-blur-sm text-white hover:bg-primary/20 transition-all"
+          {/* CTA Buttons — 3 tabs in a row */}
+          <div className="flex flex-row gap-2 justify-center items-stretch w-full max-w-lg mx-auto">
+            <button
+              className="flex-1 flex flex-col items-center justify-center gap-1 px-3 py-3 sm:py-4 rounded-xl border-2 border-white/20 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transition-all text-center"
               onClick={() => document.getElementById("packages")?.scrollIntoView({ behavior: "smooth" })}
             >
-              <Gift className="w-5 h-5 mr-2" />
-              View Packages
-            </Button>
+              <DollarSign className="w-4 h-4 sm:w-5 sm:h-5" />
+              <span className="text-xs sm:text-sm font-semibold leading-tight">View Pricing</span>
+            </button>
+            <button
+              className="flex-1 flex flex-col items-center justify-center gap-1 px-3 py-3 sm:py-4 rounded-xl border-2 border-white/20 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transition-all text-center"
+              onClick={() => setIsTalkToUsOpen(true)}
+            >
+              <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" />
+              <span className="text-xs sm:text-sm font-semibold leading-tight">Talk to Us First</span>
+            </button>
+            <button
+              className="flex-1 flex flex-col items-center justify-center gap-1 px-3 py-3 sm:py-4 rounded-xl border-2 border-primary gradient-purple-pink glow-pink text-white hover:opacity-90 hover:scale-105 transition-all text-center shadow-xl"
+              onClick={onBookNowClick}
+            >
+              <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
+              <span className="text-xs sm:text-sm font-bold leading-tight">Book Now</span>
+            </button>
           </div>
 
           {/* Trust Badges */}
