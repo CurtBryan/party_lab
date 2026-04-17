@@ -153,7 +153,7 @@ export default function Home() {
       <ContactForm />
 
       {/* Footer */}
-      <footer className="bg-card border-t border-border py-12 px-4 sm:px-6 lg:px-8">
+      <footer className="bg-card border-t border-border py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             {/* Brand */}

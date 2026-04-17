@@ -59,14 +59,14 @@ export function FAQSection() {
   };
 
   return (
-    <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-background">
+    <section className="py-8 px-4 sm:px-6 lg:px-8 bg-background">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-10">
+        <div className="text-center mb-6">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 text-glow-purple">
             Frequently Asked Questions
           </h2>
