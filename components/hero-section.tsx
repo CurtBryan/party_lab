@@ -85,24 +85,24 @@ export function HeroSection({ onBookNowClick }: HeroSectionProps = {}) {
           {/* CTA Buttons — 3 tabs in a row */}
           <div className="flex flex-row gap-2 justify-center items-stretch w-full max-w-lg mx-auto">
             <button
-              className="flex-1 flex flex-col items-center justify-center gap-1 px-3 py-3 sm:py-4 rounded-xl border-2 border-white/20 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transition-all text-center"
+              className="flex-1 flex flex-col items-center justify-center gap-1.5 px-3 py-4 sm:py-5 rounded-2xl border-2 border-primary/60 bg-primary/20 backdrop-blur-sm text-white hover:bg-primary/30 hover:border-primary hover:scale-105 active:scale-95 transition-all text-center shadow-lg"
               onClick={() => document.getElementById("packages")?.scrollIntoView({ behavior: "smooth" })}
             >
-              <DollarSign className="w-4 h-4 sm:w-5 sm:h-5" />
-              <span className="text-xs sm:text-sm font-semibold leading-tight">View Pricing</span>
+              <DollarSign className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
+              <span className="text-xs sm:text-sm font-bold leading-tight">View Pricing</span>
             </button>
             <button
-              className="flex-1 flex flex-col items-center justify-center gap-1 px-3 py-3 sm:py-4 rounded-xl border-2 border-white/20 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transition-all text-center"
+              className="flex-1 flex flex-col items-center justify-center gap-1.5 px-3 py-4 sm:py-5 rounded-2xl border-2 border-pink-400/60 bg-pink-500/20 backdrop-blur-sm text-white hover:bg-pink-500/30 hover:border-pink-400 hover:scale-105 active:scale-95 transition-all text-center shadow-lg"
               onClick={() => setIsTalkToUsOpen(true)}
             >
-              <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" />
-              <span className="text-xs sm:text-sm font-semibold leading-tight">Talk to Us First</span>
+              <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 text-pink-400" />
+              <span className="text-xs sm:text-sm font-bold leading-tight">Talk to Us First</span>
             </button>
             <button
-              className="flex-1 flex flex-col items-center justify-center gap-1 px-3 py-3 sm:py-4 rounded-xl border-2 border-primary gradient-purple-pink glow-pink text-white hover:opacity-90 hover:scale-105 transition-all text-center shadow-xl"
+              className="flex-1 flex flex-col items-center justify-center gap-1.5 px-3 py-4 sm:py-5 rounded-2xl border-2 border-primary gradient-purple-pink glow-pink text-white hover:opacity-90 hover:scale-105 active:scale-95 transition-all text-center shadow-xl"
               onClick={onBookNowClick}
             >
-              <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
+              <Sparkles className="w-5 h-5 sm:w-6 sm:h-6" />
               <span className="text-xs sm:text-sm font-bold leading-tight">Book Now</span>
             </button>
           </div>
