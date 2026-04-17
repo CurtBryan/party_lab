@@ -75,7 +75,7 @@ export function ReviewsSection() {
   const handleMouseLeave = () => setIsAutoPlaying(true);
 
   return (
-    <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-muted/10">
+    <section className="py-8 sm:py-10 px-4 sm:px-6 lg:px-8 bg-muted/10">
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <div className="text-center mb-10">

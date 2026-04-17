@@ -40,10 +40,10 @@ export function PackagesSection({ onBookNowClick }: PackagesSectionProps = {}) {
   };
 
   return (
-    <section id="packages" className="pt-8 sm:pt-10 pb-16 sm:pb-20 px-4 sm:px-6 lg:px-8 bg-muted/20">
+    <section id="packages" className="pt-6 pb-8 px-4 sm:px-6 lg:px-8 bg-muted/20">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-10">
+        <div className="text-center mb-6">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 text-glow-pink">
             Build Your Party
           </h2>
@@ -53,7 +53,7 @@ export function PackagesSection({ onBookNowClick }: PackagesSectionProps = {}) {
         </div>
 
         {/* Choose Venue */}
-        <div className="mb-10">
+        <div className="mb-6">
           <h3 className="text-lg sm:text-xl font-bold mb-4 text-center text-glow-purple">
             Choose Your Venue
           </h3>
@@ -148,7 +148,7 @@ export function PackagesSection({ onBookNowClick }: PackagesSectionProps = {}) {
         )}
 
         {/* Footer */}
-        <div className="mt-10 text-center">
+        <div className="mt-6 text-center">
           <p className="text-sm sm:text-base text-muted-foreground">
             All rentals include setup & teardown. Serving Phoenix metro & all of Arizona.
           </p>

@@ -59,7 +59,7 @@ export function HeroSection({ onBookNowClick }: HeroSectionProps = {}) {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-4xl mx-auto text-center pt-20 pb-16 sm:py-16 px-4">
+      <div className="relative z-10 max-w-4xl mx-auto text-center pt-16 pb-8 sm:py-12 px-4">
         <div className="animate-fade-in">
           {/* Badge */}
           <div className="inline-flex items-center gap-2 bg-black/60 backdrop-blur-md border border-primary/50 rounded-full px-4 py-1.5 mb-6 sm:mb-8">
@@ -108,7 +108,7 @@ export function HeroSection({ onBookNowClick }: HeroSectionProps = {}) {
           </div>
 
           {/* Trust Badges */}
-          <div className="mt-8 flex flex-col items-center gap-4 mb-6">
+          <div className="mt-5 flex flex-col items-center gap-3 mb-4">
             <div className="bg-black/60 backdrop-blur-md rounded-2xl px-8 py-4 text-center">
               <p className="text-3xl sm:text-4xl font-bold text-accent">AZ</p>
               <p className="text-sm sm:text-base text-white/90">Statewide Service</p>
